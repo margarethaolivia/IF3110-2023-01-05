@@ -18,3 +18,11 @@ Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
     * Cara menjalankan server
     * Screenshot tampilan aplikasi (tidak perlu semua kasus, minimal 1 per halaman), dan 
     * Penjelasan mengenai pembagian tugas masing-masing anggota (lihat formatnya pada bagian pembagian tugas).
+
+## Panduan Development
+1. Clone this repository
+2. Run docker
+
+   ```bash
+    docker compose up -d
+   ```
