@@ -26,3 +26,5 @@ Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
    ```bash
     docker compose up -d
    ```
+3. Jika terjadi error `no pg_hba.conf entry for host`, tambahkan entry pada pg_hba.conf dengan nilai `host all all all md5`
+
