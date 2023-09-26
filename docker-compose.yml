@@ -3,7 +3,7 @@ services:
   web:
     image: tubes-1:latest
     volumes:
-      - ./src/app:/var/www
+      - ./src/app:/var/www/app
       - ./src/public:/var/www/html
     ports:
       - 8008:80
