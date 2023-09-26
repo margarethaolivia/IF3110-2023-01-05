@@ -21,12 +21,13 @@ Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
 
 ## Panduan Development
 1. Clone this repository
-2. Run docker
+2. Buat file .env
+3. Run docker
 
    ```bash
     docker compose up -d
    ```
-3. Jika terjadi error `no pg_hba.conf entry for host`, tambahkan entry pada pg_hba.conf dengan nilai `host all all all md5`
-4. Akses halaman website melalui http://localhost:8008
-5. Akses halaman admin melalui http://localhost:8888
+4. Jika terjadi error `no pg_hba.conf entry for host`, tambahkan entry pada pg_hba.conf dengan nilai `host all all all md5`
+5. Akses halaman website melalui http://localhost:8008
+6. Akses halaman admin melalui http://localhost:8888
 
