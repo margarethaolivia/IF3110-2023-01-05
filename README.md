@@ -27,4 +27,6 @@ Berikut adalah hal yang harus diperhatikan untuk pengumpulan tugas ini:
     docker compose up -d
    ```
 3. Jika terjadi error `no pg_hba.conf entry for host`, tambahkan entry pada pg_hba.conf dengan nilai `host all all all md5`
+4. Akses halaman website melalui http://localhost:8008
+5. Akses halaman admin melalui http://localhost:8888
 
