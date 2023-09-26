@@ -19,12 +19,16 @@ services:
     restart: always
     volumes:
       - "./db:/var/lib/postgresql/data"
+      - "./db_init/entrypoint.sh:/docker-entrypoint-initdb.d/0.sh"
+      - "./db_init/schema.sql:/docker-entrypoint-initdb.d/1.sql"
     ports:
       - "5432:5432"
     env_file:
       - .env
     environment:
       POSTGRES_DB: wetube
+
+    
 
   adminer:
     image: adminer:latest
