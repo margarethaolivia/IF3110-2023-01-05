@@ -7,8 +7,8 @@ define('BASE_URL', 'http://localhost:8008');
 define('DB_HOST', $_ENV['DB_HOST']);
 define('DB_PORT', $_ENV['DB_PORT']);
 define('DB_NAME', $_ENV['DB_NAME']);
-define('POSTGRES_USER', $_ENV['POSTGRES_USER']);
-define('POSTGRES_PASSWORD', $_ENV['POSTGRES_PASSWORD']);
+define('DB_USER', $_ENV['POSTGRES_USER']);
+define('DB_PASSWORD', $_ENV['POSTGRES_PASSWORD']);
 
 // File
 define('MAX_SIZE', 10 * 1024 * 1024);
