@@ -13,6 +13,6 @@ class View
 
     public function render()
     {
-        require_once __DIR__ . '/../views' . $this->folder_path . '/index.php';
+        require_once __DIR__ . '/../../views' . $this->folder_path . '/index.php';
     }
 }

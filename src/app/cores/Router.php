@@ -47,7 +47,7 @@ class Router {
 
                     // Create an instance of the controller
                     $controller = new $controllerName($folder_path);
-
+      
                     // Call the controller's action method with the matched parameters
                     call_user_func_array([$controller, "index"], $matches);
 
