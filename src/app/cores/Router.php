@@ -24,35 +24,35 @@ class Router {
             // Check if the request URI matches the pattern
             if (preg_match($pattern, $requestUri, $matches)) {
 
+                // Remove the first element (full match)
+                array_shift($matches);
+
+                $controllerName = $route['controller'];
+
+                $patternHandler = new PatternHandler();
+                $folder_path = $patternHandler->convertPatternToPath($pattern);
+                
+                // Include the controller file
+
                 if (preg_match(ROUTER::API_ROUTE_PATTERN, $requestUri))
                 {
-                    // routing APIs
-                    echo "API not handled yet";
+                    // Include api controller file
+                    require_once __DIR__ . "/../controllers$folder_path/$controllerName.php";
                 }
 
                 else
                 {
-                    // routing VIEWs
-
-                    // Remove the first element (full match)
-                    array_shift($matches);
-
-                    $controllerName = $route['controller'];
-
-                    $patternHandler = new PatternHandler();
-                    $folder_path = $patternHandler->convertPatternToPath($pattern);
-                
-                    // Include the controller file
+                    // Include view controller file
                     require_once __DIR__ . "/../controllers/views$folder_path/$controllerName.php";
-
-                    // Create an instance of the controller
-                    $controller = new $controllerName($folder_path);
-      
-                    // Call the controller's action method with the matched parameters
-                    call_user_func_array([$controller, "index"], $matches);
-
-                    // Exit the loop since we found a matching route
                 }
+
+                // Create an instance of the controller
+                $controller = new $controllerName($folder_path);
+      
+                // Call the controller's action method with the matched parameters
+                call_user_func_array([$controller, "index"], [$matches]);
+
+                // Exit the loop since we found a matching route
 
                 return;
             }

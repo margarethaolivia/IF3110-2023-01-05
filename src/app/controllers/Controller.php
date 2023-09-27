@@ -11,6 +11,10 @@ abstract class Controller
 
     abstract public function index($params);
 
+    protected function notAllowedResponse() {
+        http_response_code(405);
+    }
+
     protected function getView($data = [])
     {
         require_once __DIR__ . '/../views/template/view.php';

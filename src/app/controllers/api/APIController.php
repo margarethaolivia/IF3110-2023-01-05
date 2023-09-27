@@ -9,17 +9,53 @@ abstract class APIController extends Controller
         parent::__construct($folder_path);
     }
 
-    public function NotAllowedResponse() {
-        
+    protected function GET()
+    {
+        $this->notAllowedResponse();
+
+    }
+    protected function POST()
+    {
+        $this->notAllowedResponse();
     }
 
-    abstract public function GET();
-    abstract public function POST();
-    abstract public function PUT();
-    abstract public function PATCH();
-    abstract public function DELETE();
-
-    public function index()
+    protected function PUT()
     {
-    } 
+        $this->notAllowedResponse();
+    }
+    
+    protected function PATCH()
+    {
+        $this->notAllowedResponse();
+    }
+
+    protected function DELETE()
+    {
+        $this->notAllowedResponse();
+    }
+
+    public function index($params)
+    {
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
+                $this->GET();
+                break;
+            
+            case 'POST':
+                $this->POST();
+                break;
+
+            case 'PUT':
+                $this->PUT();
+                break;
+            
+            case 'PATCH':
+                $this->PATCH();
+                break;
+
+            case "DELETE":
+                $this->DELETE();
+                break;
+        } 
+    }
 }

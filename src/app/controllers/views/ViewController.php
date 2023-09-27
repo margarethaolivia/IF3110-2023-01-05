@@ -13,7 +13,14 @@ abstract class ViewController extends Controller
 
     public function index($params)
     {
-        $view = $this->getView($this->getData($params));
-        $view->render();
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
+                $view = $this->getView($this->getData($params));
+                $view->render();
+                break;
+
+            default:
+                $this->notAllowedResponse();
+        }
     } 
 }

@@ -46,9 +46,11 @@ $router->add([
     'pattern' => "#^/videos/add/$PARAM_PATTERN$#", // Match "/videos/add/{video_id}"
 ]);
 
+
 // ROUTING FOR API
 $router->add([
     'pattern' => "#^/api/videos$#", // Match "/api/videos"
+    'controller' => 'VideoAPIController'
 ]);
 
 $router->index();
