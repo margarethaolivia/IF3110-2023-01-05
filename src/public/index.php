@@ -13,4 +13,5 @@
 //     echo "Connection failed: " . $e->getMessage();
 // }
 
-require_once __DIR__ . '/../app/routing.php';
+require_once __DIR__ . '/../app/cores/Config.php';
+require_once __DIR__ . '/../app/cores/Routing.php';

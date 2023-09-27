@@ -9,9 +9,13 @@ class HomeController extends ViewController
         parent::__construct($folder_path);
     }
     
-    public function getData()
+    protected function getData()
     {
-        return [];
+        return [
+            'title' => 'WeTube',
+            'script_paths' => ['home/home.js'],
+            'style_paths' => ['home/home.css']
+        ];
     }
 
     public function index()

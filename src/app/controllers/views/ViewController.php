@@ -9,7 +9,7 @@ abstract class ViewController extends Controller
         parent::__construct($folder_path);
     }
 
-    abstract public function getData();
+    abstract protected function getData();
 
     public function index()
     {

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/cores/Router.php';
-require_once __DIR__ . '/utils/PatternHandler.php';
+require_once __DIR__ . '/Router.php';
+require_once __DIR__ . '/../utils/PatternHandler.php';
 
 $router = new Router();
 $PARAM_PATTERN = PatternHandler::URL_PARAM_PATTERN;
@@ -50,6 +50,5 @@ $router->add([
 $router->add([
     'pattern' => "#^/api/videos$#", // Match "/api/videos"
 ]);
-
 
 $router->index();
