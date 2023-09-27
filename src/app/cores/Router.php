@@ -60,7 +60,7 @@ class Router {
 
         // If no matching route is found, you can handle a 404 error here.
         // For example, you can include a 404 error page.
-        require_once __DIR__ . '/../views/404.php';
+        require_once __DIR__ . '/../views/template/404.php';
     }
 
 }
