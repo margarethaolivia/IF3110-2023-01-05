@@ -13,15 +13,4 @@
 //     echo "Connection failed: " . $e->getMessage();
 // }
 
-$request = $_SERVER['REQUEST_URI'];
-switch ($request) {
-    case '/':
-       require '../app/views/home.php';
-
-    case '/profile':
-        require '../app/views/profile.php';
-
-    default:
-        require '../app/views/404.php';
-}
-?>
+require_once __DIR__ . '/../app/routing.php';
