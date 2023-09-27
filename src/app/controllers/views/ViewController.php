@@ -9,11 +9,11 @@ abstract class ViewController extends Controller
         parent::__construct($folder_path);
     }
 
-    abstract protected function getData();
+    abstract protected function getData($params);
 
-    public function index()
+    public function index($params)
     {
-        $view = $this->getView($this->getData());
+        $view = $this->getView($this->getData($params));
         $view->render();
     } 
 }

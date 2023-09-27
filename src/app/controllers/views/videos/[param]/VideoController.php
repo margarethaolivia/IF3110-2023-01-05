@@ -9,14 +9,14 @@ class VideoController extends ViewController
         parent::__construct($folder_path);
     }
     
-    public function getData()
+    public function getData($params)
     {
         return [];
     }
 
-    public function index()
+    public function index($params)
     {
-        $view = $this->getView($this->getData());
+        $view = $this->getView($this->getData($params));
         $view->render();
     } 
 }

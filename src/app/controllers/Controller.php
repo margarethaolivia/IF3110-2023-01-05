@@ -9,7 +9,7 @@ abstract class Controller
         $this->folder_path = $folder_path;
     }
 
-    abstract public function index();
+    abstract public function index($params);
 
     protected function getView($data = [])
     {
