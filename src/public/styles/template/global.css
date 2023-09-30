@@ -3,6 +3,8 @@
     font-weight: 400;
 }
 
+/* GLOBAL CLASSES */
+
 .page-template-body {
     width: 85%;
     margin: 0 auto;
@@ -52,6 +54,31 @@
     border-bottom: 1px solid #D9D9D9;
 }
 
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.h-screen {
+    height: 100vh;
+}
+
+.upload-button {
+    background-color: #0085FF;
+    color: white;
+    border-radius: 100px;
+    width: 10rem;
+    height: 2.5rem;
+    font-size: 15px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+/* ELEMENTS */
+
 span {
     display: inline-block;
 }
@@ -69,4 +96,9 @@ input[type="text"]:focus {
 button {
     border: none;
     border-radius: 5px;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
 }

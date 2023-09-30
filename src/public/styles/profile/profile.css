@@ -88,17 +88,6 @@
     font-size: 12px;
 }
 
-.upload-button {
-    background: #0085FF;
-    color: white;
-    border-radius: 100px;
-    width: 10rem;
-    height: 2.5rem;
-    font-size: 15px;
-    font-weight: 300;
-    margin-top: 10px;
-}
-
 @media screen and (min-width: 1280px) {
     
     .profile-picture {

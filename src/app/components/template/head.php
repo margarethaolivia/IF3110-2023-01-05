@@ -30,14 +30,14 @@
         const CSRF_TOKEN = "<?= $_SESSION['csrf_token'] ?? '' ?>";
     </script> -->
     <!-- JavaScript DOM and AJAX -->
-    <?php foreach ($this->data['script_paths'] as $path) : ?>
+    <!-- <?php foreach ($this->data['script_paths'] as $path) : ?>
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/<?= $path ?>" defer></script>
     <?php endforeach; ?>
 
     <?php if (isset($template_script_paths) && is_array($template_script_paths))
         foreach ($template_script_paths as $path) : ?>
             <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/<?= $path ?>" defer></script>
-    <?php endforeach; ?>
+    <?php endforeach; ?> -->
 
     <title><?= $this->data['title'] ?></title>
 </head>
