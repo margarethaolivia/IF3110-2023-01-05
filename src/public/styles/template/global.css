@@ -70,15 +70,15 @@
     height: 100vh;
 }
 
-.upload-button {
+.blue-button {
     background-color: #0085FF;
     color: white;
     border-radius: 100px;
-    width: 10rem;
-    height: 2.5rem;
-    font-size: 15px;
     font-weight: 300;
-    margin-top: 10px;
+}
+
+.blue-button:hover {
+    background-color: #0271d6;
 }
 
 .menu-gap {
@@ -93,6 +93,10 @@
     padding: 5px 10px;
     width: 90px;
     gap: 3px;
+}
+
+.signin-button:hover {
+ background-color: #E5F3FF;
 }
 
 .signin-button svg {
@@ -134,6 +138,10 @@ button {
     border-radius: 5px;
     background: transparent;
     padding: 0;
+}
+
+button:hover{
+    background-color: #f5f5f5;
 }
 
 button:hover {

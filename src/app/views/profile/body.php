@@ -53,6 +53,6 @@
     <div class="upload-section flex flex-row items-center">
         <span class="upload-title">Upload a video to get started</span>
         <span class="upload-desc">Start sharing your story and connecting with viewers.</span>
-        <button class="upload-button">Upload Video</button>
+        <button class="blue-button upload-button">Upload Video</button>
     </div>
 </div>
