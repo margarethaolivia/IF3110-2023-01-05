@@ -1,5 +1,6 @@
 .sidebar {
-    visibility: hidden;
+    /* visibility:visible; */
+
 }
 
 .sidebar .layout {
@@ -8,7 +9,6 @@
     background-color: black;
     font-size: 400px;
     opacity: 35%;
-    overflow-y: auto;
 }
 
 .sidebar .panel {
@@ -18,7 +18,6 @@
     width: 40vh;
     padding-top: 15px;
     padding-left: 20px;
-    overflow-y: auto;
 }
 
 /* PANEL HEADER */

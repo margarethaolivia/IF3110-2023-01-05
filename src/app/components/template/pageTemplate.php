@@ -7,13 +7,13 @@
 ?>
 
 <body>
-    <?php include(__DIR__ . '/header.php') ?>
-    <?php include(__DIR__ . '/sidebar.php') ?>
     <div class="page-template-body">
         <?php 
             include($template_body_path);
         ?>        
     </div>
+    <?php include(__DIR__ . '/header.php') ?>
+    <?php include(__DIR__ . '/sidebar.php') ?>
 </body>
 
 </html>
