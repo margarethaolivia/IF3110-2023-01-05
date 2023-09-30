@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-    $template_style_paths = ['template/header.css', 'template/siderbar.css'];
+    $template_style_paths = ['template/pageheader.css', 'template/siderbar.css'];
     $template_script_paths = ['template/header.js', 'template/siderbar.js'];
     include(__DIR__ . '/head.php');
 ?>
