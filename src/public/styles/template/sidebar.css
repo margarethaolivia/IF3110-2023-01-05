@@ -1,0 +1,55 @@
+.sidebar {
+    visibility: hidden;
+}
+
+.sidebar .layout {
+    top: 0;
+    left: 0;
+    background-color: black;
+    font-size: 400px;
+    opacity: 35%;
+    overflow-y: auto;
+}
+
+.sidebar .panel {
+    top: 0;
+    left: 0;
+    background-color: white;
+    width: 40vh;
+    padding-top: 15px;
+    padding-left: 20px;
+    overflow-y: auto;
+}
+
+/* PANEL HEADER */
+
+.panel-header {
+    padding-left: 10px;
+    margin-bottom: 40px;
+}
+
+.panel-header .menu-button {
+    width: 30px;
+    padding: 0;
+}
+
+
+/* PANEL CONTENT */
+.panel-content {
+    gap:2rem;
+}
+
+.panel-content .menu {
+    padding: 0 10px;
+    font-size: 17px;
+}
+
+.menu-segment {
+    width: 80%;
+    padding-bottom: 30px;
+    gap: 10px;
+}
+
+.menu svg{
+    width: 30px;
+}

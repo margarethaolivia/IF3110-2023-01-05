@@ -62,6 +62,10 @@
     position: absolute;
 }
 
+.fixed {
+    position: fixed;
+}
+
 .h-screen {
     height: 100vh;
 }
@@ -81,6 +85,33 @@
     gap: 1.5rem;
 }
 
+.signin-button {
+    border: 1px solid #0085FF;
+    border-radius: 100px;
+    color: #0085FF;
+    font-size: 15px;
+    padding: 5px 10px;
+    width: 90px;
+    gap: 3px;
+}
+
+.signin-button svg {
+    height: 20px;
+}
+
+.panel-header .logo {
+    gap: 3px;
+    padding: 0;
+}
+
+.panel-header .logo .logo-img {
+    height: 20px;
+}
+
+.panel-header .logo .logo-text {
+    font-size: 20px;
+    font-weight: bold;
+}
 
 /* ELEMENTS */
 
