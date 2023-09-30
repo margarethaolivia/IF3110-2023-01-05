@@ -15,12 +15,6 @@ abstract class Controller
         http_response_code(405);
     }
 
-    protected function getView($data = [])
-    {
-        require_once __DIR__ . '/../views/template/view.php';
-        return new View($this->folder_path, $data);
-    }
-
     protected function getModel($model)
     {
         require_once __DIR__ . '/../models/' . $model . '.php';

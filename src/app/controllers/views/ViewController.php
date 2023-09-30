@@ -11,6 +11,12 @@ abstract class ViewController extends Controller
 
     abstract protected function getData($params);
 
+    protected function getView($data = [])
+    {
+        require_once __DIR__ . '/../views/template/view.php';
+        return new View($this->folder_path, $data);
+    }
+
     public function index($params)
     {
         switch ($_SERVER['REQUEST_METHOD']) {

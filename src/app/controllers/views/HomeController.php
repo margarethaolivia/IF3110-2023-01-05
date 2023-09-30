@@ -17,10 +17,4 @@ class HomeController extends ViewController
             'style_paths' => ['home/home.css'],
         ];
     }
-
-    public function index($params)
-    {
-        $view = $this->getView($this->getData($params));
-        $view->render();
-    } 
 }
