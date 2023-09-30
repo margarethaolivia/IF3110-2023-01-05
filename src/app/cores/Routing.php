@@ -22,7 +22,9 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => '#^/profile$#', // Match "/about"
+    'pattern' => '#^/profile$#', // Match "/profile"
+    'controller' => 'ProfileController'
+
 ]);
 
 $router->add([

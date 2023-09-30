@@ -9,9 +9,11 @@
 <body>
     <?php include(__DIR__ . '/header.php') ?>
     <?php include(__DIR__ . '/sidebar.php') ?>
-    <?php 
-        include($template_body_path);
-    ?>
+    <div class="page-template-body">
+        <?php 
+            include($template_body_path);
+        ?>        
+    </div>
 </body>
 
 </html>
