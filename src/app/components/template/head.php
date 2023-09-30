@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?= BASE_URL ?>/images/icon/favicon-16x16.png">
     <link rel="manifest" href="<?= BASE_URL ?>/images/icon/site.webmanifest">
     <!-- Global CSS -->
-    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/globals.css">
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/global.css">
 
     <?php foreach ($this->data['style_paths'] as $path) : ?>
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/<?= $path ?>">
@@ -18,8 +18,7 @@
             <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/<?= $path ?>">
     <?php endforeach; ?>
     
-    <!-- Page-specific CSS -->
-    <!-- <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/album/add-album.css"> -->
+   
     <!-- JavaScript Constant and Variables -->
     <!-- <script type="text/javascript" defer>
         const CSRF_TOKEN = "<?= $_SESSION['csrf_token'] ?? '' ?>";
