@@ -1,19 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php 
-    $template_style_paths = ['template/pageheader.css', 'template/sidebar.css'];
-    $template_script_paths = ['template/header.js', 'template/siderbar.js'];
-    include(__DIR__ . '/head.php');
-?>
+<?php
+include(__DIR__ . '/head.php');
+include(__DIR__ . '/pageHeader.php');
+include(__DIR__ . '/sidebar.php');
 
-<body>
-    <div class="page-template-body">
+function pageTemplate($data, $template_body_path) {
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <?php 
+        $template_style_paths = ['template/pageheader.css', 'template/sidebar.css'];
+        $template_script_paths = ['template/header.js', 'template/siderbar.js'];
+        head($data, $template_style_paths, $template_script_paths);
+    ?>
+
+    <body>
+        <div class="page-template-body">
+            <?php 
+                include($template_body_path);
+            ?>        
+        </div>
         <?php 
-            include($template_body_path);
-        ?>        
-    </div>
-    <?php include(__DIR__ . '/header.php') ?>
-    <?php include(__DIR__ . '/sidebar.php') ?>
-</body>
+        pageHeader();
+        sidebar();
+        ?>
+    </body>
+    </html>
 
-</html>
+<?php
+}

@@ -117,25 +117,48 @@
     font-weight: bold;
 }
 
+.inline-block {
+    display: inline-block;
+}
+
+.required-mark {
+    visibility: hidden;
+}
+
+.required {
+    visibility: visible;
+    color: red;
+}
+
+.input-label {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
 /* ELEMENTS */
 
 span {
     display: inline-block;
 }
 
-input {
+input, textarea {
     border: 1px solid #D9D9D9;
-    border-radius: 5px;
-    padding: 0 10px;
+    border-radius: 10px;
+    padding: 5px 10px;
+    resize: none;
 }
 
-input[type="text"]:focus {
+
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
+}
+
+input[type="text"]:focus, textarea:focus {
     outline-width: 0;
 }
 
 button {
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     background: transparent;
     padding: 0;
 }
@@ -147,3 +170,4 @@ button:hover{
 button:hover {
     cursor: pointer;
 }
+

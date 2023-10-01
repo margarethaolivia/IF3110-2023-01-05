@@ -45,7 +45,8 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => "#^/videos/add/$PARAM_PATTERN$#", // Match "/videos/add/{video_id}"
+    'pattern' => "#^/videos/upload$#", // Match "/videos/upload"
+    'controller' => 'VideoUploadController'
 ]);
 
 
