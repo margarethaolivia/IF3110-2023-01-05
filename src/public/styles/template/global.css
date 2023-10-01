@@ -271,12 +271,13 @@ border-radius: 50%;
     color:#0085FF;
     padding: 10px;
     aspect-ratio: 1;
-    width: 30px;
+    width: 35px;
     font-size: 10px;
+    text-align: center;
 }
 
 .page-button:hover {
-    color: #E5F3FF;
+    background-color: #E5F3FF;
 }
 /* ELEMENTS */
 

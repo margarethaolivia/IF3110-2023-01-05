@@ -56,9 +56,31 @@ $router->add([
 
 
 // ROUTING FOR API
+
+$router->add([
+    'pattern' => "#^/api/users$#", // Match "/api/videos"
+    'controller' => 'UserController'
+]);
+
+$router->add([
+    'pattern' => "#^/api/users/$PARAM_PATTERN$#", // Match "/api/videos"
+    'controller' => 'SpecificUserController'
+]);
+
 $router->add([
     'pattern' => "#^/api/videos$#", // Match "/api/videos"
     'controller' => 'VideoAPIController'
 ]);
+
+$router->add([
+    'pattern' => "#^/api/login$#", // Match "/api/videos"
+    'controller' => 'LogInController'
+]);
+
+$router->add([
+    'pattern' => "#^/api/logout$#", // Match "/api/videos"
+    'controller' => 'LogOutController'
+]);
+
 
 $router->index();

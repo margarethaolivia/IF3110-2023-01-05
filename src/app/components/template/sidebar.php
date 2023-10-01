@@ -1,6 +1,6 @@
 <?php
-include(__DIR__ . '/../elements/logo.php'); 
-include(__DIR__ . '/../elements/signInButton.php'); 
+include_once (__DIR__ . '/../elements/logo.php'); 
+include_once (__DIR__ . '/../elements/signInButton.php'); 
 function sidebar() {
 ?>
 
@@ -22,7 +22,7 @@ function sidebar() {
                         </svg>';
                         $menuTitle = "Home";
                         
-                        include(__DIR__ . '/../sidebar/menuButton.php'); 
+                        menuButton($svg, $menuTitle);
                     ?>
                 </div>
 
@@ -34,7 +34,7 @@ function sidebar() {
                     </svg>';
                         $menuTitle = "My Videos";
                         
-                        include(__DIR__ . '/../sidebar/menuButton.php'); 
+                        menuButton($svg, $menuTitle);
                     ?>
 
                     <?php 
@@ -43,7 +43,7 @@ function sidebar() {
                     </svg>';
                         $menuTitle = "Takedowns";
                         
-                        include(__DIR__ . '/../sidebar/menuButton.php'); 
+                        menuButton($svg, $menuTitle);
                     ?>
                 </div>
 
@@ -54,7 +54,7 @@ function sidebar() {
                     </svg>';
                         $menuTitle = "Profile";
                         
-                        include(__DIR__ . '/../sidebar/menuButton.php'); 
+                        menuButton($svg, $menuTitle);
                     ?>
 
                     <?php 
@@ -63,7 +63,7 @@ function sidebar() {
                     </svg>';
                         $menuTitle = "Log out";
                         
-                        include(__DIR__ . '/../sidebar/menuButton.php'); 
+                        menuButton($svg, $menuTitle);
                     ?>
                 </div>
 

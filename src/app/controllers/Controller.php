@@ -2,7 +2,7 @@
 
 abstract class Controller
 {   
-    protected $folder_path;
+    private $folder_path;
 
     public function __construct($folder_path)
     {
@@ -10,6 +10,10 @@ abstract class Controller
     }
 
     abstract public function index($params);
+
+    protected function getFolderPath() {
+        return $this->folder_path;
+    }
 
     protected function notAllowedResponse() {
         http_response_code(405);

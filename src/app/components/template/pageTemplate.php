@@ -1,7 +1,7 @@
 <?php
-include(__DIR__ . '/head.php');
-include(__DIR__ . '/pageHeader.php');
-include(__DIR__ . '/sidebar.php');
+include_once (__DIR__ . '/head.php');
+include_once (__DIR__ . '/pageHeader.php');
+include_once (__DIR__ . '/sidebar.php');
 
 function pageTemplate($data, $template_body_path) {
     ?>
