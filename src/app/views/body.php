@@ -3,7 +3,7 @@ function body($data) {
 ?>
     <div class="">
         <main>
-        <div class="flex">
+            <div class="flex align-center">
                 <div class="w-big">
                     <div class="scrollmenu">
                         <span class="badge p-2 mtbr-2">Music</span>
@@ -29,13 +29,10 @@ function body($data) {
                     </div>
                 </div>
                 <div class="w-small">
-                    <span class="badge p-2 mtbr-2">Music</span>
+                    <span class="sort-button">Sort</span>
                 </div>
+            </div>
             
-        </div>
-            
-
-
             <section id="video-list">
                 <div class="video-card">
                     <img src="https://t4.ftcdn.net/jpg/05/18/69/85/360_F_518698520_Xk9tIwoYpyX6kkVsF6GpQ1z7sKXO8YRz.jpg" alt="Video Thumbnail">
