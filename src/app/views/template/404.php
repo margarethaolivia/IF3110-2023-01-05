@@ -1,2 +1,7 @@
 <?php
-echo "Not Found";
+function notFound() {
+    echo "not found";
+?>
+
+<?php
+}
