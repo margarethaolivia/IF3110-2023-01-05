@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . '/../services/UserService.php');
+include_once (__DIR__ . '/../services/UserService.php');
 
 class SessionMiddleware
 {

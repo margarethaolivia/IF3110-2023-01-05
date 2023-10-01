@@ -1,7 +1,7 @@
 <?php
 
-include(__DIR__ . '/../../components/takedowns/takedownRow.php');
-include(__DIR__ . '/../../components/template/pagination.php');
+include_once (__DIR__ . '/../../components/takedowns/takedownRow.php');
+include_once (__DIR__ . '/../../components/template/pagination.php');
 
 function body($data) {
 ?>

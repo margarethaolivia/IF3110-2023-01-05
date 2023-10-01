@@ -1,5 +1,5 @@
 <?php
-include(__DIR__ . '/Service.php');
+include_once (__DIR__ . '/Service.php');
 
 class UserService extends Service
 {   
