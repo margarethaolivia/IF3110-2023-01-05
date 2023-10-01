@@ -12,8 +12,7 @@ define('DB_PASSWORD', $_ENV['POSTGRES_PASSWORD']);
 
 // File
 define('MAX_SIZE', 10 * 1024 * 1024);
-define('ALLOWED_VIDEOS', [
-]);
+define('ALLOWED_VIDEOS', ['.mp4']);
 
 define('ALLOWED_IMAGES', [
     'image/jpeg' => '.jpeg',
@@ -24,9 +23,10 @@ define('ALLOWED_IMAGES', [
 define('BCRYPT_COST', 10);
 
 // Session
+// COOKIES_LIFETIME >= SESSION_EXPIRATION_TIME
 define('COOKIES_LIFETIME', 24 * 60 * 60);
 define('SESSION_EXPIRATION_TIME', 24 * 60 * 60);
-define('SESSION_REGENERATION_TIME', 30 * 60);
+define('SESSION_REFRESH_TIME', 60 * 60);
 
 // Debounce
 define('DEBOUNCE_TIMEOUT', 500);
