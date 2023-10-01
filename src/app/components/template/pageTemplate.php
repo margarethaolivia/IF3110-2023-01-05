@@ -13,9 +13,26 @@ function pageTemplate($data, $template_body_path) {
         $template_script_paths = ['template/header.js', 'template/siderbar.js'];
         head($data, $template_style_paths, $template_script_paths);
     ?>
+    
+    <!-- navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="" alt="Wetube Logo">
+        </div>
+        <div class="search-div">
+            <div class="search-bar">
+                <input type="text" placeholder="Search">    
+            </div>
+            <button class="search-button">Search</button>
+        </div>
+        <div class="nav-links">
+            <a href="#">Login</a>
+            <a href="#">Signup</a>
+        </div>
+    </nav>
 
     <body>
-        <div class="page-template-body">
+        <div class="page-template-body mt-5">
             <?php 
                 include($template_body_path);
                 body($data);
