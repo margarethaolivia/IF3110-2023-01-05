@@ -4,37 +4,6 @@ body, h1, h2, p {
     padding: 0;
 }
 
-/* Basic styling for the header */
-header {
-    background-color: #FF0000; /* YouTube red color */
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header h1 {
-    font-size: 24px;
-}
-
-#search {
-    padding: 8px;
-    border: none;
-    border-radius: 20px;
-    width: 200px;
-    margin-right: 10px;
-}
-
-#search-button {
-    background-color: #FF0000;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
 /* Styling for the video cards */
 #video-list {
     display: flex;
@@ -64,47 +33,6 @@ header h1 {
 .video-card p {
     font-size: 14px;
     color: #777;
-}
-
-.text-bold {
-    font-weight: bold;
-}
-
-.my-1 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.text-grey {
-    color: #808080;
-}
-
-.flex {
-    display: flex;
-}
-
-.align-center {
-    align-items: center;
-}
-
-.w-small {
-    width: 12%;
-}
-
-.w-big {
-    width: 88%;
-}
-
-.radius-50 {
-border-radius: 50%;
-}
-
-.m-10px {
-    margin-top: 10px;
-}
-
-.ml-2 {
-    margin-left: 0.5rem;
 }
 
 div.scrollmenu {

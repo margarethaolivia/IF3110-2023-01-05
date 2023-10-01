@@ -11,7 +11,11 @@ class VideoController extends ViewController
     
     public function getData($params)
     {
-        return [];
+        return [
+            'title' => 'Video - WeTube',
+            'script_paths' => ['videos/videos.js'],
+            'style_paths' => ['videos/videos.css'],
+        ];
     }
 
     public function index($params)

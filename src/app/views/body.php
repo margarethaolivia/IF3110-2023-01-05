@@ -3,7 +3,7 @@ function body($data) {
 ?>
     <div class="">
         <main>
-            <div class="flex align-center">
+            <div class="flex items-center">
                 <div class="w-big">
                     <div class="scrollmenu">
                         <span class="badge p-2 mtbr-2">Music</span>
