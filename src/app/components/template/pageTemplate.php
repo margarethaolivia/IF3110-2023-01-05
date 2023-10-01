@@ -18,6 +18,7 @@ function pageTemplate($data, $template_body_path) {
         <div class="page-template-body">
             <?php 
                 include($template_body_path);
+                body($data);
             ?>        
         </div>
         <?php 

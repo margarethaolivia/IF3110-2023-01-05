@@ -49,6 +49,11 @@ $router->add([
     'controller' => 'VideoUploadController'
 ]);
 
+$router->add([
+    'pattern' => "#^/takedowns$#", // Match "/videos/upload"
+    'controller' => 'TakeDownController'
+]);
+
 
 // ROUTING FOR API
 $router->add([

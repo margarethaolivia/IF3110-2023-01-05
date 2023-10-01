@@ -2,7 +2,7 @@
 
 <?php
 
-function form($pageTitle) {
+function form($pageTitle, $data) {
 ?>
     <div>
         <span class="page-title"><?=$pageTitle?></span>
