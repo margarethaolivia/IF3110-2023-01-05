@@ -7,6 +7,66 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+/* NAVBAR */
+.navbar {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    position: sticky;
+    /* position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100; */
+}
+
+.logo img {
+    max-width: 100px;
+}
+
+.search-bar {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.search-bar input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    width: 25rem;
+}
+
+.search-button {
+    background-color: black;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #404040;
+}
+
+.search-div {
+    display: flex;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    margin-right: 20px;
+}
+
+.nav-links a:last-child {
+    margin-right: 0;
+}
+
 /* PAGE TEMPLATE*/
 
 .page-template-body {
