@@ -1,6 +1,6 @@
-<?php include(__DIR__ . '/../elements/customInput.php') ?>
+<?php 
 
-<?php
+include(__DIR__ . '/../elements/customInput.php');
 
 function form($pageTitle, $data) {
 ?>
