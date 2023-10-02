@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../ViewController.php';
+require_once APP_PATH . '/controllers/views/ViewController.php';
 
 class VideoUploadController extends ViewController
 {    

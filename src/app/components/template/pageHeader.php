@@ -1,6 +1,6 @@
 <?php
-include_once (__DIR__ . '/../elements/logo.php');
-include_once (__DIR__ . '/../elements/signInButton.php');
+include_once (APP_PATH . '/components/elements/logo.php');
+include_once (APP_PATH . '/components/elements/signInButton.php');
 function pageHeader() {
 ?>
     <nav class="navbar">

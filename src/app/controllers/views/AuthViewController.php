@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/ViewController.php';
-require_once __DIR__ . '/../../middlewares/sessionMiddleware.php';
+require_once APP_PATH . '/middlewares/sessionMiddleware.php';
 
 abstract class AuthViewController extends ViewController
 {  

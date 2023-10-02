@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../UserViewController.php';
+require_once APP_PATH . '/controllers/views/UserViewController.php';
 
 class ProfileController extends UserViewController
 {    

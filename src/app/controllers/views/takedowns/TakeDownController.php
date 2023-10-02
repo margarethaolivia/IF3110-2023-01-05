@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../AdminViewController.php';
+require_once APP_PATH . '/controllers/views/AdminViewController.php';
 
 class TakeDownController extends AdminViewController
 {    

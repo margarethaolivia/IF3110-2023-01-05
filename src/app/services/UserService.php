@@ -1,6 +1,6 @@
 <?php
 include_once (__DIR__ . '/Service.php');
-include_once (__DIR__ . '/../cores/Database.php');
+include_once (APP_PATH . '/cores/Database.php');
 
 class UserService extends Service
 {   

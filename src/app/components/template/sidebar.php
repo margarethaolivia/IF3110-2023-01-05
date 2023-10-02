@@ -1,7 +1,7 @@
 <?php
-include_once (__DIR__ . '/../elements/logo.php'); 
-include_once (__DIR__ . '/../elements/signInButton.php'); 
-include_once (__DIR__ . '/../sidebar/menuButton.php'); 
+include_once (APP_PATH . '/components/elements/logo.php'); 
+include_once (APP_PATH . '/components/elements/signInButton.php'); 
+include_once (APP_PATH . '/components/sidebar/menuButton.php'); 
 function sidebar() {
 ?>
     <div class="sidebar" id="sidebar">

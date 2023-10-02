@@ -1,6 +1,6 @@
 <?php 
 
-include_once (__DIR__ . '/../elements/customInput.php');
+include_once (APP_PATH . '/components/elements/customInput.php');
 
 function form($pageTitle, $data) {
 ?>

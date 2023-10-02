@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../Controller.php';
+require_once APP_PATH . '/controllers/Controller.php';
 
 abstract class ViewController extends Controller
 {  
@@ -13,7 +13,7 @@ abstract class ViewController extends Controller
 
     protected function getView($data = [])
     {
-        require_once __DIR__ . '/../../views/template/view.php';
+        require_once APP_PATH . '/views/template/view.php';
         return new View($this->getFolderPath(), $data);
     }
 

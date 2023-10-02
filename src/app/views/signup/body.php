@@ -1,6 +1,6 @@
 <?php
-include_once (__DIR__ . '/../../components/elements/logo.php');
-include_once (__DIR__ . '/../../components/elements/customInput.php');
+include_once (APP_PATH . '/components/elements/logo.php');
+include_once (APP_PATH . '/components/elements/customInput.php');
 
 function body($data) {
 ?>

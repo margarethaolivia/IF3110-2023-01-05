@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/Router.php';
-require_once __DIR__ . '/../utils/PatternHandler.php';
+require_once APP_PATH . '/utils/PatternHandler.php';
 
 $router = new Router();
 $PARAM_PATTERN = PatternHandler::URL_PARAM_PATTERN;

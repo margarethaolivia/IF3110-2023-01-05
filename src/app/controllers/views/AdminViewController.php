@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/AuthViewController.php';
+require_once APP_PATH . '/controllers/views/AuthViewController.php';
 
 abstract class AdminViewController extends AuthViewController
 {  

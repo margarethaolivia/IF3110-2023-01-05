@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../utils/PatternHandler.php';
-require_once __DIR__ . '/../views/template/404.php';
+require_once APP_PATH . '/utils/PatternHandler.php';
+require_once APP_PATH . '/views/template/404.php';
 
 class Router {
     private $routes;
@@ -55,13 +55,13 @@ class Router {
                 if (preg_match(ROUTER::API_ROUTE_PATTERN, $requestPath))
                 {
                     // Include api controller file
-                    require_once __DIR__ . "/../controllers$folder_path/$controllerName.php";
+                    require_once APP_PATH . "/controllers$folder_path/$controllerName.php";
                 }
 
                 else
                 {
                     // Include view controller file
-                    require_once __DIR__ . "/../controllers/views$folder_path/$controllerName.php";
+                    require_once APP_PATH . "/controllers/views$folder_path/$controllerName.php";
                 }
 
                 // Create an instance of the controller

@@ -1,5 +1,5 @@
 <?php
-include_once (__DIR__ . '/../cores/Database.php');
+include_once (APP_PATH . '/cores/Database.php');
 
 abstract class Service
 {   

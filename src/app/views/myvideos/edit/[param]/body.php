@@ -1,5 +1,5 @@
 <?php
- include_once (__DIR__ . '/../../../../components/videos/form.php');
+ include_once (APP_PATH . '/components/videos/form.php');
 
 function body($data) {
     form("Edit Video", $data);

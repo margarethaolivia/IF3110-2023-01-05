@@ -45,8 +45,14 @@ abstract class Controller
 
     protected function getMiddleware($middleware)
     {
-        require_once __DIR__ . '/../middlewares/' . $middleware . '.php';
+        require_once APP_PATH . "/middlewares/$middleware" . '.php';
         return new $middleware();
+    }
+
+    protected function getService($service)
+    {
+        require_once APP_PATH . "/services/$service" . '.php';
+        return new $service();
     }
 
     static public function response($message, $code=200, $body=null)
