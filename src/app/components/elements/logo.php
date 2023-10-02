@@ -2,8 +2,7 @@
 
 function logo($classes="", $includeMenuButton=true, $disableLink=false) {
 ?>
-    <div class="menu-gap flex flex-col items-center <?=$classes?>">
-
+    <div class="menu-gap flex flex-col items-center panel-header <?=$classes?>">
         <?php if ($includeMenuButton) : ?>
             <button class="menu-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -11,11 +10,21 @@ function logo($classes="", $includeMenuButton=true, $disableLink=false) {
                 </svg>
             </button>
         <?php endif; ?>
+        
+        <?php if (!$disableLink) : ?>
+            <a href="<?=BASE_URL?>" class="logo flex flex-col items-center">
+                <img src="<?= BASE_URL ?>/images/icon/wetube.png" alt="WeTube Logo" class="logo-img"> 
+                <span class="logo-text">WeTube</span>
+            </a>
+        <?php endif; ?>
 
-        <a href="<?=$disableLink ? "#" : BASE_URL?>" class="logo flex flex-col items-center">
-            <img src="<?= BASE_URL ?>/images/icon/wetube.png" alt="WeTube Logo" class="logo-img"> 
-            <span class="logo-text">WeTube</span>
-        </a>
+        <?php if ($disableLink) : ?>
+            <div class="logo flex flex-col items-center">
+                <img src="<?= BASE_URL ?>/images/icon/wetube.png" alt="WeTube Logo" class="logo-img"> 
+                <span class="logo-text">WeTube</span>
+            </div>
+        <?php endif; ?>
+
     </div>
 <?php
 }

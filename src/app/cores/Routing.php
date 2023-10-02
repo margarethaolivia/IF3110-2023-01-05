@@ -30,20 +30,17 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => "#^/myvideos/$PARAM_PATTERN$#", // Match "/myvideos/{video_id}"
+    'pattern' => "#^/myvideos/$#", // Match "/myvideos"
 ]);
 
+
 $router->add([
-    'pattern' => "#^/videos$#", // Match "/videos"
+    'pattern' => "#^/myvideos/edit/$PARAM_PATTERN$#", // Match "/myvideos/edit/{video_id}"
 ]);
 
 $router->add([
     'pattern' => "#^/videos/$PARAM_PATTERN$#", // Match "/videos/{video_id}"
     'controller' => 'VideoController',
-]);
-
-$router->add([
-    'pattern' => "#^/videos/edit/$PARAM_PATTERN$#", // Match "/videos/edit/{video_id}"
 ]);
 
 $router->add([

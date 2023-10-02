@@ -42,31 +42,31 @@ function form($pageTitle, $data) {
                 <div class="flex flex-row input-segment">
                     <?php 
                         customInput(
-                            "Title",
                             "text",
                             "title",
                             required: true,
-                            placeholder: "My Video"
+                            placeholder: "My Video",
+                            inputLabel: "Title"
                         );
                     ?>
 
                     <?php 
                         customInput(
-                            "Description",
                             "textarea",
                             "description",
                             placeholder: "This is my video",
-                            inputClasses:"desc-input"
+                            inputClasses:"desc-input",
+                            inputLabel: "Description"
                         );
                     ?>
 
                     <?php 
                         customInput(
-                            "Tags",
                             "textarea",
                             "tags",
                             placeholder: "Gaming, Valorant",
-                            inputClasses: "tags-input"
+                            inputClasses: "tags-input",
+                            inputLabel: "Tags"
                         );
                     ?>
                 </div>

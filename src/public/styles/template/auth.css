@@ -1,0 +1,36 @@
+.auth-form {
+    gap: 30px;
+}
+
+.login-logo {
+    transform: scale(2);
+}
+
+.input-box {
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.fields {
+    width: 250px;
+    gap: 10px;
+}
+
+.custom-input {
+    width: 100%;
+}
+
+.blue-button {
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    width: 100%;
+}
+
+.create-account-text {
+    font-size: 12px;
+}
+
+.create-account-link {
+    color: #57AEFF;
+}

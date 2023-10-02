@@ -3,7 +3,6 @@ include_once (__DIR__ . '/../elements/logo.php');
 include_once (__DIR__ . '/../elements/signInButton.php'); 
 function sidebar() {
 ?>
-
     <div class="sidebar">
         <div class="layout fixed w-full h-screen">
         </div>
@@ -11,7 +10,7 @@ function sidebar() {
         <div class="fixed panel h-screen">
 
             <?php 
-                logo(classes: 'panel-header sidebar-panel-header');
+                logo(classes: 'sidebar-panel-header');
             ?>
 
             <div class="panel-content flex flex-row">

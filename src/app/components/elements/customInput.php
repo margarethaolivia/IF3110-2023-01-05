@@ -1,18 +1,21 @@
 <?php
 
-function customInput($inputLabel, $inputType, $inputName, $required = false, $placeholder = "", $defaultValue = "", $inputClasses = "") {
-    ?>
+function customInput($inputType, $inputName, $inputLabel="", $required = false, $placeholder = "", $defaultValue = "", $inputClasses = "", $disableLabel = false) {
+?>
 
     <div class="custom-input flex flex-row">
-        
-        <span class="input-label"><?= $inputLabel?> <span class="required-mark <?= $required ? "required" : ""?>">*</span></span>
 
-        <?php if ($inputType === "text") : ?>
+         <?php if (!$disableLabel) : ?>
+            <span class="input-label"><?= $inputLabel?> <span class="required-mark <?= $required ? "required" : ""?>">*</span></span>
+        <?php endif; ?>
+
+        <?php if (in_array($inputType, ['text', 'password'])) : ?>
             <input 
                 type="<?= $inputType?>" 
                 name="<?= $inputName?>" 
                 placeholder="<?= $placeholder ?>"
                 class="<?= $inputClasses?>"
+                required="<?= $required?>"
                 <?= $defaultValue !== "" ? 'value="' . htmlspecialchars($defaultValue) . '"' : '' ?>
             >
         <?php endif; ?>
@@ -22,6 +25,7 @@ function customInput($inputLabel, $inputType, $inputName, $required = false, $pl
                 name="<?= $inputName?>" 
                 placeholder="<?= $placeholder ?>"
                 class="<?= $inputClasses?>"
+                required="<?= $required?>"
             ><?= $defaultValue !== "" ? htmlspecialchars($defaultValue) : '' ?></textarea>
         <?php endif; ?>
     </div>
