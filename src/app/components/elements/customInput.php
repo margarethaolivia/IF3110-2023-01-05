@@ -15,7 +15,7 @@ function customInput($inputType, $inputName, $inputLabel="", $required = false, 
                 name="<?= $inputName?>" 
                 placeholder="<?= $placeholder ?>"
                 class="<?= $inputClasses?>"
-                required="<?= $required?>"
+                <?= $required ? 'required' : '' ?>
                 <?= $defaultValue !== "" ? 'value="' . htmlspecialchars($defaultValue) . '"' : '' ?>
             >
         <?php endif; ?>
@@ -25,7 +25,7 @@ function customInput($inputType, $inputName, $inputLabel="", $required = false, 
                 name="<?= $inputName?>" 
                 placeholder="<?= $placeholder ?>"
                 class="<?= $inputClasses?>"
-                required="<?= $required?>"
+                <?= $required ? 'required' : '' ?>
             ><?= $defaultValue !== "" ? htmlspecialchars($defaultValue) : '' ?></textarea>
         <?php endif; ?>
     </div>

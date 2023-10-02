@@ -19,7 +19,7 @@ class Router {
     {
         $requestUri = $_SERVER['REQUEST_URI'];
 
-        if (substr($requestUri, -1) === '/') {
+        if (strlen($requestUri) > 1 && substr($requestUri, -1) === '/') {
             // Remove the trailing "/" and create the new URL
             $newUrl = rtrim($requestUri, '/');
             

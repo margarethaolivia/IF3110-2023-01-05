@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . '/../APIController.php';
+include_once __DIR__ . '/../../../services/UserService.php';
 
 class UserController extends APIController {
     private $userService;
@@ -7,17 +8,12 @@ class UserController extends APIController {
     public function __construct($folder_path)
     {
         parent::__construct($folder_path);
-        $userService = new UserService();
+        $this->userService = new UserService();
     }
 
     private function isUsernameValid($username)
     {
-        return preg_match('/^[A-Za-z_]+$/', $username);
-    }
-
-    private function isPasswordMatch($password, $confirmPassword)
-    {
-        return $password == $confirmPassword;
+        return 0 < strlen($username) && strlen($username) <= 20 && preg_match('/^[A-Za-z0-9_]+$/', $username);
     }
 
     private function isPasswordValid($password)
@@ -26,33 +22,55 @@ class UserController extends APIController {
     }
     protected function POST($param)
     {
-        $request_data = $this->getUrlParams();
+       
+        $request_data = $this->getBody();
+        $credentials = $this->extractCredentialsFromHeader();
+        $username = $credentials['username'];
+        $password = $credentials['password'];
+        
+        $request_data['username'] = $username;
+        $request_data['password'] = $password;
+        
+        if (!isset($request_data['last_name']))
+        {
+            $request_data['last_name'] = '';
+        }
 
         // Check if all required fields are present
-        $required_fields = ['username', 'password', 'confirmpassword', 'firstname'];
-        $this->checkRequiredField($request_data, $required_fields);
+        $required_fields = ['username', 'password', 'first_name'];
+        $missing_field = $this->checkRequiredField($request_data, $required_fields);
+
+        if ($missing_field)
+        {
+            return self::response('Missing required field: ' . $missing_field, 400);
+        }
 
         // Check if username only consists of characters and underscore
         $username = $request_data['username'];
-        if ($this->isUsernameValid($username)) {
-            return self::response('Invalid characters in the username', 400);
+        if (!$this->isUsernameValid($username)) {
+            return self::response('Invalid username: max 20 characters and only consists of alphabets, numbers, and underscores', 400);
         }
 
-        // Check if password and confirmpassword match
         $password = $request_data['password'];
-        $confirm_password = $request_data['confirmpassword'];
-        if ($this->isPasswordMatch($password, $confirm_password)) {
-            return self::response('Password and Confirm Password do not match', 400);
-        }
-
+        
         // Check if password meets the specified criteria
         if (!$this->isPasswordValid($password)) {
             return self::response('Invalid password format', 400);
         }
 
         // Check if concatenation of firstname and lastname doesn't exist in the database
-        $firstname = $request_data['firstname'];
-        $lastname = $request_data['lastname'];
+        $firstname = $request_data['first_name'];
+        $lastname = $request_data['last_name'] ?? '';
+
+        if (strlen($firstname) == 0)
+        {
+            return self::response('First name can not be empty', 400);
+        }
+
+        if ($this->userService->isUsernameExists($username)) {
+            return self::response('Username is already taken', 400);
+        }
+
 
         if ($this->userService->isFullNameExists($firstname, $lastname)) {
             return self::response('Combination of firstname and lastname already exists', 400);
@@ -61,10 +79,9 @@ class UserController extends APIController {
         // Additional checks or actions can be added as needed
 
         // If all checks pass, you can proceed with creating the user account
-        // $this->userService->createUser($username, $password, $firstname, $lastname);
 
-        // Respond with success message
-
+        $this->userService->createUser($request_data);
+        
         return self::response('User account created successfully');
     }
 }

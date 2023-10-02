@@ -4,7 +4,7 @@ include_once (__DIR__ . '/../../components/elements/customInput.php');
 
 function body($data) {
 ?>
-    <form class="auth-form h-screen w-full flex flex-row justify-center items-center">
+    <form onsubmit="login(event)" class="auth-form h-screen w-full flex flex-row justify-center items-center">
         <?php 
             logo('login-logo', false, true);
         ?>

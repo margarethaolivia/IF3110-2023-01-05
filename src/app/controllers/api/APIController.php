@@ -34,8 +34,37 @@ abstract class APIController extends Controller
         $this->notAllowedResponse();
     }
 
+    protected function getBody()
+    {
+        return json_decode(file_get_contents("php://input"), true);
+    }
+
+    protected function getAuthorizationHeader() {
+        $headers = getallheaders();
+        foreach ($headers as $name => $value) {
+            if (strtolower($name) == 'authorization') {
+                return $value;
+            }
+        }
+        return null;
+    }
+
+    protected function checkRequiredField($request_data, $required_fields)
+    {
+        foreach ($required_fields as $field) {
+            if (!isset($request_data[$field])) {
+                return $field;
+            }
+        }
+
+        return null;
+    }
+
     public function index($params)
     {
+
+        $data = [];
+        
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $data = $this->GET($params);
@@ -56,29 +85,42 @@ abstract class APIController extends Controller
             case "DELETE":
                 $data = $this->DELETE($params);
                 break;
+
+            default:
+                $this->notAllowedResponse();
         } 
 
-        $response = array(
-            'message' => $data['message'],
-            'data' => $data['data']
-        );
-    
-        // Set the content type to JSON
-        header('Content-Type: application/json');
-        // Set the HTTP status code
-        http_response_code($data['code']);
-    
-        // Encode the array into JSON format and echo it
-        echo json_encode($response);
+        $this->sendResponse($data);
     
     }
 
-    static public function response($message, $code=200, $data=null)
-    {
-        return [
-            'message' => $message,
-            'code' => $code,
-            'data' => $data
-        ];
+    protected function extractCredentialsFromHeader() {
+
+        $authorizationHeader = $this->getAuthorizationHeader();
+
+        if ($authorizationHeader) {
+            try {
+                // Remove the 'Basic ' prefix
+                $base64Credentials = substr($authorizationHeader, 6);
+                
+                // Decode the base64-encoded credentials
+                $credentials = base64_decode($base64Credentials);
+                
+                // Split into username and password
+                list($username, $password) = explode(':', $credentials, 2);
+                
+                return [
+                    'username' => $username,
+                    'password' => $password,
+                ];
+            }
+
+            catch (Exception $e)
+            {
+                return $this->response('Invalid authorization header', 400);
+            }
+        }
+    
+        return null;
     }
 }

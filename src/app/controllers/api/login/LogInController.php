@@ -9,27 +9,22 @@ class LogInController extends APIController {
     public function __construct($folder_path)
     {
         parent::__construct($folder_path);
-        $userService = new UserService();
+        $this->userService = new UserService();
     }
 
     protected function POST($params)
     {
-        // Assuming you have a database connection
-        // $pdo = new PDO(...);
-
-        $request_data = $this->getUrlParams();
-
         // Check if all required fields are present
-        $required_fields = ['username', 'password'];
-        $this->checkRequiredField($request_data, $required_fields);
 
-        $username = $request_data['username'];
-        $password = $request_data['password'];
+        $credentials = $this->extractCredentialsFromHeader();
+        $username = $credentials['username'];
+        $password = $credentials['password'];
+        if (!($username && $password)) return $this->response('Missing username or password', 400);
 
         // Fetch hashed password from the database
-        $hashed_password = $this->userService->get($username);
+        $user = $this->userService->getUserByUsername($username);
 
-        if (!$hashed_password || !password_verify($password, $hashed_password)) {
+        if (!$user || !password_verify($password, $user->pass)) {
             // Incorrect username or password
             return self::response('Incorrect username or password', 401);
         }

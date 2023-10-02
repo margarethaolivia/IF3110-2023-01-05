@@ -24,13 +24,10 @@ class Database
                 $this->password, 
                 $this->option
             );
-            
-            echo "DB Connection succeeded";
 
             $this->db_connection = $pdo;
 
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
             throw new Exception('Bad Gateway', 502);
         }
     }
@@ -38,13 +35,22 @@ class Database
     private function bind($param, $value, $type = null)
     {
         if (is_null($type)) {
-            if (is_int($value)) {
+            if (is_int($value)) 
+            {
                 $type = PDO::PARAM_INT;
-            } elseif (is_bool($value)) {
+            } 
+            
+            elseif (is_bool($value)) 
+            {
                 $type = PDO::PARAM_BOOL;
-            } elseif (is_null($value)) {
+            } 
+            
+            elseif (is_null($value))
+            {
                 $type = PDO::PARAM_NULL;
-            } else {
+            } 
+            
+            else {
                 // Default to treating the value as a string if type is null
                 $type = PDO::PARAM_STR;
             }
@@ -56,6 +62,8 @@ class Database
     public function execute($query, $bindings)
     {
         $this->statement = $this->db_connection->prepare($query);
+
+    
         foreach ($bindings as $binding) {
             $param = $binding['param'];
             $value = $binding['value'];
@@ -122,7 +130,7 @@ class Database
     {
         return [
             'query' => $query,
-            'binding' => $bindings
+            'bindings' => $bindings
         ];
     }
 
