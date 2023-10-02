@@ -30,7 +30,9 @@ function body($data) {
                 );
             ?>
             <button class="blue-button">Log In</button>
-            <span class="create-account-text">or <a href="<?=BASE_URL . "/signup"?>" class="create-account-link">Create Account</a></span>
+            <span class="create-account-text">or 
+                <a href=<?=BASE_URL . "/signup" . (isset($_GET['redirect']) ? '?redirect=' . $_GET['redirect'] : '') ?> class="create-account-link">Create Account</a>
+            </span>
         </div>
     </form>
 <?php

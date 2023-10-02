@@ -19,7 +19,7 @@ class SessionMiddleware
         return $this->userService->getUserById($_SESSION['user_id']);
     }
 
-    public function authenticateUser()
+    public function authorizeUser()
     {
         $user = $this->getUser();
 
@@ -30,7 +30,7 @@ class SessionMiddleware
         return $user;
     }
 
-    public function authenticateAdmin()
+    public function authorizeAdmin()
     {
         $user = $this->getUser();
 

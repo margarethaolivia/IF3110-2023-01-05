@@ -56,7 +56,7 @@ function body($data) {
                 );
             ?>
             <button class="blue-button">Create Account</button>
-            <span class="create-account-text">Already have account? <a href="<?=BASE_URL . "/login"?>" class="create-account-link">Log In</a></span>
+            <span class="create-account-text">Already have account? <a href="<?=BASE_URL . "/login" . (isset($_GET['redirect']) ? '?redirect=' . $_GET['redirect'] : '') ?>" class="create-account-link">Log In</a></span>
         </div>
     </form>
 <?php

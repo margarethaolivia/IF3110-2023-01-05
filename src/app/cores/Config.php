@@ -30,3 +30,6 @@ define('SESSION_REFRESH_TIME', 60 * 60);
 
 // Debounce
 define('DEBOUNCE_TIMEOUT', 500);
+
+// PHP CONFIGS
+ob_start();

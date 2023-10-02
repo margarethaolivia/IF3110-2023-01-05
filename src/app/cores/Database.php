@@ -59,25 +59,32 @@ class Database
         $this->statement->bindValue($param, $value, $type);
     }
 
-    public function execute($query, $bindings)
+    public function execute($query, $bindings, $forwardException=false)
     {
-        $this->statement = $this->db_connection->prepare($query);
+        try {
+            $this->statement = $this->db_connection->prepare($query);
 
-    
-        foreach ($bindings as $binding) {
-            $param = $binding['param'];
-            $value = $binding['value'];
-            $type = $binding['type'] ?? null; // Default to null if type is not specified
-            $this->bind($param, $value, $type);
+        
+            foreach ($bindings as $binding) {
+                $param = $binding['param'];
+                $value = $binding['value'];
+                $type = $binding['type'] ?? null; // Default to null if type is not specified
+                $this->bind($param, $value, $type);
+            }
+
+            $this->statement->execute();
+        
+        } catch (PDOException $e) {
+
+            if ($forwardException) throw $e;
+            throw new Exception('Internal Server Error', 500);
         }
-
-        $this->statement->execute();
     }
 
     public function fetch($params=null)
     {
         try {
-            if ($params) $this->execute($params['query'], $params['bindings']);
+            if ($params) $this->execute($params['query'], $params['bindings'], true);
             return $this->statement->fetch(PDO::FETCH_OBJ);
         } catch (PDOException) {
             throw new Exception('Internal Server Error', 500);
@@ -87,7 +94,7 @@ class Database
     public function fetchAll($params=null)
     {
         try {
-            if ($params) $this->execute($params['query'], $params['bindings']);
+            if ($params) $this->execute($params['query'], $params['bindings'], true);
             return $this->statement->fetchAll(PDO::FETCH_OBJ);
         } catch (PDOException) {
             throw new Exception('Internal Server Error', 500);

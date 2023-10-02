@@ -17,12 +17,20 @@ class Router {
 
     public function index()
     {
-        $requestUri = $_SERVER['REQUEST_URI'];
+        $requestPath = $_SERVER['PATH_INFO'] ?? "/";
 
-        if (strlen($requestUri) > 1 && substr($requestUri, -1) === '/') {
+        if (strlen($requestPath) > 1 && substr($requestPath, -1) === '/') {
             // Remove the trailing "/" and create the new URL
-            $newUrl = rtrim($requestUri, '/');
+            $newUrl = rtrim($requestPath, '/');
+
+            // Parse the URL to get the query string
+            $urlComponents = parse_url($_SERVER['REQUEST_URI']);
+            $queryString = isset($urlComponents['query']) ? $urlComponents['query'] : '';
+            // Parse the query string to get the parameters
+            parse_str($queryString, $queryParams);
             
+            if (!empty($queryParams)) $newUrl = $newUrl . '?' . http_build_query($queryParams);
+
             // Perform the redirection
             header("Location: $newUrl", true, 301);
             exit;
@@ -32,7 +40,7 @@ class Router {
             $pattern = $route['pattern'];
 
             // Check if the request URI matches the pattern
-            if (preg_match($pattern, $requestUri, $matches)) {
+            if (preg_match($pattern, $requestPath, $matches)) {
 
                 // Remove the first element (full match)
                 array_shift($matches);
@@ -44,7 +52,7 @@ class Router {
                 
                 // Include the controller file
 
-                if (preg_match(ROUTER::API_ROUTE_PATTERN, $requestUri))
+                if (preg_match(ROUTER::API_ROUTE_PATTERN, $requestPath))
                 {
                     // Include api controller file
                     require_once __DIR__ . "/../controllers$folder_path/$controllerName.php";

@@ -42,3 +42,15 @@
 .nav-links a:last-child {
     margin-right: 0;
 }
+
+.profile-link svg{
+    height: 40px;
+    aspect-ratio: 1;
+    color: #D9D9D9;
+}
+
+.profile-link img {
+    height: 40px;
+    aspect-ratio: 1;
+    border-radius: 100%;
+}

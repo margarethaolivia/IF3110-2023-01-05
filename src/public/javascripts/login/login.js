@@ -1,3 +1,4 @@
+
 const login = (e) => {
     e.preventDefault();
 
@@ -13,30 +14,43 @@ const login = (e) => {
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
 
-    // Make the POST request
-    fetch('/api/login', {
-        method: 'POST',
-        headers: headers,
-    })
-    .then(async response => {
-        
-        if (response.redirected) {
-            // You can access the final redirected URL using response.url
-            console.log('Redirected to:', response.url);
-    
+    const currentUrl = new URL(window.location.href);
+
+    // Get the current redirect query parameter
+    const redirectParam = currentUrl.searchParams.get('redirect');
+    const postUrl = `/api/login?redirect=${redirectParam ?? "/"}`;
+
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+    // Set up the request
+    xhr.open('POST', postUrl, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username + ':' + password));
+
+    // Set up the event handler for when the request completes
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            // You can access the final redirected URL using xhr.getResponseHeader('Location')
+            console.log('Redirected to:', xhr.responseURL);
+
             // You might want to handle the redirect URL here
-            // For example, redirect the browser to the new URL
-            window.location.href = response.url;
+            window.location.href =  xhr.responseURL;
         } else {
             // If not a redirect, proceed with handling the response
-            const body = await response.json();
-            throw new Error(body.message);
+            const data = JSON.parse(xhr.responseText);
+            // Handle the response data
+            console.log('Response:', data);
         }
-    })
-    .catch(error => {
+    };
+
+    // Set up the event handler for network errors
+    xhr.onerror = function () {
         // Handle errors
-        console.error('Error:', error);
-    });
+        console.error('Error:', xhr.statusText);
+    };
+
+    // Send the request with the form data
+    xhr.send(JSON.stringify({}));
 }
 
 

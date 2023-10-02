@@ -19,7 +19,7 @@ abstract class Controller
     {
         $response = array(
             'message' => $data['message'],
-            'data' => $data['body']
+            'body' => $data['body']
         );
     
         // Set the HTTP status code
@@ -28,6 +28,13 @@ abstract class Controller
         // Encode the array into JSON format and echo it
         echo json_encode($response);
         exit;
+    }
+
+    protected function sendResponseOnError($e) {
+        $this->sendResponse(self::response(
+            $e->getMessage(),
+            $e->getCode()
+        ));
     }
 
     protected function notAllowedResponse() {

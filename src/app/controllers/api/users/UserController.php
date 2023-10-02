@@ -67,21 +67,30 @@ class UserController extends APIController {
             return self::response('First name can not be empty', 400);
         }
 
-        if ($this->userService->isUsernameExists($username)) {
-            return self::response('Username is already taken', 400);
+        try {
+            if ($this->userService->isUsernameExists($username)) {
+                return self::response('Username is already taken', 400);
+            }
+    
+    
+            if ($this->userService->isFullNameExists($firstname, $lastname)) {
+                return self::response('Combination of firstname and lastname already exists', 400);
+            }
+    
+            // Additional checks or actions can be added as needed
+    
+            // If all checks pass, you can proceed with creating the user account
+    
+            $this->userService->createUser($request_data);
+            
+            $redirect_value = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+            header("Location: " . BASE_URL . "/" . ltrim($redirect_value, '/'), true, 302);
+            exit();
         }
-
-
-        if ($this->userService->isFullNameExists($firstname, $lastname)) {
-            return self::response('Combination of firstname and lastname already exists', 400);
-        }
-
-        // Additional checks or actions can be added as needed
-
-        // If all checks pass, you can proceed with creating the user account
-
-        $this->userService->createUser($request_data);
         
-        return self::response('User account created successfully');
+        catch (Exception $e)
+        {
+            $this->sendResponseOnError($e);
+        }
     }
 }

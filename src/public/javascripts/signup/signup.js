@@ -1,4 +1,4 @@
-const signup = async (e) => {
+const signup = (e) => {
     e.preventDefault();
 
     // Create a FormData object from the form
@@ -11,45 +11,55 @@ const signup = async (e) => {
     const first_name = formData.get('first_name');
     const last_name = formData.get('last_name') ?? "";
 
-    if (password !== confirmPassword)
-    {
-        console.log("man");
+    if (password !== confirmPassword) {
+        console.log("Passwords do not match");
         return;
     }
 
-    // Create headers for the request
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Basic ' + btoa(username + ':' + password));
+    const currentUrl = new URL(window.location.href);
+
+    // Get the current redirect query parameter
+    const redirectParam = currentUrl.searchParams.get('redirect');
+    const postUrl = `/api/users?redirect=${redirectParam ?? "/"}`;
+
+    // Create an XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Configure it with method, URL, and async flag
+    xhr.open('POST', postUrl, true);
+
+    // Set headers
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', 'Basic ' + btoa(username + ':' + password));
+
+    // Set up the callback for when the request completes
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // You can access the final redirected URL using xhr.getResponseHeader('Location')
+            console.log('Redirected to:', xhr.responseURL);
+
+            // You might want to handle the redirect URL here
+            window.location.href = xhr.responseURL;
+        } else {
+            // If not a redirect, proceed with handling the response
+            const data = JSON.parse(xhr.responseText);
+            // Handle the response data
+            console.log('Response:', data);
+        }
+    };
+
+    // Set up the callback for errors
+    xhr.onerror = function (error) {
+        // Handle errors
+        console.error('Error:', error);
+    };
 
     // Create the request body
     const requestBody = JSON.stringify({ first_name, last_name });
 
-    // Make the POST request
-    fetch('/api/users', {
-        method: 'POST',
-        headers: headers,
-        body: requestBody
-    })
-
-    .then(async response => {
-        if (!response.ok) {
-            const body = await response.json()
-           
-            throw new Error(body.message);
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Handle the response data
-        console.log('Response:', data);
-    })
-    .catch(error => {
-        // Handle errors
-        console.error('Error:', error);
-    });
-}
-
+    // Send the request with the body
+    xhr.send(requestBody);
+};
 
 
 
