@@ -8,11 +8,11 @@ body, h1, h2, p {
 #video-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .video-card {
-    width: 21rem;
+    width: 22.85rem;
     margin: 0.5rem;
     border: 1px solid #ccc;
     padding: 10px;
@@ -67,4 +67,9 @@ border-radius: 5px;
     border-radius: 5px;
     padding: 0.5rem 2rem;
     float: right;
+    cursor: pointer;
+}
+
+.sort-button:hover {
+    background-color: #404040;
 }
