@@ -16,7 +16,7 @@ class SessionMiddleware
             throw new Exception('Unauthorized', 401);
         }
 
-        return $this->userService->getUser($_SESSION['user_id']);
+        return $this->userService->getUserById($_SESSION['user_id']);
     }
 
     public function authenticateUser()

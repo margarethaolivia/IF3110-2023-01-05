@@ -2,14 +2,15 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS METUBE_USER (
     user_id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    pass VARCHAR(255) NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    last_name VARCHAR(20) NOT NULL DEFAULT '',
     is_admin BOOLEAN NOT NULL,
     profile_pic VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
     updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
-    CONSTRAINT check_all_user CHECK(LENGTH(username) > 0 AND LENGTH(first_name) > 0 AND LENGTH(last_name) > 0)
+    CONSTRAINT check_all_user CHECK(LENGTH(username) > 0 AND LENGTH(first_name) > 0)
 );
 
 
