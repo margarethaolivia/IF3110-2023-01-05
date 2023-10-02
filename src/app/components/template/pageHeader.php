@@ -5,7 +5,7 @@ function pageHeader() {
 ?>
     <nav class="navbar">
         <?php
-            logo("panel-header");
+            logo(classes: "panel-header header-panel-header");
         ?>
         <div class="search-div">
             <div class="search-bar">

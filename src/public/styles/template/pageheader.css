@@ -10,13 +10,8 @@
     left: 0;
 }
 
-.panel-header {
-    margin: 0;
-    align-items: center;
-}
-
-.logo img {
-    max-width: 100px;
+.header-panel-header {
+    /* padding-left: 10px; */
 }
 
 .search-bar {

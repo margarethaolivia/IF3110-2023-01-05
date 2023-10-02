@@ -14,8 +14,8 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => '#^/signin$#', // Match "/about"
-    'controller' => 'SignInController'
+    'pattern' => '#^/signup$#', // Match "/about"
+    'controller' => 'SignUpController'
 ]);
 
 $router->add([

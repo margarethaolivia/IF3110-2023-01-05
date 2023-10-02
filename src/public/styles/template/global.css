@@ -17,9 +17,8 @@ h1, h2, h3, h4, h5, h6 {
 .signin-button {
     border: 1px solid #0085FF;
     border-radius: 100px;
-    color: #0085FF;
     font-size: 15px;
-    padding: 5px 10px;
+    padding: 5px 0;
     width: 90px;
     gap: 3px;
 }
@@ -30,6 +29,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .signin-button svg {
     height: 20px;
+    color: #0085FF;
+}
+
+.signin-button span {
+    color: #0085FF;
 }
 
 .panel-header .menu-button {
@@ -49,6 +53,10 @@ h1, h2, h3, h4, h5, h6 {
 .panel-header .logo .logo-text {
     font-size: 20px;
     font-weight: bold;
+}
+
+.panel-header .logo:hover {
+    background-color: transparent;
 }
 
 /* BLUE BUTTON */
@@ -141,3 +149,7 @@ p {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}

@@ -4,7 +4,7 @@ include_once (__DIR__ . '/pageHeader.php');
 include_once (__DIR__ . '/sidebar.php');
 
 function pageTemplate($data, $template_body_path) {
-        $includeComponents = !isset($data->isPlainPage) || !$data->isPlainPage;
+        $includeComponents = !isset($data['isPlainPage']) || !$data['isPlainPage'];
     ?>
 
     <!DOCTYPE html>

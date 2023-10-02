@@ -15,6 +15,7 @@ class LogInController extends ViewController
             'title' => 'LogIn - WeTube',
             'script_paths' => ['login/login.js'],
             'style_paths' => ['template/auth.css'],
+            'isPlainPage' => true
         ];
     }
 }

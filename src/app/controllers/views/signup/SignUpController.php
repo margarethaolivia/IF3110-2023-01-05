@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../ViewController.php';
 
-class SignInController extends ViewController
+class SignUpController extends ViewController
 {    
     public function __construct($folder_path)
     {
@@ -12,9 +12,10 @@ class SignInController extends ViewController
     protected function getData($params)
     {
         return [
-            'title' => 'SignIn - WeTube',
-            'script_paths' => ['signin/signin.js'],
+            'title' => 'Sign Up - WeTube',
+            'script_paths' => ['signup/signup.js'],
             'style_paths' => ['template/auth.css'],
+            'isPlainPage' => true
         ];
     }
 }
