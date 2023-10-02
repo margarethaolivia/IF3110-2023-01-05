@@ -17,18 +17,31 @@ class ProfilePictureController extends APIController {
         $userService = new UserService();
         $user_id = $user->user_id;
         $extension = '.' . pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
-        $route = "/images/profile/$user_id" . $extension;
+        $route = "/images/profile/$user_id/pic" . $extension;
         $path = BASE_URL . $route;
         $filepath = PUBLIC_PATH . $route;
-        $found = file_exists($filepath);
+
+        $directory = pathinfo($filepath, PATHINFO_DIRNAME);
+
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $existingFiles = glob("$directory/*");
+
+        foreach ($existingFiles as $existingFile) {
+            unlink($existingFile);
+        }
 
         move_uploaded_file($_FILES['file']['tmp_name'], $filepath);
 
-        if (!$found)
+        if (count($existingFiles) == 0)
         {
             $userService->addProfilePicture($user->user_id, $path);
         }
 
-        return self::response("Profile picture changed", body: ['path' => $path]);
+        $_SESSION['profile_pic'] = $path;
+
+        return self::response("Profile picture changed", body: ['path' => $path, 'exist' => $existingFiles]);
     }
 }

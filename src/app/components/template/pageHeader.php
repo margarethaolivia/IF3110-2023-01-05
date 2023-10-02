@@ -23,7 +23,7 @@ function pageHeader() {
                             if (isset($_SESSION['profile_pic']) && $_SESSION['profile_pic'])
                             {
                                 ?>
-                                    <img src="<?=$_SESSION['profile_pic']?>"/>
+                                    <img class="profile_pic" src="<?=$_SESSION['profile_pic']?>"/>
                                 <?php
                             }
 

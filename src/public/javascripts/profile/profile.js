@@ -13,6 +13,19 @@ const changeProfilePicture = (e) => {
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
                 console.log('Upload successful:', data);
+
+                const reader = new FileReader();
+
+                reader.onload = function () {
+                    // Update the 'src' attribute of the image element with ID 'profile_pic'
+                    const profilePics = document.querySelectorAll('.profile_pic');
+                    profilePics.forEach((profilePic) => {
+                        profilePic.src = reader.result;
+                    });
+                };
+
+                reader.readAsDataURL(selectedFile);
+
             } else {
                 console.error('Error uploading file. Server returned:', xhr.status);
             }
