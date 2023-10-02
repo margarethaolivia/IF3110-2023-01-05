@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/AuthViewController.php';
 
-abstract class AdminViewController extends AuthViewControler
+abstract class AdminViewController extends AuthViewController
 {  
     public function __construct($folder_path)
     {
@@ -11,6 +11,11 @@ abstract class AdminViewController extends AuthViewControler
 
     protected function authorize()
     {
-        $this->getSessionMiddleware()->authorizeAdmin();
+        $user = $this->getSessionMiddleware()->authorizeUser();
+
+        if (!$user->is_admin) {
+            echo "no";
+            exit;
+        }
     }
 }

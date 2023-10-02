@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../ViewController.php';
+require_once __DIR__ . '/../AdminViewController.php';
 
-class TakeDownController extends ViewController
+class TakeDownController extends AdminViewController
 {    
     public function __construct($folder_path)
     {

@@ -37,6 +37,7 @@ $router->add([
 
 $router->add([
     'pattern' => "#^/myvideos/edit/$PARAM_PATTERN$#", // Match "/myvideos/edit/{video_id}"
+    'controller' => 'VideoEditController'
 ]);
 
 $router->add([

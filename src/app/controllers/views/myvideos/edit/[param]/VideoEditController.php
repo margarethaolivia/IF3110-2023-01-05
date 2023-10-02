@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../ViewController.php';
+require_once __DIR__ . '/../../../UserViewController.php';
 
-class ProfileController extends ViewController
+class ProfileController extends UserViewController
 {    
     public function __construct($folder_path)
     {
