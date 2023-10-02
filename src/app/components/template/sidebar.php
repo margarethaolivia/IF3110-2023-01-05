@@ -11,7 +11,7 @@ function sidebar() {
         <div class="fixed panel h-screen">
 
             <?php 
-                logo('panel-header');
+                logo('panel-header sidebar-panel-header');
             ?>
 
             <div class="panel-content flex flex-row">
