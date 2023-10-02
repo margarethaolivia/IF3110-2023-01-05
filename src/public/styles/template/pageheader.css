@@ -33,6 +33,16 @@
     display: flex;
 }
 
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    margin-right: 20px;
+}
+
+.nav-links a:last-child {
+    margin-right: 0;
+}
+
 /* PAGE TEMPLATE*/
 
 .page-template-body {

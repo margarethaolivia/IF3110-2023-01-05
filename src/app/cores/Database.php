@@ -118,4 +118,12 @@ class Database
         ];
     }
 
+    static public function fetchParam($query, $bindings)
+    {
+        return [
+            'query' => $query,
+            'binding' => $bindings
+        ];
+    }
+
 }
