@@ -63,7 +63,7 @@ function body($data) {
         <div class="upload-section flex flex-row items-center">
             <span class="upload-title">Upload a video to get started</span>
             <span class="upload-desc">Start sharing your story and connecting with viewers.</span>
-            <button class="blue-button upload-button">Upload Video</button>
+            <a href="/videos/upload" class="blue-button upload-button flex flex-col justify-center items-center"><span>Upload Video</span></a>
         </div>
     </div>
 <?php

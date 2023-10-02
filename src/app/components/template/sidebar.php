@@ -5,7 +5,7 @@ include_once (APP_PATH . '/components/sidebar/menuButton.php');
 function sidebar() {
 ?>
     <div class="sidebar" id="sidebar">
-        <div class="layout fixed w-full h-screen">
+        <div class="layout fixed w-full h-screen" onclick="closeSidebar(event)">
         </div>
         
         <div class="fixed panel h-screen">
