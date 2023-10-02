@@ -1,5 +1,5 @@
 <?php
-
+include_once (__DIR__ . '/../../components/template/pageTemplate.php');
 class View
 {
     private $data;
@@ -13,6 +13,6 @@ class View
 
     public function render()
     {
-        require_once __DIR__ . '/../../views' . $this->folder_path . '/index.php';
+        pageTemplate($this->data, __DIR__ . '/../../views' . $this->folder_path . '/body.php');
     }
 }

@@ -26,6 +26,8 @@ class SessionMiddleware
         if (!$user) {
             throw new Exception('Unauthorized', 401);
         }
+
+        return $user;
     }
 
     public function authenticateAdmin()
@@ -35,5 +37,7 @@ class SessionMiddleware
         if (!$user || !$user->is_admin) {
             throw new Exception('Unauthorized', 401);
         }
+
+        return $user;
     }
 }

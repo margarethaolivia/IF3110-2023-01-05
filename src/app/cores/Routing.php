@@ -15,10 +15,12 @@ $router->add([
 
 $router->add([
     'pattern' => '#^/signin$#', // Match "/about"
+    'controller' => 'SignInController'
 ]);
 
 $router->add([
     'pattern' => '#^/login$#', // Match "/about"
+    'controller' => 'LogInController'
 ]);
 
 $router->add([
