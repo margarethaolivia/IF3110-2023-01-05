@@ -2,6 +2,8 @@
 
 // URL
 define('BASE_URL', 'http://localhost:8008');
+define ('APP_PATH', dirname($_SERVER['DOCUMENT_ROOT']) . '/app');
+define ('PUBLIC_PATH', $_SERVER['DOCUMENT_ROOT']);
 
 // Database
 define('DB_HOST', $_ENV['DB_HOST']);
@@ -14,10 +16,7 @@ define('DB_PASSWORD', $_ENV['POSTGRES_PASSWORD']);
 define('MAX_SIZE', 10 * 1024 * 1024);
 define('ALLOWED_VIDEOS', ['.mp4']);
 
-define('ALLOWED_IMAGES', [
-    'image/jpeg' => '.jpeg',
-    'image/png' => '.png'
-]);
+define('ALLOWED_IMAGES', ['.jpg', '.jpeg', '.png']);
 
 // Bcrypt
 define('BCRYPT_COST', 10);

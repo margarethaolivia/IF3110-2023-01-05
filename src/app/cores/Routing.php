@@ -83,5 +83,10 @@ $router->add([
     'controller' => 'LogOutController'
 ]);
 
+$router->add([
+    'pattern' => "#^/api/profile/picture$#", // Match "/profile/picture"
+    'controller' => 'ProfilePictureController'
+]);
+
 
 $router->index();

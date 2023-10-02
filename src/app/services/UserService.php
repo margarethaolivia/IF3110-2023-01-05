@@ -68,5 +68,12 @@ class UserService extends Service
         return $res->count > 0;
     }
 
+    public function addProfilePicture($user_id, $path)
+    {
+        $sql = "UPDATE metube_user SET profile_pic = :profile_pic WHERE user_id = :user_id";
+        $bindings = [Database::binding('profile_pic', $path), Database::binding('user_id', $user_id)];
 
+        $res = $this->getDatabase()->execute($sql, $bindings);
+        return $res;
+    }
 }
