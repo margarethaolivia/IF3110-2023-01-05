@@ -31,6 +31,7 @@ $router->add([
 
 $router->add([
     'pattern' => "#^/myvideos$#", // Match "/myvideos"
+    'controller' => 'MyVideosController'
 ]);
 
 
