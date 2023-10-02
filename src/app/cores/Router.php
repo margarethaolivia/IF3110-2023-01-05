@@ -19,6 +19,15 @@ class Router {
     {
         $requestUri = $_SERVER['REQUEST_URI'];
 
+        if (substr($requestUri, -1) === '/') {
+            // Remove the trailing "/" and create the new URL
+            $newUrl = rtrim($requestUri, '/');
+            
+            // Perform the redirection
+            header("Location: $newUrl", true, 301);
+            exit;
+        }
+
         foreach ($this->routes as $route) {
             $pattern = $route['pattern'];
 

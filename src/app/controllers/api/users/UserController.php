@@ -26,15 +26,11 @@ class UserController extends APIController {
     }
     protected function POST($param)
     {
-        $request_data = json_decode(file_get_contents("php://input"), true);
+        $request_data = $this->getUrlParams();
 
         // Check if all required fields are present
         $required_fields = ['username', 'password', 'confirmpassword', 'firstname'];
-        foreach ($required_fields as $field) {
-            if (!isset($request_data[$field])) {
-                return self::response('Missing required field: ' . $field, 400);
-            }
-        }
+        $this->checkRequiredField($request_data, $required_fields);
 
         // Check if username only consists of characters and underscore
         $username = $request_data['username'];
@@ -69,6 +65,6 @@ class UserController extends APIController {
 
         // Respond with success message
 
-        return self::response('User account created successfully', 200);
+        return self::response('User account created successfully');
     }
 }

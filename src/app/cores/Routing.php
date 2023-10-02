@@ -30,7 +30,7 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => "#^/myvideos/$#", // Match "/myvideos"
+    'pattern' => "#^/myvideos$#", // Match "/myvideos"
 ]);
 
 
