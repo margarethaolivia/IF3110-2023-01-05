@@ -11,7 +11,6 @@ function pageHeader() {
             <div class="search-bar">
                 <input type="text" placeholder="Search">    
             </div>
-            <button class="search-button">Search</button>
         </div>
         <div class="nav-links">
             <?php

@@ -26,34 +26,11 @@
     padding: 10px;
     border: none;
     outline: none;
-    width: 25rem;
-}
-
-.search-button {
-    background-color: black;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.search-button:hover {
-    background-color: #404040;
+    width: 35rem;
 }
 
 .search-div {
     display: flex;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #333;
-    margin-right: 20px;
-}
-
-.nav-links a:last-child {
-    margin-right: 0;
 }
 
 /* PAGE TEMPLATE*/
