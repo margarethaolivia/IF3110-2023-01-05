@@ -1,4 +1,5 @@
 .env
 db/*
 src/public/images/profile/*
+src/public/images/thumbnail/*
 src/public/videos/*
