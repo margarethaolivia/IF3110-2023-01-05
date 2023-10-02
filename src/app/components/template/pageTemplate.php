@@ -15,7 +15,7 @@ function pageTemplate($data, $template_body_path) {
 
         if ($includeComponents) {
             $template_style_paths = ['template/pageheader.css', 'template/sidebar.css'];
-            $template_script_paths = ['template/header.js', 'template/siderbar.js'];
+            $template_script_paths = ['template/header.js', 'template/sidebar.js'];
         }
 
         head($data, $template_style_paths, $template_script_paths);

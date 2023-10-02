@@ -28,8 +28,6 @@ services:
     environment:
       POSTGRES_DB: wetube
 
-    
-
   adminer:
     image: adminer:latest
     restart: always
