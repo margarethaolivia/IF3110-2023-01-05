@@ -22,7 +22,7 @@ function pageTemplate($data, $template_body_path) {
     ?>
 
     <body>
-        <div class="page-template-body mt-5">
+        <div class="page-template-body <?= $includeComponents ? "page-top-margin" : ""?>">
             <?php 
                 include($template_body_path);
                 body($data);

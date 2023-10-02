@@ -38,24 +38,47 @@ abstract class APIController extends Controller
     {
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                $this->GET($params);
+                $data = $this->GET($params);
                 break;
             
             case 'POST':
-                $this->POST($params);
+                $data = $this->POST($params);
                 break;
 
             case 'PUT':
-                $this->PUT($params);
+                $data = $this->PUT($params);
                 break;
             
             case 'PATCH':
-                $this->PATCH($params);
+                $data = $this->PATCH($params);
                 break;
 
             case "DELETE":
-                $this->DELETE($params);
+                $data = $this->DELETE($params);
                 break;
         } 
+
+        $response = array(
+            'message' => $data['message'],
+            'data' => $data['data']
+        );
+    
+        // Set the content type to JSON
+        header('Content-Type: application/json');
+        // Set the HTTP status code
+        http_response_code($data['code']);
+    
+        // Encode the array into JSON format and echo it
+        echo json_encode($response);
+    
+    }
+
+    static public function response($message, $code=200, $data=null)
+    {
+        return [
+            'message' => $message,
+            'code' => $code,
+            'data' => $data
+        ];
     }
 }

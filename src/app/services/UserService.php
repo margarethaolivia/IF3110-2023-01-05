@@ -1,5 +1,6 @@
 <?php
 include_once (__DIR__ . '/Service.php');
+include_once (__DIR__ . '/../cores/Database.php');
 
 class UserService extends Service
 {   
@@ -13,5 +14,15 @@ class UserService extends Service
                 'bindings' => [Database::binding('user_id', $id)]
             ]
         );
+    }
+
+    public function isFullNameExists($firstname, $lastname)
+    {
+        $full_name = $firstname . $lastname;
+        $sql = "SELECT COUNT(*) AS count FROM your_table WHERE CONCAT(firstname, ' ', lastname) = :full_name";
+        $bindings = [Database::binding('full_name', $full_name)];
+
+        $res = $this->getDatabase()->fetch(Database::fetchParam($sql, $bindings));
+        print_r($res);
     }
 }
