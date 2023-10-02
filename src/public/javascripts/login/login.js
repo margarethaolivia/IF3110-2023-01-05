@@ -50,7 +50,7 @@ const login = (e) => {
     };
 
     // Send the request with the form data
-    xhr.send(JSON.stringify({}));
+    xhr.send();
 }
 
 

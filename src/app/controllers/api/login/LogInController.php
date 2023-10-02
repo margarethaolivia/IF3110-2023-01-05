@@ -42,6 +42,7 @@ class LogInController extends APIController {
         session_start();
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['profile_pic'] = $user->profile_pic;
+        $_SESSION['is_admin'] = $user->is_admin;
 
         // Set a cookie (adjust parameters as needed)
         setcookie('user', $username, time() + 3600, '/');

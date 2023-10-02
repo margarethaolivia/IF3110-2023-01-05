@@ -5,7 +5,7 @@ function pageHeader() {
 ?>
     <nav class="navbar">
         <?php
-            logo(classes: "header-panel-header");
+            logo(classes: "header-panel-header", onMenuClick: "openSidebar(event)");
         ?>
         <div class="search-div">
             <div class="search-bar">
