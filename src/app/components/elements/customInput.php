@@ -1,6 +1,6 @@
 <?php
 
-function customInput($inputType, $inputName, $inputLabel="", $required = false, $placeholder = "", $defaultValue = "", $inputClasses = "", $disableLabel = false) {
+function customInput($inputType, $inputName, $inputLabel="", $required = false, $placeholder = "", $defaultValue = "", $inputClasses = "", $disableLabel = false, $pattern=null) {
 ?>
 
     <div class="custom-input flex flex-row">
@@ -16,7 +16,8 @@ function customInput($inputType, $inputName, $inputLabel="", $required = false, 
                 placeholder="<?= $placeholder ?>"
                 class="<?= $inputClasses?>"
                 <?= $required ? 'required' : '' ?>
-                <?= $defaultValue !== "" ? 'value="' . htmlspecialchars($defaultValue) . '"' : '' ?>
+                <?= $defaultValue != "" ? 'value="' . htmlspecialchars($defaultValue) . '"' : '' ?>
+                <?= $pattern ? 'pattern="' . htmlspecialchars($pattern) . '"' : '' ?>
             >
         <?php endif; ?>
 
@@ -26,7 +27,7 @@ function customInput($inputType, $inputName, $inputLabel="", $required = false, 
                 placeholder="<?= $placeholder ?>"
                 class="<?= $inputClasses?>"
                 <?= $required ? 'required' : '' ?>
-            ><?= $defaultValue !== "" ? htmlspecialchars($defaultValue) : '' ?></textarea>
+            ><?= $defaultValue != "" ? htmlspecialchars($defaultValue) : '' ?></textarea>
         <?php endif; ?>
     </div>
     

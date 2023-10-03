@@ -18,6 +18,7 @@ function body($data) {
                     placeholder: 'Username',
                     disableLabel: true,
                     inputClasses: 'input-box',
+                    pattern: '^[a-zA-Z0-9]+$'
                 );
 
                 customInput(

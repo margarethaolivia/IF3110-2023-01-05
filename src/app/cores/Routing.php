@@ -64,7 +64,7 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => "#^/api/users/$PARAM_PATTERN$#", // Match "/api/videos"
+    'pattern' => "#^/api/users/$PARAM_PATTERN$#", // Match "/api/users/{user_id}"
     'controller' => 'SpecificUserController'
 ]);
 
@@ -74,13 +74,18 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => "#^/api/login$#", // Match "/api/videos"
+    'pattern' => "#^/api/login$#", // Match "/api/login"
     'controller' => 'LogInController'
 ]);
 
 $router->add([
-    'pattern' => "#^/api/logout$#", // Match "/api/videos"
+    'pattern' => "#^/api/logout$#", // Match "/api/logout"
     'controller' => 'LogOutController'
+]);
+
+$router->add([
+    'pattern' => "#^/api/profile$#", // Match "/api/profile"
+    'controller' => 'ProfileController'
 ]);
 
 $router->add([

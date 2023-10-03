@@ -1,7 +1,5 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
-include_once APP_PATH . '/middlewares/SessionMiddleware.php';
-include_once APP_PATH . '/services/UserService.php';
 
 class ProfilePictureController extends APIController {
     public function __construct($folder_path)
@@ -11,10 +9,10 @@ class ProfilePictureController extends APIController {
 
     protected function POST($params)
     {
-        $sessionMiddleware = new SessionMiddleware();
+        $sessionMiddleware = $this->getMiddleware('SessionMiddleware');
         $user = $sessionMiddleware->authorizeUser();
 
-        $userService = new UserService();
+        $userService = $this->getService('UserService');
         $user_id = $user->user_id;
         $extension = '.' . pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $route = "/images/profile/$user_id/pic" . $extension;
@@ -34,11 +32,7 @@ class ProfilePictureController extends APIController {
         }
 
         move_uploaded_file($_FILES['file']['tmp_name'], $filepath);
-
-        if (count($existingFiles) == 0)
-        {
-            $userService->addProfilePicture($user->user_id, $path);
-        }
+        $userService->addProfilePicture($user->user_id, $path);
 
         $_SESSION['profile_pic'] = $path;
 

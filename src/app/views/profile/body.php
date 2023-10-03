@@ -1,5 +1,8 @@
 <?php
+include_once APP_PATH . '/utils/DateParser.php';
+
 function body($data) {
+    $dataParser = new DateParser();
 ?>
 
     <div class="">
@@ -24,30 +27,30 @@ function body($data) {
                 </label>
             </div>
             <div class="profile-info">
-                <span class="full-name">Johanes Lee</span>
+                <span id="full_name" class="full-name"><?=$data['user']->first_name . ' ' . $data['user']->last_name?></span>
                 <div class="user-info flex flex-col text-gray">
-                    <span>johaneslee26</span>
+                    <span><?= $data['user']->username ?></span>
                     <span>|</span>
-                    <span>User</span>
+                    <span><?= $_SESSION['is_admin'] ? 'Admin' : 'User' ?></span>
                 </div>
             </div>
         </div>
         <div class="flex justify-between main-body">
             <div class="flex flex-row user-forms">
-                <form class="form">
+                <form onsubmit="updateProfile(event)" class="form">
                     <span class="form-label">Change Name</span>
                     <div class="flex flex-col form-inputs">
-                        <input placeholder="First Name" class="text-gray h-full input" type="text"></input>
-                        <input placeholder="Last Name" class="h-full input" type="text"></input>
+                        <input id="first_name_input" name="first_name" placeholder="First Name" class="text-gray h-full input" type="text" pattern="^[a-zA-Z]+$"></input>
+                        <input id="last_name_input" name="last_name" placeholder="Last Name" class="h-full input" type="text" pattern="^[a-zA-Z]+$"></input>
                         <button type="submit" class="submit-button h-full">Save</button>
                     </div>
                 </form>
 
-                <form class="form">
+                <form onsubmit="updateProfile(event)" class="form">
                     <span class="form-label">Change Password</span>
                     <div class="flex flex-col form-inputs text-gray h-full">
-                        <input placeholder="Old Password" class="h-full input" type="text"></input>
-                        <input placeholder="New Password" class="h-full input" type="text"></input>
+                        <input id="old_password_input" name="old_password" placeholder="Old Password" class="h-full input" type="password"></input>
+                        <input id="new_password_input" name="new_password" placeholder="New Password" class="h-full input" type="password"></input>
                         <button type="submit" class="submit-button h-full">Save</button>
                     </div>
                 </form>
@@ -55,7 +58,7 @@ function body($data) {
 
             <div class="flex flex-row stats">
                 <span class="bd title">Stats</span>
-                <span class="bd text-gray">Joined 24 Sep 2023</span>
+                <span class="bd text-gray">Joined <?=$dataParser->dateTimeToString($data['user']->created_at)?></span>
                 <span class="bd text-gray">Total 4 videos</span>
             </div>
         </div>

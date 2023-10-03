@@ -1,6 +1,5 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
-include_once APP_PATH . '/services/UserService.php';
 
 class LogInController extends APIController {
 
@@ -9,7 +8,7 @@ class LogInController extends APIController {
     public function __construct($folder_path)
     {
         parent::__construct($folder_path);
-        $this->userService = new UserService();
+        $this->userService = $this->getService('UserService');
     }
 
     protected function POST($params)
@@ -19,6 +18,7 @@ class LogInController extends APIController {
         $credentials = $this->extractCredentialsFromHeader();
         $username = $credentials['username'];
         $password = $credentials['password'];
+
         if (!($username && $password)) return $this->response('Missing username or password', 400);
 
         // Fetch hashed password from the database

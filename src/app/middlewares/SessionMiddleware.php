@@ -19,12 +19,27 @@ class SessionMiddleware
         return $this->userService->getUserById($_SESSION['user_id']);
     }
 
+    private function sendUnauthorizedResponse()
+    {
+        $response = array(
+            'message' => 'Unauthorized',
+            'body' => null
+        );
+    
+        // Set the HTTP status code
+        http_response_code(401);
+    
+        // Encode the array into JSON format and echo it
+        echo json_encode($response);
+        exit;
+    }
+
     public function authorizeUser()
     {
         $user = $this->getUser();
 
         if (!$user) {
-            throw new Exception('Unauthorized', 401);
+            $this->sendUnauthorizedResponse();
         }
 
         return $user;
@@ -35,7 +50,7 @@ class SessionMiddleware
         $user = $this->getUser();
 
         if (!$user || !$user->is_admin) {
-            throw new Exception('Unauthorized', 401);
+            $this->sendUnauthorizedResponse();
         }
 
         return $user;

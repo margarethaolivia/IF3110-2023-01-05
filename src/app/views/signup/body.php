@@ -17,7 +17,8 @@ function body($data) {
                     required: true,
                     placeholder: '',
                     inputClasses: 'input-box',
-                    inputLabel: 'Username'
+                    inputLabel: 'Username',
+                    pattern: '^[a-zA-Z0-9]+$'
                 );
 
                 customInput(
@@ -44,7 +45,8 @@ function body($data) {
                     required: true,
                     placeholder: '',
                     inputClasses: 'input-box',
-                    inputLabel: 'Fist Name'
+                    inputLabel: 'Fist Name',
+                    pattern: '^[a-zA-Z]+$'
                 );
 
                 customInput(
@@ -52,7 +54,8 @@ function body($data) {
                     'last_name',
                     placeholder: '',
                     inputClasses: 'input-box',
-                    inputLabel: 'Last Name'
+                    inputLabel: 'Last Name',
+                    pattern: '^[a-zA-Z]+$'
                 );
             ?>
             <button class="blue-button">Create Account</button>

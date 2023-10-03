@@ -1,6 +1,5 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
-include_once APP_PATH . '/services/UserService.php';
 
 class UserController extends APIController {
     private $userService;
@@ -8,18 +7,9 @@ class UserController extends APIController {
     public function __construct($folder_path)
     {
         parent::__construct($folder_path);
-        $this->userService = new UserService();
+        $this->userService = $this->getService('UserService');
     }
 
-    private function isUsernameValid($username)
-    {
-        return 0 < strlen($username) && strlen($username) <= 20 && preg_match('/^[A-Za-z0-9_]+$/', $username);
-    }
-
-    private function isPasswordValid($password)
-    {
-        return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,20}$/', $password);
-    }
     protected function POST($param)
     {
        
@@ -47,14 +37,14 @@ class UserController extends APIController {
 
         // Check if username only consists of characters and underscore
         $username = $request_data['username'];
-        if (!$this->isUsernameValid($username)) {
+        if (!$this->userService->isUsernameValid($username)) {
             return self::response('Invalid username: max 20 characters and only consists of alphabets, numbers, and underscores', 400);
         }
 
         $password = $request_data['password'];
         
         // Check if password meets the specified criteria
-        if (!$this->isPasswordValid($password)) {
+        if (!$this->userService->isPasswordValid($password)) {
             return self::response('Invalid password format', 400);
         }
 
@@ -73,7 +63,7 @@ class UserController extends APIController {
             }
     
     
-            if ($this->userService->isFullNameExists($firstname, $lastname)) {
+            if ($this->userService->isFullNameExists($firstname, $lastname="")) {
                 return self::response('Combination of firstname and lastname already exists', 400);
             }
     
