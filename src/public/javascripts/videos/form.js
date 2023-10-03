@@ -1,52 +1,52 @@
 const uploadVideo = (e) => {
   e.preventDefault();
-
+  console.log("huh")
   // Create a FormData object from the form
   const formData = new FormData(e.target);
 
   // Get values using FormData.get
   const title = formData.get("title");
-  const thumbnail = formData.get("thumbnail").name;
-  const video_file = formData.get("video_file").name;
-  const video_desc = formData.get("description") ?? "";
-  const tags = formData.get("tags") ?? "";
 
-  // Create an XMLHttpRequest object
+  if (!title) {
+    showToast('Title is required');
+    return;
+  }
+
+  if (!formData.has('video_file') || formData.get('video_file').size === 0) {
+    showToast("Please select video to be uploaded");
+    return;
+  }
+
+  if (!formData.has('thumbnail') || formData.get('thumbnail').size === 0)
+  {
+    showToast('Thumbnail is required');
+    return;
+  }
+  
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "/api/videos", true);
 
-  // Set headers
-  xhr.setRequestHeader("Content-Type", "application/json");
-
-  // Set up the callback for when the request completes
   xhr.onload = function () {
     if (xhr.status === 200) {
-      // // Redirect to /myvideos
-      // console.log("Redirected to: /myvideos");
-      // window.location.href = "/myvideos";
+      console.log("Redirected to: /myvideos");
+      window.location.href = "/myvideos";
     } else {
       // If not a redirect, proceed with handling the response
       const data = JSON.parse(xhr.responseText);
       // Handle the response data
-      console.log("Response:", data);
+      showToast(data.message);
     }
   };
+
+  xhr.onprogress = function () {
+
+  }
 
   // Set up the callback for errors
   xhr.onerror = function (error) {
     // Handle errors
-    console.error("Error:", error);
+    showToast(error);
   };
 
-  // Create the request body
-  const requestBody = JSON.stringify({
-    title,
-    thumbnail,
-    video_file,
-    video_desc,
-  });
-  console.log(requestBody);
-
-  // Send the request with the body
-  xhr.send(requestBody);
+  xhr.send(formData);
 };

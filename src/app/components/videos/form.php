@@ -53,7 +53,7 @@ function form($pageTitle, $data) {
                     <?php 
                         customInput(
                             "textarea",
-                            "description",
+                            "video_desc",
                             placeholder: "This is my video",
                             inputClasses:"desc-input",
                             inputLabel: "Description"

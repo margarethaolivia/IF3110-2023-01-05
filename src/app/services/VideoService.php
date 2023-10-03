@@ -14,20 +14,21 @@ class VideoService extends Service
         return $res->count;
     }
 
-    public function createVideo($user_id, $data)
+    public function createVideo($data)
     {
-        $query = 'INSERT INTO video (user_id, title, thumbnail, video_file, video_desc) VALUES(:user_id, :title, :thumbnail, :video_file, :video_desc)';
+        $query = 'INSERT INTO video (user_id, title, video_desc, is_official) VALUES(:user_id, :title, :video_desc, :is_official)';
         
-        return $this->getDatabase()->execute(
+        $this->getDatabase()->execute(
             $query,
             [
-                Database::binding('user_id', $user_id),
+                Database::binding('user_id', $data['user_id']),
                 Database::binding('title', $data['title']),
-                Database::binding('thumbnail', $data['thumbnail']),
-                Database::binding('video_file', $data['video_file']),
                 Database::binding('video_desc', $data['video_desc']),
+                Database::binding('is_official', $data['is_official']),
             ]
         );
+
+        return $this->getDatabase()->getLastInsertID();
     }
 
     public function getVideoById($id)
@@ -40,5 +41,33 @@ class VideoService extends Service
                 'bindings' => [Database::binding('video_id', $id)]
             ]
         );
+    }
+
+    public function updateVideo($user_id, $video_id, $data)
+    {
+        // Define the allowed attributes that can be updated
+        $allowedAttributes = ['title', 'video_desc', 'thumbnail', 'video_file', 'is_taken_down', 'taken_down_by', 'take_down_comment'];
+
+        // Prepare the SET part of the SQL query
+        $setClause = '';
+        $bindings = [Database::binding('video_id', $video_id), Database::binding('user_id', $user_id)];
+
+        foreach ($allowedAttributes as $attribute) {
+            if (isset($data[$attribute])) {
+                $setClause .= "$attribute = :$attribute, ";
+                array_push($bindings, Database::binding($attribute, $data[$attribute]));
+            }
+        }
+        
+        // Remove the trailing comma and space from the setClause
+        $setClause = rtrim($setClause, ', ');
+
+        // Construct the SQL query
+        $sql = "UPDATE video SET $setClause WHERE video_id = :video_id AND user_id = :user_id";
+
+        // Execute the update query
+        $res = $this->getDatabase()->execute($sql, $bindings, true);
+
+        return $res;
     }
 }
