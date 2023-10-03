@@ -1,6 +1,6 @@
 <?php
 include_once APP_PATH . '/utils/DateParser.php';
-
+include_once APP_PATH . '/components/elements/popup.php';
 function body($data) {
     $dataParser = new DateParser();
 ?>
@@ -68,6 +68,7 @@ function body($data) {
             <span class="upload-desc">Start sharing your story and connecting with viewers.</span>
             <a href="/videos/upload" class="blue-button upload-button flex flex-col justify-center items-center"><span>Upload Video</span></a>
         </div>
+
     </div>
 <?php
 }

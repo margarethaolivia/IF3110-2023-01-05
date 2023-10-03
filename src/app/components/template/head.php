@@ -32,6 +32,9 @@ function head($data, $template_style_paths = [], $template_script_paths = []) {
             const CSRF_TOKEN = "<?= $_SESSION['csrf_token'] ?? '' ?>";
         </script> -->
         <!-- JavaScript DOM and AJAX -->
+
+        <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/template/global.js" defer></script>
+
         <?php foreach ($data['script_paths'] as $path) : ?>
             <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/<?= $path ?>" defer></script>
         <?php endforeach; ?>
