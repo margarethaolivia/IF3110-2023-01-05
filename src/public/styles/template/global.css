@@ -152,9 +152,9 @@ border-radius: 50%;
     margin-bottom: 0.5rem;
 }
 
-.text-gray {
+/* .text-gray {
     color: #464646;
-}
+} */
 
 .text-lg {
     font-size: 1.25rem;
@@ -341,7 +341,7 @@ border-radius: 50%;
 
 .toast.appear {
 opacity: 1;
-transform: translateY(0);
+transform: translate(0);
 }
 
 .toast.disappear {
@@ -449,6 +449,88 @@ transform: translateX(100%);
         width: 50%;
         max-width: 500px;
     }
+}
+
+/* VIDEO CARDS */
+/* Styling for the video cards */
+#video-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    margin-top: 30px;
+}
+
+.video-card {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: transparent;
+}
+
+.video-card .video-thumbnail {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.video-card .publisher-pic {
+    width: 35px;
+    border-radius: 100%;
+}
+
+.video-card h2 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #0F0F0F;
+}
+
+.publisher-name {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.publisher-info {
+    color: #606060;
+}
+
+.official-logo {
+    color: #0085FF;
+    width: 20px;
+}
+
+.upload-info {
+    font-size: 12px;
+    color: #606060;
+}
+
+.video-card-button {
+    width: 25px;
+    padding: 4px;
+}
+
+.video-delete-button {
+    color: red;
+}
+
+.video-edit-button {
+    color:#606060;
+}
+
+
+
+@media screen and (min-width: 600px) {
+    .video-card {
+        width: 49%
+    }
+    
+}
+
+@media screen and (min-width: 1280px) {
+    .video-card {
+        width: 32%;
+    }
+    
 }
 
 /* ELEMENTS */
