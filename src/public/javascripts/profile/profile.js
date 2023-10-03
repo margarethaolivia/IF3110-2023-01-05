@@ -1,3 +1,4 @@
+
 // Function to remove all additional event listeners of a specific type from an element
 const changeProfilePicture = (e) => {
     const selectedFile = e.target.files[0];
@@ -47,20 +48,7 @@ const showProfileFormPopUp = (popUpId, action) => {
 
     if (popUpElement) {
         // Find the button with class "action-button" inside the popUpElement
-        const actionButton = popUpElement.querySelector('.action-button');
-        const cancelButton = popUpElement.querySelector('.cancel-button');
-        const closeAction = cancelButton.onclick;
-        const initialAction = actionButton.onclick;
-
-        if (actionButton) {
-            const actions = () => {
-                action();
-                closeAction({target: actionButton});
-                actionButton.onclick = initialAction;
-            }
-            
-            actionButton.onclick = actions;
-        }
+        addPopUpAction(popUpElement, action);
 
         // Set the display of popUpElement to block
         popUpElement.style.display = 'flex';

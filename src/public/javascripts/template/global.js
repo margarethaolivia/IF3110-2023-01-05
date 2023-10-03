@@ -1,3 +1,18 @@
+const addPopUpAction = (popUpElement, action) => {
+    const actionButton = popUpElement.querySelector('.action-button');
+    const initialAction = actionButton.onclick;
+
+    if (actionButton && initialAction) {
+        const actions = () => {
+            action();
+            closePopUp({target: actionButton});
+            actionButton.onclick = initialAction;
+        }
+        
+        actionButton.onclick = actions;
+    }
+}
+
 const closePopUp = (e) => {
 
     const targetElement = e.target;
@@ -11,4 +26,3 @@ const closePopUp = (e) => {
     });
     
 }
-

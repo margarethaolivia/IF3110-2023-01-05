@@ -35,7 +35,7 @@ function head($data, $template_style_paths = [], $template_script_paths = []) {
 
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/template/global.js" defer></script>
 
-        <?php foreach ($data['script_paths'] as $path) : ?>
+        <?php  foreach ($data['script_paths'] as $path) : ?>
             <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/<?= $path ?>" defer></script>
         <?php endforeach; ?>
 
