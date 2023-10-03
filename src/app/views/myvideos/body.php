@@ -11,7 +11,7 @@ function body($data) {
                 <h2 class="text-bold">My Videos</h2>
             </div>
             <div class="w-small">
-                <span class="black-button">Upload</span>
+                <a href='videos/upload' class="upload-button">Upload</a>
             </div>
         </div>
         

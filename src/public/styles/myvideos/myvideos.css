@@ -12,18 +12,18 @@
     display: inline;
 }
 
-.black-button {
-    background-color: black;
+.upload-button {
+    background-color: #0085FF;
     color: white;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 0.5rem 2rem;
     float: right;
     cursor: pointer;
 }
 
-.black-button:hover {
-    background-color: #404040;
+.upload-button:hover {
+    background-color: #0271d6;
 }
 
 .black-button-outline {
