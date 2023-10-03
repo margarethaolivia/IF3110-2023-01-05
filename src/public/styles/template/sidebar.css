@@ -36,7 +36,7 @@
 
 /* PANEL CONTENT */
 .panel-content {
-    gap:2rem;
+    gap:1rem;
 }
 
 .panel-content .menu {
@@ -46,10 +46,14 @@
 
 .menu-segment {
     width: 80%;
-    padding-bottom: 30px;
-    gap: 10px;
+    padding-bottom: 15px;
 }
 
 .menu svg{
     width: 30px;
+}
+
+a.menu:hover {
+    background-color: #f5f5f5;
+    border-radius: 10px;
 }
