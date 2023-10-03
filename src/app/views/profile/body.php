@@ -59,7 +59,7 @@ function body($data) {
             <div class="flex flex-row stats">
                 <span class="bd title">Stats</span>
                 <span class="bd text-gray">Joined <?=$dataParser->dateTimeToString($data['user']->created_at)?></span>
-                <span class="bd text-gray">Total 4 videos</span>
+                <span class="bd text-gray">Total <?=$data['video_count']?> video(s)</span>
             </div>
         </div>
 
