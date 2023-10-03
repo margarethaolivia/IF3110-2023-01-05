@@ -322,6 +322,7 @@ border-radius: 50%;
     top: 0;
     left: 0;
     z-index: 100;
+    display: none;
 }
 
 .popup-layout {
@@ -379,6 +380,15 @@ border-radius: 50%;
 .popup-close-button {
     color: #808080;
     border: 1px solid #808080;
+}
+
+.popup-save-button {
+    color: #0085FF;
+    border: 1px solid #0085FF;
+}
+
+.popup-save-button:hover {
+    background-color: #E5F3FF;
 }
 
 .popup-title {

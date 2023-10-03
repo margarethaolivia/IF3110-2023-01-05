@@ -37,21 +37,21 @@ function body($data) {
         </div>
         <div class="flex justify-between main-body">
             <div class="flex flex-row user-forms">
-                <form onsubmit="updateProfile(event)" class="form">
+                <form onsubmit="updateProfile(event, 'popup-change-name')" class="form">
                     <span class="form-label">Change Name</span>
                     <div class="flex flex-col form-inputs">
                         <input id="first_name_input" name="first_name" placeholder="First Name" class="text-gray h-full input" type="text" pattern="^[a-zA-Z]+$"></input>
                         <input id="last_name_input" name="last_name" placeholder="Last Name" class="h-full input" type="text" pattern="^[a-zA-Z]+$"></input>
-                        <button type="submit" class="submit-button h-full">Save</button>
+                        <button type="submit" class="submit-button h-full" id="change-name-button">Save</button>
                     </div>
                 </form>
 
-                <form onsubmit="updateProfile(event)" class="form">
+                <form onsubmit="updateProfile(event, 'popup-change-pass')" class="form">
                     <span class="form-label">Change Password</span>
                     <div class="flex flex-col form-inputs text-gray h-full">
                         <input id="old_password_input" name="old_password" placeholder="Old Password" class="h-full input" type="password"></input>
                         <input id="new_password_input" name="new_password" placeholder="New Password" class="h-full input" type="password"></input>
-                        <button type="submit" class="submit-button h-full">Save</button>
+                        <button type="submit" class="submit-button h-full" id="change-pass-button">Save</button>
                     </div>
                 </form>
             </div>
@@ -68,7 +68,11 @@ function body($data) {
             <span class="upload-desc">Start sharing your story and connecting with viewers.</span>
             <a href="/videos/upload" class="blue-button upload-button flex flex-col justify-center items-center"><span>Upload Video</span></a>
         </div>
-
+        
+        <?php 
+            popup("Change Name", "Are you sure you want to change account name?", "change-name", "Change", actionButtonClass: 'popup-save-button');
+            popup("Change Password", "Are you sure you want to change password?", "change-pass", "Change", actionButtonClass: 'popup-save-button');
+        ?>
     </div>
 <?php
 }

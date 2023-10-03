@@ -1,7 +1,6 @@
 const closePopUp = (e) => {
-    
-    const targetElement = e.target;
 
+    const targetElement = e.target;
     const popupContainers = document.getElementsByClassName('popup-container');
 
     // Check if the clicked element is a child of any popup container
@@ -12,3 +11,4 @@ const closePopUp = (e) => {
     });
     
 }
+

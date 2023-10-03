@@ -1,3 +1,4 @@
+// Function to remove all additional event listeners of a specific type from an element
 const changeProfilePicture = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -41,44 +42,33 @@ const changeProfilePicture = (e) => {
     }
 }
 
+const showProfileFormPopUp = (popUpId, action) => {
+    const popUpElement = document.getElementById(popUpId);
 
-const updateProfile = (e) => {
-    e.preventDefault();
+    if (popUpElement) {
+        // Find the button with class "action-button" inside the popUpElement
+        const actionButton = popUpElement.querySelector('.action-button');
+        const cancelButton = popUpElement.querySelector('.cancel-button');
+        const closeAction = cancelButton.onclick;
+        const initialAction = actionButton.onclick;
 
-    // Create a FormData object from the form
-    const formData = new FormData(e.target);
+        if (actionButton) {
+            const actions = () => {
+                action();
+                closeAction({target: actionButton});
+                actionButton.onclick = initialAction;
+            }
+            
+            actionButton.onclick = actions;
+        }
 
-    // Get values using FormData.get
-    const first_name = formData.get('first_name');
-    const last_name = formData.get('last_name') ?? "";
-    const old_password = formData.get('old_password');
-    const new_password = formData.get('new_password');
-
-    if (!(first_name || last_name || old_password || new_password))
-    {
-        console.log("No data changed");
-        return;
+        // Set the display of popUpElement to block
+        popUpElement.style.display = 'flex';
     }
-
-    if (first_name === "")
-    {
-        console.log("First name can not be empty");
-        console.log(old_password);
-        return;
-    }
-
-    if (old_password === "")
-    {
-        console.log("Old password required");
-        return;
-    }
-
-    if (new_password === "")
-    {
-        console.log("New password required");
-    }
-
-    
+};
+const submitProfileUpdate = (body) =>
+{   
+    const requestBody = JSON.stringify(body);
 
     // Create headers for the request
     const headers = new Headers();
@@ -95,6 +85,9 @@ const updateProfile = (e) => {
     // Set up the event handler for when the request completes
     xhr.onload = function () {
         if (xhr.status == 200) {
+
+            const {first_name, last_name, old_password, new_password} = body;
+
             const fullNameElement = document.getElementById('full_name');
             if (fullNameElement) {
                 fullNameElement.textContent = first_name + ' ' + last_name;
@@ -151,11 +144,53 @@ const updateProfile = (e) => {
         console.error('Error:', xhr.statusText);
     };
 
-     // Create the request body
-     const requestBody = JSON.stringify({ first_name, last_name, old_password, new_password });
     console.log(requestBody);
      // Send the request with the body
-     xhr.send(requestBody);
+    xhr.send(requestBody);
+}
+
+const updateProfile = (e, popUpId) => {
+    e.preventDefault();
+
+    // Create a FormData object from the form
+    const formData = new FormData(e.target);
+
+    // Get values using FormData.get
+    const first_name = formData.get('first_name');
+    const last_name = formData.get('last_name') ?? "";
+    const old_password = formData.get('old_password');
+    const new_password = formData.get('new_password');
+
+    if (!(first_name || last_name || old_password || new_password))
+    {
+        console.log("No data changed");
+        return;
+    }
+
+    if (first_name === "")
+    {
+        console.log("First name can not be empty");
+        console.log(old_password);
+        return;
+    }
+
+    if (old_password === "")
+    {
+        console.log("Old password required");
+        return;
+    }
+
+    if (new_password === "")
+    {
+        console.log("New password required");
+    }
+
+    showProfileFormPopUp(
+        popUpId, 
+        () => submitProfileUpdate({ first_name, last_name, old_password, new_password })
+    )
+
+    
 }
 
 
