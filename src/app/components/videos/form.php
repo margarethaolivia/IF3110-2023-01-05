@@ -9,7 +9,7 @@ function form($pageTitle, $data) {
         <form class="flex flex-row items-center upload-form">
             <div class="flex main-segment w-full">
                 <div class="file-segment flex flex-row justify-between items-center">
-                    <label class="upload-box">
+                    <label class="upload-box video-upload-box">
                         <input type="file" accept="<?=implode(', ', ALLOWED_VIDEOS)?>" hidden/>
                         <div class="upload-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -23,7 +23,7 @@ function form($pageTitle, $data) {
                     <div class="flex flex-row thumbnail-segment">
                         <span class="input-label">Thumbnail <span class="required">*</span></span>
                         <div class="flex flex-col thumbnail-file-segment">
-                            <label class="upload-box">
+                            <label class="upload-box thumbnail-upload-box">
                                 <input type="file" accept="<?=implode(', ', ALLOWED_IMAGES)?>" hidden/>
                                 <div class="upload-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

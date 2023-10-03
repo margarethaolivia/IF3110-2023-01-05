@@ -36,14 +36,17 @@
     display: flex;
     border: 1.5px dashed #D9D9D9;
     border-radius: 10%;
-    width: 350px;
-    aspect-ratio: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #E5F3FF;
     gap: 7px;
 
+}
+
+.video-upload-box {
+    width: 350px;
+    aspect-ratio: 1;
 }
 
 .upload-box:hover {
@@ -65,17 +68,17 @@
 }
 
 
-.thumbnail-segment .upload-box, .thumbnail-segment .thumbnail-image {
+.thumbnail-upload-box, .thumbnail-segment .thumbnail-image {
     width: 150px;
     aspect-ratio: 16/9;
     border-radius: 10px;
 }
 
-.thumbnail-segment .upload-box .desc {
+.thumbnail-upload-box .desc {
     font-size: 12px;
 }
 
-.thumbnail-segment .upload-box .upload-icon {
+.thumbnail-upload-box .upload-icon {
     width: 30px;
 }
 
@@ -96,7 +99,18 @@
     width: 350px;
 }
 
+.custom-input input[type="text"] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 @media screen and (min-width: 1280px) {
+
+    .video-upload-box {
+        width: 450px;
+        border-radius: 30px;
+    
+    }
+    
     .main-segment {
         flex-direction: row;
         justify-content: space-between;
