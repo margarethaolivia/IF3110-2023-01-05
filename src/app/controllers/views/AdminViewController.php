@@ -11,7 +11,7 @@ abstract class AdminViewController extends AuthViewController
 
     protected function authorize()
     {
-        $user = $this->getSessionMiddleware()->authorizeUser();
+        $user = $this->getSessionMiddleware()->authorizeUser(true);
 
         if (!$user->is_admin) {
             echo "no";

@@ -2,7 +2,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS METUBE_USER (
     user_id SERIAL PRIMARY KEY,
-    session_id UUID DEFAULT uuid_generate_v4(),
     username VARCHAR(20) NOT NULL,
     pass VARCHAR(255) NOT NULL,
     first_name VARCHAR(20) NOT NULL,

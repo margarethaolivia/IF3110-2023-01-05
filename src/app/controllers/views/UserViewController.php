@@ -11,6 +11,6 @@ abstract class UserViewController extends AuthViewController
 
     protected function authorize()
     {
-        $user = $this->getSessionMiddleware()->authorizeUser();
+        $user = $this->getSessionMiddleware()->authorizeUser(true);
     }
 }

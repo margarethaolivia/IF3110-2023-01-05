@@ -10,9 +10,10 @@ class SessionMiddleware
         $this->userService = new UserService();
     }
 
-    private function getUser()
+    private function getUser($throwException=false)
     {
-        if (!isset($_SESSION['session_id'])) {
+        if (!isset($_SESSION['user_id'])) {
+            if ($throwException) throw new Exception('Unauthorized', 401);
             $this->sendUnauthorizedResponse();
         }
 
@@ -34,22 +35,24 @@ class SessionMiddleware
         exit;
     }
 
-    public function authorizeUser()
+    public function authorizeUser($throwException=false)
     {
-        $user = $this->getUser();
+        $user = $this->getUser($throwException);
 
         if (!$user) {
+            if ($throwException) throw new Exception('Unauthorized', 401);
             $this->sendUnauthorizedResponse();
         }
 
         return $user;
     }
 
-    public function authorizeAdmin()
+    public function authorizeAdmin($throwException=false)
     {
         $user = $this->getUser();
 
         if (!$user || !$user->is_admin) {
+            if ($throwException) throw new Exception('Unauthorized', 401);
             $this->sendUnauthorizedResponse();
         }
 

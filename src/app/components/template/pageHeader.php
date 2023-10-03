@@ -14,7 +14,7 @@ function pageHeader() {
         </div>
         <div class="nav-links">
             <?php
-                if(isset($_SESSION['session_id']))
+                if(isset($_SESSION['user_id']))
                 {
                 ?>
                 
