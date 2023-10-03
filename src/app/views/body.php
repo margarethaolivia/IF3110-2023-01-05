@@ -1,7 +1,7 @@
 <?php
 
 include_once (APP_PATH . '/components/template/pagination.php');
-include_once APP_PATH . '/components/elements/popup.php';
+include_once APP_PATH . '/components/elements/toast.php';
 
 function body($data) {
 ?>

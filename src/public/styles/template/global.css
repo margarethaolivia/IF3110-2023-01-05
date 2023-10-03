@@ -316,6 +316,54 @@ border-radius: 50%;
       
 }
 
+/* TOAST */
+.toast-container {
+    top: 0;
+    right: 0;
+    z-index: 200;
+    padding-right: 30px;
+    padding-top: 20px;
+    gap: 10px;
+}
+
+.toast {
+    width: 225px;
+    height: 70px;
+    background-color: #f0f7fc;
+    font-size: 12px;
+    padding: 5px 10px 5px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Set your desired shadow values */
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.toast.appear {
+opacity: 1;
+transform: translateY(0);
+}
+
+.toast.disappear {
+opacity: 0;
+transform: translateX(100%);
+}
+
+.toast .toast-value-container {
+    width: 85%;
+    max-height: 95%;
+    overflow: auto;
+    padding-right: 5px;
+}
+
+.toast button {
+    width: 10%;
+}
+
+.toast button svg {
+    color: #0085FF;
+}
+
 /* POPUP */
 
 .popup-container {

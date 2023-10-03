@@ -14,7 +14,7 @@ const changeProfilePicture = (e) => {
             // Handle the successful upload response
             if (xhr.status === 200) {
                 const data = JSON.parse(xhr.responseText);
-                console.log('Upload successful:', data);
+                showToast('Upload successful');
 
                 const reader = new FileReader();
 
@@ -116,13 +116,13 @@ const submitProfileUpdate = (body) =>
             // If not a redirect, proceed with handling the response
             const data = JSON.parse(xhr.responseText);
             // Handle the response data
-            console.log('Response:', data);
+            showToast(data.message);
 
         } else {
             // If not a redirect, proceed with handling the response
             const data = JSON.parse(xhr.responseText);
             // Handle the response data
-            console.log('Response:', data);
+            showToast(data.message);
         }
     };
 
@@ -132,7 +132,6 @@ const submitProfileUpdate = (body) =>
         console.error('Error:', xhr.statusText);
     };
 
-    console.log(requestBody);
      // Send the request with the body
     xhr.send(requestBody);
 }
@@ -151,26 +150,25 @@ const updateProfile = (e, popUpId) => {
 
     if (!(first_name || last_name || old_password || new_password))
     {
-        console.log("No data changed");
+        showToast("No data changed");
         return;
     }
 
     if (first_name === "")
     {
-        console.log("First name can not be empty");
-        console.log(old_password);
+        showToast("First name can not be empty");
         return;
     }
 
     if (old_password === "")
     {
-        console.log("Old password required");
+        showToast("Old password required");
         return;
     }
 
     if (new_password === "")
     {
-        console.log("New password required");
+        showToast("New password required");
     }
 
     showProfileFormPopUp(

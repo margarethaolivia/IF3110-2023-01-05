@@ -2,6 +2,7 @@
 include_once (__DIR__ . '/head.php');
 include_once (__DIR__ . '/pageHeader.php');
 include_once (__DIR__ . '/sidebar.php');
+include_once (APP_PATH . '/components/elements/toast.php');
 
 function pageTemplate($data, $template_body_path) {
         $includeComponents = !isset($data['isPlainPage']) || !$data['isPlainPage'];
@@ -34,6 +35,7 @@ function pageTemplate($data, $template_body_path) {
                 pageHeader();
                 sidebar();
             }
+            toast();
         ?>
     </body>
     </html>
