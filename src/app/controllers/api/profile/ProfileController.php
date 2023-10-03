@@ -7,7 +7,7 @@ class ProfileController extends APIController {
         parent::__construct($folder_path);
     }
 
-    protected function POST($params)
+    protected function PATCH($params)
     {
         $sessionMiddleware = $this->getMiddleware('SessionMiddleware');
         $user = $sessionMiddleware->authorizeUser();

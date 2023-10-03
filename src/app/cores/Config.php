@@ -13,7 +13,8 @@ define('DB_USER', $_ENV['POSTGRES_USER']);
 define('DB_PASSWORD', $_ENV['POSTGRES_PASSWORD']);
 
 // File
-define('MAX_SIZE', 10 * 1024 * 1024);
+define('IMAGE_MAX_SIZE', 10 * 1024 * 1024);
+define('VIDEO_MAX_SIZE', 50 * 1024 * 1024);
 define('ALLOWED_VIDEOS', ['.mp4']);
 
 define('ALLOWED_IMAGES', ['.jpg', '.jpeg', '.png']);

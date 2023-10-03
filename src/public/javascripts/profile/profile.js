@@ -5,7 +5,7 @@ const changeProfilePicture = (e) => {
 
     if (selectedFile) {
         const formData = new FormData();
-        formData.append('file', selectedFile);
+        formData.append('profile_pic', selectedFile);
 
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/api/profile/picture', true);
@@ -56,13 +56,14 @@ const changeProfilePicture = (e) => {
                 reader.readAsDataURL(selectedFile);
 
             } else {
-                console.error('Error uploading file. Server returned:', xhr.status);
+                const data = JSON.parse(xhr.responseText);
+                showToast(data.message);
             }
         });
 
-        xhr.addEventListener('error', () => {
+        xhr.addEventListener('error', (err) => {
             // Handle errors during the upload
-            console.error('Error uploading file. Request failed.');
+            showToast(err);
         });
 
         // Send the FormData with the file
@@ -89,12 +90,12 @@ const submitProfileUpdate = (body) =>
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    const postUrl = `/api/profile`;
+    const requestUrl = `/api/profile`;
 
     // Create a new XMLHttpRequest object
     const xhr = new XMLHttpRequest();
     // Set up the request
-    xhr.open('POST', postUrl, true);
+    xhr.open('PATCH', requestUrl, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     // Set up the event handler for when the request completes

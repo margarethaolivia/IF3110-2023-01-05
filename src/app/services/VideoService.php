@@ -43,6 +43,13 @@ class VideoService extends Service
         );
     }
 
+    public function getUserVideos($user_id)
+    {
+        $query = 'SELECT * FROM video WHERE user_id = :user_id LIMIT 1';
+        $bindings = [Database::binding('user_id', $user_id)];
+        return $this->getDatabase()->fetch(Database::fetchParam($query, $bindings));
+    }
+
     public function updateVideo($user_id, $video_id, $data)
     {
         // Define the allowed attributes that can be updated

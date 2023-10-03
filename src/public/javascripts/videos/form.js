@@ -1,6 +1,5 @@
 const uploadVideo = (e) => {
   e.preventDefault();
-  console.log("huh")
   // Create a FormData object from the form
   const formData = new FormData(e.target);
 

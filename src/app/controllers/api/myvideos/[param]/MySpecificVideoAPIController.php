@@ -1,39 +1,43 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
 
-class VideoAPIController extends APIController {
+class MySpecificVideoAPIController extends APIController {
     public function __construct($folder_path)
     {
         parent::__construct($folder_path);
     }
 
-    protected function POST($param) {
-        $user = $this->getMiddleware('SessionMiddleware')->authorizeuser();
+    protected function POST($params)
+    {
+        $sessionMiddleware = $this->getMiddleware('SessionMiddleware');
+        $user = $sessionMiddleware->authorizeUser();
         $user_id = $user->user_id;
+
         $request_data = [];
     
         // Check if title is empty
-        if (empty($_POST['title'])) {
+        if (empty($_POST['title']) || $_FILES['thumbnail']['error'] !== UPLOAD_ERR_OK) {
             return self::response('Title is required', 400);
         }
     
         // Check if thumbnail is in form data
-        if (!isset($_FILES['video_file'])|| $_FILES['video_file']['error'] !== UPLOAD_ERR_OK || $_FILES['video_file']['size'] === 0) {
-            return self::response('Video is required', 400);
-        }
-    
-        // Check if thumbnail is in form data
-        if (!isset($_FILES['thumbnail'])|| $_FILES['thumbnail']['error'] !== UPLOAD_ERR_OK || $_FILES['thumbnail']['size'] === 0) {
+        if (!isset($_FILES['thumbnail'])|| $_FILES['video_file']['error'] !== UPLOAD_ERR_OK) {
             return self::response('Thumbnail is required', 400);
         }
-        
+
+        $maxThumbnailSize = 5 * 1024 * 1024; // 5 MB
+        if ($_FILES['thumbnail']['size'] > $maxThumbnailSize) {
+            return self::response('Thumbnail size exceeds the limit', 400);
+        }
+
         // Check video file size
         if ($_FILES['video_file']['size'] > VIDEO_MAX_SIZE) {
             return self::response('Video size exceeds the limit', 400);
         }
-
-        if ($_FILES['thumbnail']['size'] > IMAGE_MAX_SIZE) {
-            return self::response('Thumbnail size exceeds the limit', 400);
+    
+        // Check if video_file is in form data
+        if (!isset($_FILES['video_file'])) {
+            return self::response('Video is required', 400);
         }
     
         $request_data['user_id'] = $user_id;
@@ -85,20 +89,6 @@ class VideoAPIController extends APIController {
     
             return self::response('Video is uploaded', 201);
     
-        } catch (Exception $e) {
-            $this->sendResponseOnError($e);
-        }
-    }
-
-    protected function GET($params)
-    {
-        $request_data = $this->getBody();
-        try {
-            $videoService = $this->getService('VideoService');
-            $videoService->getVideoById($request_data);            
-            $redirect_value = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-            header("Location: " . BASE_URL . "/videos/" . ltrim($request_data, '/'), true, 302);
-            exit();
         } catch (Exception $e) {
             $this->sendResponseOnError($e);
         }
