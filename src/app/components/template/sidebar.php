@@ -25,7 +25,7 @@ function sidebar() {
                     ?>
                 </div>
 
-                <?php if (isset($_SESSION['user_id'])) : ?>
+                <?php if (isset($_SESSION['session_id'])) : ?>
 
                     <div class="bd flex flex-row menu-segment">
                         <?php 
@@ -70,7 +70,7 @@ function sidebar() {
                     </div>
                 <?php endif; ?>
                 
-                <?php if (!isset($_SESSION['user_id'])) : ?>
+                <?php if (!isset($_SESSION['session_id'])) : ?>
                     <div class="flex flex-row menu-segment">
                         <span>Sign in to comment and create videos.</span>
                         <?php 

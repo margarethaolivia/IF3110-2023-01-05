@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/SessionHelper.php';
 
 class UserController extends APIController {
     private $userService;
@@ -63,15 +64,19 @@ class UserController extends APIController {
             }
     
     
-            if ($this->userService->isFullNameExists($firstname, $lastname="")) {
+            if ($this->userService->isFullNameExists($firstname, $lastname)) {
                 return self::response('Combination of firstname and lastname already exists', 400);
             }
     
             // Additional checks or actions can be added as needed
     
             // If all checks pass, you can proceed with creating the user account
-    
-            $this->userService->createUser($request_data);
+            
+     
+            $user_id = $this->userService->createUser($request_data);
+            $user = $this->userService->getUserById($user_id);
+            $helper = new SessionHelper();
+            $helper->startSession($user);
             
             $redirect_value = isset($_GET['redirect']) ? $_GET['redirect'] : '';
             header("Location: " . BASE_URL . "/" . ltrim($redirect_value, '/'), true, 302);

@@ -21,7 +21,7 @@ class UserService extends Service
             'cost' => BCRYPT_COST
         ];
         
-        return $this->getDatabase()->execute(
+        $this->getDatabase()->execute(
             $query,
             [
                 Database::binding('username', $data['username']),
@@ -30,6 +30,8 @@ class UserService extends Service
                 Database::binding('last_name', $data['last_name']),
             ]
         );
+
+        return $this->getDatabase()->getLastInsertID();
     }
 
     public function getUserById($id)

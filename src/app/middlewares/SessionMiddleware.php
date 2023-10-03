@@ -12,8 +12,8 @@ class SessionMiddleware
 
     private function getUser()
     {
-        if (!isset($_SESSION['user_id'])) {
-            throw new Exception('Unauthorized', 401);
+        if (!isset($_SESSION['session_id'])) {
+            $this->sendUnauthorizedResponse();
         }
 
         return $this->userService->getUserById($_SESSION['user_id']);

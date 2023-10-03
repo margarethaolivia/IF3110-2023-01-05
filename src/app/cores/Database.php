@@ -110,10 +110,10 @@ class Database
         }
     }
     
-    public function getLastInsertID()
+    public function getLastInsertID($name=null)
     {
         try {
-            return $this->db_connection->lastInsertId();
+            return $this->db_connection->lastInsertId($name);
         } catch (PDOException) {
             throw new Exception('Internal Server Error', 500);
         }

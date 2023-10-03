@@ -19,11 +19,38 @@ const changeProfilePicture = (e) => {
                 const reader = new FileReader();
 
                 reader.onload = function () {
+
                     // Update the 'src' attribute of the image element with ID 'profile_pic'
                     const profilePics = document.querySelectorAll('.profile_pic');
                     profilePics.forEach((profilePic) => {
                         profilePic.src = reader.result;
                     });
+
+                    if (profilePics.length === 0)
+                    {
+                        // Remove child elements with class "profile_svg"
+                        const profilePicture = document.querySelector('.profile-picture');
+                        const profileLink = document.querySelector('.profile-link');
+
+                        // Remove child elements with class "profile_svg"
+                        const profileSvgElements = document.querySelectorAll('.profile_svg');
+                        profileSvgElements.forEach((profileSvg) => {
+                            profileSvg.remove();
+                        });
+
+                        // Add the new image element with class "profile_pic"
+                        const newImage1 = document.createElement('img');
+                        newImage1.classList.add('profile_pic');
+                        newImage1.src = reader.result;
+
+                        const newImage2 = document.createElement('img');
+                        newImage2.classList.add('profile_pic');
+                        newImage2.src = reader.result;
+
+                        // Append the new image to the desired elements
+                        profilePicture.appendChild(newImage1);
+                        profileLink.appendChild(newImage2);
+                    }
                 };
 
                 reader.readAsDataURL(selectedFile);

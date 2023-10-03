@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/SessionHelper.php';
 
 class LogOutController extends APIController {
     public function __construct($folder_path)
@@ -9,9 +10,8 @@ class LogOutController extends APIController {
 
     protected function POST($params)
     {
-        session_unset();    
-        session_destroy();
-        setcookie(session_name(), '', time() - 3600, '/');
+        $helper = new SessionHelper();
+        $helper->terminateSession();
         header("Location: " . BASE_URL, 302);
         exit();
     }

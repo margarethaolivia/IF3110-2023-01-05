@@ -31,9 +31,12 @@ abstract class Controller
     }
 
     protected function sendResponseOnError($e) {
+
+        $code = $e->getCode();
+
         $this->sendResponse(self::response(
             $e->getMessage(),
-            $e->getCode()
+            (is_numeric($code) ? $code : 500)
         ));
     }
 

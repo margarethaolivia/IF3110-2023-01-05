@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/SessionHelper.php';
 
 class LogInController extends APIController {
 
@@ -38,14 +39,8 @@ class LogInController extends APIController {
             return self::response('Incorrect username or password', 401);
         }
 
-        // Set session (assuming you have started the session)
-        session_start();
-        $_SESSION['user_id'] = $user->user_id;
-        $_SESSION['profile_pic'] = $user->profile_pic;
-        $_SESSION['is_admin'] = $user->is_admin;
-
-        // Set a cookie (adjust parameters as needed)
-        setcookie('user', $username, time() + 3600, '/');
+        $helper = new SessionHelper();
+        $helper->startSession($user);
 
         // Redirect the user based on the value in query parameters
         $redirect_value = isset($_GET['redirect']) ? $_GET['redirect'] : '';
