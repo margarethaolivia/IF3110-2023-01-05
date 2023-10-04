@@ -14,9 +14,6 @@ class VideoController extends ViewController
         $videoService = $this->getService('videoService');
         $getVideoById = $videoService->getVideoById($params[0]);
 
-        $userService = $this->getService('userService');
-        $getUserById = $userService->getUserById($getVideoById->user_id);
-
         $commentService = $this->getService('commentService');
         $getCommentByVideoId = $commentService->getCommentByVideoId($params[0]);
 
@@ -25,7 +22,6 @@ class VideoController extends ViewController
             'script_paths' => ['videos/videos.js'],
             'style_paths' => ['videos/videos.css'],
             'video' => $getVideoById,
-            'creator' => $getUserById,
             'comments' => $getCommentByVideoId,
         ];
     }

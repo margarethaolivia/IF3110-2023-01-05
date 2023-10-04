@@ -47,7 +47,7 @@ class VideoService extends Service
 
     public function getVideoById($id)
     {
-        $query = 'SELECT * FROM video WHERE video_id = :video_id LIMIT 1';
+        $query = 'SELECT * FROM video INNER JOIN metube_user USING (user_id) WHERE video_id = :video_id LIMIT 1';
 
         return $this->getDatabase()->fetch(
             [
