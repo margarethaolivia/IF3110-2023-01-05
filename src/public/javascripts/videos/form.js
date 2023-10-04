@@ -26,12 +26,13 @@ const uploadVideo = (e) => {
   xhr.open("POST", "/api/videos", true);
 
   xhr.onload = function () {
+    const data = JSON.parse(xhr.responseText);
     if (xhr.status === 200) {
-      console.log("Redirected to: /myvideos");
-      window.location.href = "/myvideos";
+      showToast(data.message);
+      // console.log("Redirected to: /myvideos");
+      // window.location.href = "/myvideos";
     } else {
       // If not a redirect, proceed with handling the response
-      const data = JSON.parse(xhr.responseText);
       // Handle the response data
       showToast(data.message);
     }

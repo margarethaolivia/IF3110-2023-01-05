@@ -62,7 +62,6 @@ abstract class APIController extends Controller
 
     public function index($params)
     {
-
         $data = [];
         
         switch ($_SERVER['REQUEST_METHOD']) {

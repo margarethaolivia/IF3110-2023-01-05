@@ -16,6 +16,9 @@ function body($data) {
                 <a href='videos/upload' class="upload-button">Upload</a>
             </div>
         </div>
+        <?php if (count($videos) === 0) : ?>
+            <span class="empty-message">Empty List</span>
+        <?php endif; ?>
         <section id="video-list" class="mb-2">
             <?php  
                 foreach ($videos as $video) {
