@@ -89,18 +89,4 @@ class VideoAPIController extends APIController {
             $this->sendResponseOnError($e);
         }
     }
-
-    protected function GET($params)
-    {
-        $request_data = $this->getBody();
-        try {
-            $videoService = $this->getService('VideoService');
-            $videoService->getVideoById($request_data);            
-            $redirect_value = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-            header("Location: " . BASE_URL . "/videos/" . ltrim($request_data, '/'), true, 302);
-            exit();
-        } catch (Exception $e) {
-            $this->sendResponseOnError($e);
-        }
-    }
 }
