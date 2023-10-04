@@ -2,4 +2,4 @@
 db/*
 src/public/images/profile/*
 src/public/images/thumbnails/*
-src/public/videos/*
+src/public/videoFile/*
