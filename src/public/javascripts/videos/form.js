@@ -28,7 +28,7 @@ const onVideoChange = (e) => {
   updateVideoFileDesc(selectedFile);
 };
 
-const onThumbnailChange = (e) => {
+const onThumbnailChange = (e, keepValue=false) => {
   const selectedFile = e.target.files[0];
   const container = document.querySelector('.thumbnail-image');
   const noThumbnailText = document.querySelector('.no-thumbnail-text');
@@ -54,7 +54,7 @@ const onThumbnailChange = (e) => {
 
     reader.readAsDataURL(selectedFile);
 
-  } else {
+  } else if (!keepValue) {
     var thumbnailPreview = document.getElementById(imageId)
 
       if (thumbnailPreview) {
