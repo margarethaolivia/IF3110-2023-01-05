@@ -19,7 +19,7 @@ class VideoController extends ViewController
     }
 
     public function index($params)
-    {
+    {   
         $view = $this->getView($this->getData($params));
         $view->render();
     } 
