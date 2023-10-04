@@ -13,6 +13,12 @@
 } */
 
 /* MAIN SEGMENT */
+
+video {
+    width: 350px;
+    height: auto;
+}
+
 .main-segment {
     flex-direction: column;
     gap: 2rem;
@@ -72,6 +78,7 @@
     width: 150px;
     aspect-ratio: 16/9;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .thumbnail-upload-box .desc {
@@ -92,6 +99,7 @@
 .thumbnail-segment .thumbnail-image img {
     max-width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
 .desc-input {
@@ -127,7 +135,7 @@
     }
 
     .input-segment {
-        width: 50%;
+        width: 65%;
         justify-content: space-between;
         height: 100%;
     }

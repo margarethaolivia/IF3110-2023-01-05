@@ -6,7 +6,9 @@ function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $ed
     $parser = new DateParser();
 ?> 
     <div id="<?=$cardId?>" class="video-card">
-        <img class="video-thumbnail" src="<?=$video->thumbnail?>" alt="Video Thumbnail">
+        <div class="card-thumbnail-container">
+            <img class="video-thumbnail" src="<?=$video->thumbnail?>" alt="Video Thumbnail">
+        </div>
         <div class="flex">
             <?php if (!$noUser) : ?>
                 <div class="w-small">

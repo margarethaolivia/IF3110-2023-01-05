@@ -470,11 +470,21 @@ transform: translateX(100%);
     cursor: pointer;
 }
 
-.video-card .video-thumbnail {
+.video-card .card-thumbnail-container {
     max-width: 100%;
-    height: auto;
+    aspect-ratio: 16 / 9;
     border-radius: 20px;
     margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.video-card .video-thumbnail {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.video-card img {
+    object-fit: cover;
 }
 
 .video-card .publisher-pic {
@@ -594,6 +604,10 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
+}
+
+video {
+    border-radius: 20px;
 }
 
 /* SCROLLBAR */
