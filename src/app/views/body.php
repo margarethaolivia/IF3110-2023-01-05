@@ -5,6 +5,7 @@ include_once APP_PATH . '/components/elements/toast.php';
 include_once APP_PATH . '/components/elements/videoCard.php';
 
 function body($data) {
+    $videos = $data['videos'];
 ?>
     <main class="pb-2">
         <div class="flex items-center">
@@ -38,16 +39,12 @@ function body($data) {
         </div>
         
         <section id="video-list" class="mb-2">
-            <?php  
-                videoCard();
-                videoCard();
-                videoCard();
-                videoCard();
-                videoCard();
-                videoCard();
-                videoCard();
-                videoCard();
-            ?>            
+
+            <?php 
+                foreach ($videos as $video) {
+                    videoCard($video);
+                }
+            ?>     
         </section>
         <?php 
             pagination(10);

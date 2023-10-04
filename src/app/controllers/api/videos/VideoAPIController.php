@@ -7,6 +7,18 @@ class VideoAPIController extends APIController {
         parent::__construct($folder_path);
     }
 
+    protected function GET($param) {
+        try {
+            $videoService = $this->getService('VideoService');
+            $videos = $videoService->getAllVideo(1);
+
+            return self::response('Videos is fetched', 200, ['videos' => $videos]);
+    
+        } catch (Exception $e) {
+            $this->sendResponseOnError($e);
+        }
+    }
+
     protected function POST($param) {
         $user = $this->getMiddleware('SessionMiddleware')->authorizeuser();
         $user_id = $user->user_id;

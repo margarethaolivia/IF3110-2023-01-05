@@ -5,7 +5,7 @@ require_once APP_PATH . '/utils/DateParser.php';
 function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $editLink="", $cardId="") {
     $parser = new DateParser();
 ?> 
-    <div id="<?=$cardId?>" class="video-card">
+    <div id="<?=$cardId?>" class="video-card" onclick="<?='watchVideo(event, ' . $video->video_id . ')'?>">
         <div class="card-thumbnail-container">
             <img class="video-thumbnail" src="<?=$video->thumbnail?>" alt="Video Thumbnail">
         </div>
@@ -20,11 +20,13 @@ function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $ed
                 <?php if (!$noUser) : ?>
                     <div class="flex flex-col items-center publisher-info">
                         <span class="publisher-name flex align-center"><?=$video->full_name?></span>
-                        <div class="official-logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
+                        <?php if ($video->is_official) : ?>
+                            <div class="official-logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
                 <p class="upload-info">Uploaded <?=$parser->dateTimeToString($video->created_at)?></p>

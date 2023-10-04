@@ -35,13 +35,14 @@ class VideoService extends Service
     {
         $offset = ($page_number - 1) * 9;
 
-        $query = "SELECT * FROM video WHERE is_taken_down = false OFFSET $offset LIMIT 9";
+        $query = "SELECT video_id, title, thumbnail, is_official, video.created_at, first_name || ' ' || last_name as full_name 
+        FROM video INNER JOIN metube_user USING(user_id) 
+        WHERE is_taken_down = false AND is_taken_down = FALSE 
+        OFFSET :offset LIMIT 9";
 
-        return $this->getDatabase()->fetch(
-            [
-                'query' => $query
-            ]
-        );
+        $videos = $this->getDatabase()->fetchAll(Database::fetchParam($query, [Database::binding('offset', $offset)]));
+        
+        return $videos;
     }
 
     public function getVideoById($id)

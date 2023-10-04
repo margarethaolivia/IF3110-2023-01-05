@@ -1,3 +1,15 @@
+function watchVideo(event, videoId) {
+    const target = event.target;
+
+    // Check if the clicked element is one of the buttons
+    const isButton = target.closest('.video-edit-button') || target.closest('.video-delete-button');
+
+    if (!isButton) {
+        // Redirect to /videos/videoid
+        window.location.href = `/videos/${videoId}`;
+    }
+}
+
 function closeToast(toastContainer, toastElement) {
     // Remove the provided toast element
     toastElement.classList.add('disappear');

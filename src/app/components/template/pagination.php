@@ -26,7 +26,7 @@ function pagination($maxNum) {
     $upperLimit = $maxNum > $maxButton ? $maxNum - 1 : $maxNum + 1;
 ?>
     <div class="pagination flex flex-col w-full justify-center">
-        <?php prevButton() ?>
+        <!-- <?php prevButton() ?>
         <?php  
             for ($i = 1; $i <= $lowerLimit; $i++) {
                 pageButton($i);
@@ -38,7 +38,7 @@ function pagination($maxNum) {
                 pageButton($i);
             }
         ?>
-        <?php nextButton() ?>
+        <?php nextButton() ?> -->
     </div>
 <?php
 }
