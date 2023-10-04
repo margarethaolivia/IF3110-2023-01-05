@@ -537,6 +537,12 @@ transform: translateX(100%);
     color:#606060;
 }
 
+.comment-edit-button {
+    padding: 0.25rem 1rem;
+    border: 1px solid #000;
+    border-radius: 10px;;
+}
+
 
 
 @media screen and (min-width: 600px) {
