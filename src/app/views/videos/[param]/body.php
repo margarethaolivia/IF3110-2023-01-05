@@ -3,47 +3,12 @@ function body($data) {
 ?>
     <div>
         <div class="flex">
-            <div class="w-75">
+            <div class="w-full">
                 <video class="w-full" controls>
                     <source src="movie.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-            </div>
-            <div class="other-video-container w-25 px-3">
-                <p class="text-bold text-lg pb-3">Other Videos</p>
-                <div class="overflow-x-auto max-h-min">
-                    <div class="flex pb-2">
-                        <div class="w-40">
-                            <img class="w-full" src="https://t4.ftcdn.net/jpg/05/18/69/85/360_F_518698520_Xk9tIwoYpyX6kkVsF6GpQ1z7sKXO8YRz.jpg" alt="Video Thumbnail">
-                        </div>
-                        <div class="w-60 px-2">
-                            <p class="text-md text-bold">Tulus - Interaksi (Official Music Video)</p>
-                            <p class="text-grey text-sm p-1">Teman Tulus</p>
-                            <p class="text-grey text-sm pt-1">Uploaded 20/09/2023</p>
-                        </div>
-                    </div>
-                    <div class="flex pb-2">
-                        <div class="w-40">
-                            <img class="w-full" src="https://t4.ftcdn.net/jpg/05/18/69/85/360_F_518698520_Xk9tIwoYpyX6kkVsF6GpQ1z7sKXO8YRz.jpg" alt="Video Thumbnail">
-                        </div>
-                        <div class="w-60 px-2">
-                            <p class="text-md text-bold">Tulus - Interaksi (Official Music Video)</p>
-                            <p class="text-grey text-sm p-1">Teman Tulus</p>
-                            <p class="text-grey text-sm pt-1">Uploaded 20/09/2023</p>
-                        </div>
-                    </div>
-                    <div class="flex pb-2">
-                        <div class="w-40">
-                            <img class="w-full" src="https://t4.ftcdn.net/jpg/05/18/69/85/360_F_518698520_Xk9tIwoYpyX6kkVsF6GpQ1z7sKXO8YRz.jpg" alt="Video Thumbnail">
-                        </div>
-                        <div class="w-60 px-2">
-                            <p class="text-md text-bold">Tulus - Interaksi (Official Music Video)</p>
-                            <p class="text-grey text-sm p-1">Teman Tulus</p>
-                            <p class="text-grey text-sm pt-1">Uploaded 20/09/2023</p>
-                        </div>
-                    </div>
-                </div>
-            </div>    
+            </div>   
         </div>
         
         <div class="my-2">
