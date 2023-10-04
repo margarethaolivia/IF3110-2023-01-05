@@ -2,9 +2,15 @@
 include_once __DIR__ . '/FileHandler.php';
 
 class ProfilePicHandler extends FileHandler {
+
+    protected function getMiddlePath()
+    {
+        return "/images/profile";
+    }
+
     public function getRoute($id, $extension)
     {
-        return "/images/profile/$id/pic" . $extension;
+        return $this->getMiddlePath() . "/$id/pic" . $extension;
     }
 
     public function getFilePath($id, $extension)

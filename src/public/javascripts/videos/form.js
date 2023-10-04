@@ -26,6 +26,7 @@ const uploadVideo = (e) => {
   xhr.open("POST", "/api/videos", true);
 
   xhr.onload = function () {
+    console.log(xhr.responseText);
     const data = JSON.parse(xhr.responseText);
     if (xhr.status === 200) {
       showToast(data.message);

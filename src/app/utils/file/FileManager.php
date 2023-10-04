@@ -10,7 +10,7 @@ class FileManager {
     public function __construct()
     {
         $this->handlerMap = [
-            'video_file' => new ProfilePicHandler(),
+            'video_file' => new VideoFileHandler(),
             'thumbnail' => new ThumbnailFileHandler(),
             'profile_pic' => new ProfilePicHandler()
         ];
@@ -19,5 +19,10 @@ class FileManager {
     public function writeFile($id, $extension, $formDataName)
     {
         return $this->handlerMap[$formDataName]->writeFile($id, $extension, $formDataName);
+    }
+
+    public function deleteFile($publicUrl, $formDataName)
+    {
+        return $this->handlerMap[$formDataName]->deleteFile($publicUrl);
     }
 }

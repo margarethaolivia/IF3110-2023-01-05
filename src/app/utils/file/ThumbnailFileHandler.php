@@ -2,9 +2,15 @@
 include_once __DIR__ . '/FileHandler.php';
 
 class ThumbnailFileHandler extends FileHandler {
+
+    protected function getMiddlePath()
+    {
+        return "/images/thumbnails";
+    }
+
     public function getRoute($id, $extension)
     {
-        return "/images/thumbnails/$id/pic.$extension";
+        return $this->getMiddlePath() . "/$id/pic.$extension";
     }
 
     public function getFilePath($id, $extension)

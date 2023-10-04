@@ -3,9 +3,15 @@
 include_once __DIR__ . '/FileHandler.php';
 
 class VideoFileHandler extends FileHandler {
+
+    protected function getMiddlePath()
+    {
+        return "/videoFiles";
+    }
+    
     public function getRoute($id, $extension)
     {
-        return "/videoFile/$id/vid.$extension"; 
+        return $this->getMiddlePath() . "/$id/vid.$extension"; 
     }
 
     public function getFilePath($id, $extension)
