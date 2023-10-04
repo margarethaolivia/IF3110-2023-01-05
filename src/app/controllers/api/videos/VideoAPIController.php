@@ -50,7 +50,7 @@ class VideoAPIController extends APIController {
             $videoExtension = pathinfo($_FILES['video_file']['name'], PATHINFO_EXTENSION);
     
             $thumbnailRoute = "/images/thumbnails/$video_id/pic.$thumbnailExtension";
-            $videoRoute = "/videos/$video_id/vid.$videoExtension"; 
+            $videoRoute = "/videoFile/$video_id/vid.$videoExtension"; 
     
             $thumbnailPath = BASE_URL . $thumbnailRoute;
             $videoPath = BASE_URL . $videoRoute;
