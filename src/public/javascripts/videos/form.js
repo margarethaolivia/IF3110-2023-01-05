@@ -1,3 +1,41 @@
+const onThumbnailChange = (e) => {
+  const selectedFile = e.target.files[0];
+  const container = document.querySelector('.thumbnail-image');
+  const noThumbnailText = document.querySelector('.no-thumbnail-text');
+  const imageId = 'thumbnail-preview';
+
+  if (selectedFile) {
+    // If a file is selected, set the source of the thumbnailPreview
+    const reader = new FileReader();
+
+    reader.onload = function () {
+      var thumbnailPreview = document.getElementById(imageId)
+
+      if (!thumbnailPreview) {
+        // Create a new img element
+        thumbnailPreview = document.createElement('img');
+        thumbnailPreview.id = 'thumbnail-preview';
+        container.appendChild(thumbnailPreview);
+      }
+
+      thumbnailPreview.src = reader.result;
+      noThumbnailText.style.display = 'none'; // Hide the text
+    };
+
+    reader.readAsDataURL(selectedFile);
+
+  } else {
+    var thumbnailPreview = document.getElementById(imageId)
+
+      if (thumbnailPreview) {
+        
+        thumbnailPreview.remove();
+      }
+    noThumbnailText.style.display = 'flex'; // Show the text
+  }
+};
+
+
 const uploadVideo = (e) => {
   e.preventDefault();
   // Create a FormData object from the form
