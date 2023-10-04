@@ -613,43 +613,43 @@ video {
 /* SCROLLBAR */
 /* For WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {
-width: 5px; /* Width of the scrollbar */
-height: 4px;
+    width: 5px; /* Width of the scrollbar */
+    height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-background-color: #808080; /* Color of the thumb */
-border-radius: 8px; /* Rounded corners of the thumb */
+    background-color: #808080; /* Color of the thumb */
+    border-radius: 8px; /* Rounded corners of the thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-background-color: #737373; /* Color of the thumb on hover */
+    background-color: #737373; /* Color of the thumb on hover */
 }
 
 /* For Firefox and some other browsers */
 .scrollbar {
-scrollbar-width: thin; /* Width of the scrollbar */
-scrollbar-color: #808080 #737373; /* Color of the thumb and track */
+    scrollbar-width: thin; /* Width of the scrollbar */
+    scrollbar-color: #808080 #737373; /* Color of the thumb and track */
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-background-color: #737373;
-border-radius: 8px;
+    background-color: #737373;
+    border-radius: 8px;
 }
 
 .scrollbar::-webkit-scrollbar-thumb:hover {
-background-color: #737373;
+    background-color: #737373;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
-display: none;
+    display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
--ms-overflow-style: none;  /* IE and Edge */
-scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
 

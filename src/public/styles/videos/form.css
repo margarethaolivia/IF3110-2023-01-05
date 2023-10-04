@@ -85,6 +85,16 @@ video {
     font-size: 12px;
 }
 
+.video-file-desc {
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.video-file-desc-container {
+    width: 300px;
+    overflow-x: scroll;
+}
+
 .thumbnail-upload-box .upload-icon {
     width: 30px;
 }
@@ -132,6 +142,37 @@ video {
     padding-bottom: 10px;
 }
 
+/* SCROLLBAR */
+/* For WebKit (Chrome, Safari) */
+.video-file-desc-container ::-webkit-scrollbar {
+    height: 7px;
+}
+
+.video-file-desc-container ::-webkit-scrollbar-thumb {
+background-color: #57AEFF; /* Color of the thumb */
+border-radius: 8px; /* Rounded corners of the thumb */
+}
+
+.video-file-desc-container ::-webkit-scrollbar-thumb:hover {
+background-color: #57AEFF; /* Color of the thumb on hover */
+}
+
+/* For Firefox and some other browsers */
+.video-file-desc-container .scrollbar {
+scrollbar-width: thin; /* Width of the scrollbar */
+scrollbar-color: #57AEFF #57AEFF; /* Color of the thumb and track */
+}
+
+.video-file-desc-container .scrollbar::-webkit-scrollbar-thumb {
+background-color: #57AEFF;
+border-radius: 8px;
+}
+
+.video-file-desc-container .scrollbar::-webkit-scrollbar-thumb:hover {
+background-color: #57AEFF;
+}
+
+    
 @media screen and (min-width: 1280px) {
 
     .video-upload-box {
