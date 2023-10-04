@@ -13,6 +13,49 @@ class MySpecificVideoAPIController extends APIController {
         $this->fileManager = new FileManager();
     }
 
+    protected function POST($params)
+    {
+        $user = $this->getMiddleware('SessionMiddleware')->authorizeuser();
+        $user_id = $user->user_id;
+        $request_data = [];
+        $video_id = $params[0];
+    
+        // Check if title is empty
+        if (empty($_POST['title'])) {
+            return self::response('Title is required', 400);
+        }
+
+        if ($_FILES['thumbnail']['size'] > IMAGE_MAX_SIZE) {
+            return self::response('Thumbnail size exceeds the limit', 400);
+        }
+    
+        $request_data['title'] = $_POST['title'];
+        $request_data['video_desc'] = $_POST['video_desc'] ?? '';
+
+        $videoService = $this->getService('VideoService');
+
+        try {
+            if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK && $_FILES['thumbnail']['size'] > 0) {
+                
+                $thumbnailExtension = pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION);
+                $video = $videoService->getVideoById($video_id);
+
+                $manager = new FileManager();
+                $manager->deleteFile($video->thumbnail, 'thumbnail', false);
+                $thumbnailPath = $manager->writeFile($video_id, $thumbnailExtension, 'thumbnail');
+
+                $request_data['thumbnail'] = $thumbnailPath;
+            }
+
+            $videoService->updateVideo($user_id, $video_id, $request_data);
+    
+            return self::response('Video is updated', 200);
+    
+        } catch (Exception $e) {
+            $this->sendResponseOnError($e);
+        }
+    }
+
     protected function DELETE($params)
     {
         $sessionMiddleware = $this->getMiddleware('SessionMiddleware');

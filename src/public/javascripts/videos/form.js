@@ -49,7 +49,11 @@ const onThumbnailChange = (e, keepValue=false) => {
       }
 
       thumbnailPreview.src = reader.result;
-      noThumbnailText.style.display = 'none'; // Hide the text
+
+      if (noThumbnailText)
+      {
+        noThumbnailText.style.display = 'none'; // Hide the text
+      }
     };
 
     reader.readAsDataURL(selectedFile);
@@ -65,6 +69,45 @@ const onThumbnailChange = (e, keepValue=false) => {
   }
 };
 
+const updateVideo = (e, videoId) => {
+  e.preventDefault();
+
+  // Create a FormData object from the form
+  const formData = new FormData(e.target);
+
+  // Get values using FormData.get
+  const title = formData.get("title");
+  console.log(title);
+  if (!title) {
+    showToast('Title is required');
+    return;
+  }
+  
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", `/api/myvideos/${videoId}`, true);
+
+  xhr.onload = function () {
+    const data = JSON.parse(xhr.responseText);
+    if (xhr.status === 200) {
+      showToast(data.message);
+      console.log("Redirected to: /myvideos");
+      window.location.href = "/myvideos";
+    } else {
+      // If not a redirect, proceed with handling the response
+      // Handle the response data
+      showToast(data.message);
+    }
+  };
+
+  // Set up the callback for errors
+  xhr.onerror = function (error) {
+    // Handle errors
+    showToast(error);
+  };
+
+  console.log(formData.get('thumbnail'))
+  xhr.send(formData);
+}
 
 const uploadVideo = (e) => {
   e.preventDefault();
@@ -94,7 +137,6 @@ const uploadVideo = (e) => {
   xhr.open("POST", "/api/videos", true);
 
   xhr.onload = function () {
-    console.log(xhr.responseText);
     const data = JSON.parse(xhr.responseText);
     if (xhr.status === 200) {
       showToast(data.message);

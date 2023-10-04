@@ -8,7 +8,7 @@ function form($pageTitle, $data) {
 ?>
     <div>
         <span class="page-title"><?=$pageTitle?></span>
-        <form class="flex flex-row items-center upload-form" onsubmit="uploadVideo(event)">
+        <form class="flex flex-row items-center upload-form" onsubmit="<?= $video ? 'updateVideo(event, ' . $video->video_id . ')' : 'uploadVideo(event)'?>">
             <div class="flex main-segment w-full">
                 <div class="file-segment flex flex-row justify-between items-center">
                     <?php if ($video) : ?>

@@ -21,8 +21,8 @@ class FileManager {
         return $this->handlerMap[$formDataName]->writeFile($id, $extension, $formDataName);
     }
 
-    public function deleteFile($publicUrl, $formDataName)
+    public function deleteFile($publicUrl, $formDataName, $removeAdditionalFolders=true)
     {
-        return $this->handlerMap[$formDataName]->deleteFile($publicUrl);
+        return $this->handlerMap[$formDataName]->deleteFile($publicUrl, $removeAdditionalFolders);
     }
 }

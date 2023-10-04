@@ -31,14 +31,8 @@ abstract class FileHandler {
         return $this->getUrl($id, $extension);
     }
 
-    private function deleteFilesAndEmptyFolders($path, $basePath) {
-
-        if (strpos($path, $basePath) !== 0) {
-            // Make sure $path is within the $basePath to prevent deleting unintended files
-            return;
-        }
-
-        // Delete the file or folder
+    private function removeFileOrDirectory($path)
+    {
         if (is_file($path)) {
             unlink($path);
         } 
@@ -46,6 +40,16 @@ abstract class FileHandler {
         elseif (is_dir($path)) {
             rmdir($path);
         }
+    }
+
+    private function deleteFilesAndEmptyFolders($path, $basePath) {
+
+        if (strpos($path, $basePath) !== 0) {
+            // Make sure $path is within the $basePath to prevent deleting unintended files
+            return;
+        }
+
+        $this->removeFileOrDirectory($path);
     
         // Check if the parent directory is empty
         $parentDir = dirname($path);
@@ -58,10 +62,20 @@ abstract class FileHandler {
         }
     }
 
-    public function deleteFile($publicUrl) {
-        $path = self::getFilePathFromUrl($publicUrl);
-        $basePath = $this->getBasePath();
+    public function deleteFile($publicUrl, $removeAdditionalFolders=true) {
 
-        $this->deleteFilesAndEmptyFolders($path, $basePath);
+        $path = self::getFilePathFromUrl($publicUrl);
+
+        if ($removeAdditionalFolders)
+        {
+            $basePath = $this->getBasePath();
+
+            $this->deleteFilesAndEmptyFolders($path, $basePath);
+        }
+        
+        else
+        {
+            $this->removeFileOrDirectory($path);
+        }
     }
 }
