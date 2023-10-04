@@ -1,3 +1,33 @@
+const updateVideoFileDesc = (selectedFile) => {
+  const videoFileDesc = document.querySelector('.video-file-desc');
+
+  if (selectedFile) {
+    // If a file is selected, set the text to the file name and size
+    const fileName = selectedFile.name;
+    const fileSize = selectedFile.size;
+
+    let sizeText;
+    if (fileSize >= 1024 ** 2) {
+      // Convert size to MB if greater than or equal to 1000 KB
+      const fileSizeInMB = (fileSize / (1024 ** 2)).toFixed(2);
+      sizeText = `${fileSizeInMB} MB`;
+    } else {
+      // Display size in KB
+      sizeText = `${(fileSize / 1024).toFixed(2)} KB`;
+    }
+
+    videoFileDesc.textContent = `${fileName} - ${sizeText}`;
+  } else {
+    // If no file is selected, set the text to the default message
+    videoFileDesc.textContent = 'Upload your video here';
+  }
+};
+
+const onVideoChange = (e) => {
+  const selectedFile = e.target.files[0];
+  updateVideoFileDesc(selectedFile);
+};
+
 const onThumbnailChange = (e) => {
   const selectedFile = e.target.files[0];
   const container = document.querySelector('.thumbnail-image');
