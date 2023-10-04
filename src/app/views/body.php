@@ -37,6 +37,10 @@ function body($data) {
                 <span class="sort-button">Sort</span>
             </div>
         </div>
+
+        <?php if (count($videos) === 0) : ?>
+            <span class="empty-message">Empty List</span>
+        <?php endif; ?>
         
         <section id="video-list" class="mb-2">
 

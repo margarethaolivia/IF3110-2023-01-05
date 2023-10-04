@@ -9,7 +9,6 @@ const submitDeleteAction = (videoId) =>
     // Set up the event handler for when the request completes
     xhr.onload = function () {
         if (xhr.status == 200) {
-
             // Remove the DOM element with the ID "card-{videoId}"
             const videoCardElement = document.getElementById(`card-${videoId}`);
             if (videoCardElement) {

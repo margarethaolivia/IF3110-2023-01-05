@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/file/FileManager.php';
 
 class VideoAPIController extends APIController {
     public function __construct($folder_path)
@@ -60,31 +61,10 @@ class VideoAPIController extends APIController {
     
             $thumbnailExtension = pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION);
             $videoExtension = pathinfo($_FILES['video_file']['name'], PATHINFO_EXTENSION);
-    
-            $thumbnailRoute = "/images/thumbnails/$video_id/pic.$thumbnailExtension";
-            $videoRoute = "/videoFile/$video_id/vid.$videoExtension"; 
-    
-            $thumbnailPath = BASE_URL . $thumbnailRoute;
-            $videoPath = BASE_URL . $videoRoute;
-            
-            $thumbnailFilePath = PUBLIC_PATH . $thumbnailRoute;
-            $videoFilePath = PUBLIC_PATH . $videoRoute;
-    
-            $thumbnailDirectory = pathinfo($thumbnailFilePath, PATHINFO_DIRNAME);
-    
-            if (!is_dir($thumbnailDirectory)) {
-                mkdir($thumbnailDirectory, 0777, true);
-            }
 
-            
-            $videoDirectory = pathinfo($videoFilePath, PATHINFO_DIRNAME);
-            if (!is_dir($videoDirectory)) {
-                mkdir($videoDirectory, 0777, true);
-            }
-
-            // Move uploaded files to destination
-            move_uploaded_file($_FILES['thumbnail']['tmp_name'], $thumbnailFilePath);
-            move_uploaded_file($_FILES['video_file']['tmp_name'], $videoFilePath);
+            $manager = new FileManager();
+            $videoPath = $manager->writeFile($video_id, $videoExtension, 'video_file');
+            $thumbnailPath = $manager->writeFile($video_id, $thumbnailExtension, 'thumbnail');
 
             $videoService->updateVideo(
                 $user_id, 

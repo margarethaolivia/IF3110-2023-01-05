@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/file/ProfilePicHandler.php';
 
 class ProfilePictureController extends APIController {
     public function __construct($folder_path)
@@ -23,15 +24,12 @@ class ProfilePictureController extends APIController {
         $userService = $this->getService('UserService');
         $user_id = $user->user_id;
         $extension = '.' . pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION);
-        $route = "/images/profile/$user_id/pic" . $extension;
-        $path = BASE_URL . $route;
-        $filepath = PUBLIC_PATH . $route;
+        
+        $handler = new ProfilePicHandler();
+
+        $filepath = $handler->getFilePath($user_id, $extension);
 
         $directory = pathinfo($filepath, PATHINFO_DIRNAME);
-
-        if (!is_dir($directory)) {
-            mkdir($directory, 0777, true);
-        }
 
         $existingFiles = glob("$directory/*");
 
@@ -39,7 +37,7 @@ class ProfilePictureController extends APIController {
             unlink($existingFile);
         }
 
-        move_uploaded_file($_FILES['profile_pic']['tmp_name'], $filepath);
+        $path = $handler->writeFile($user_id, $extension, 'profile_pic');
         $userService->addProfilePicture($user->user_id, $path);
 
         $_SESSION['profile_pic'] = $path;
