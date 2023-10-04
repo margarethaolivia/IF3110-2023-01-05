@@ -31,6 +31,19 @@ class VideoService extends Service
         return $this->getDatabase()->getLastInsertID();
     }
 
+    public function getAllVideo($page_number)
+    {
+        $offset = ($page_number - 1) * 9;
+
+        $query = "SELECT * FROM video WHERE is_taken_down = false OFFSET $offset LIMIT 9";
+
+        return $this->getDatabase()->fetch(
+            [
+                'query' => $query
+            ]
+        );
+    }
+
     public function getVideoById($id)
     {
         $query = 'SELECT * FROM video WHERE video_id = :video_id LIMIT 1';
