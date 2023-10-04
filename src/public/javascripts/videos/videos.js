@@ -1,8 +1,9 @@
-const createComment = (e) => {
+const createVideoComment = (e) => {
   e.preventDefault();
+
   // Create a FormData object from the form
   const formData = new FormData(e.target);
-
+  
   // Get values using FormData.get
   const comment_text = formData.get("comment_text");
 
@@ -13,12 +14,12 @@ const createComment = (e) => {
     return;
   }
 
+
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "/api/comment", true);
 
   xhr.onload = function () {
     if (xhr.status === 200) {
-      window.location.reload();
     }
   };
 
@@ -30,3 +31,4 @@ const createComment = (e) => {
 
   xhr.send(formData);
 };
+

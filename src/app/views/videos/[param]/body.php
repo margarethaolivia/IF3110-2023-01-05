@@ -51,7 +51,7 @@ function body($data) {
 
         <div class="">
 
-            <form onsubmit="createComment(event)">
+            <form onsubmit="createVideoComment(event)">
                 <div class="flex">
                     <div class="w-big">
                         <div class="form-group">
