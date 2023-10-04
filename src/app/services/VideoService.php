@@ -43,11 +43,38 @@ class VideoService extends Service
         );
     }
 
+    public function getVideoAndTagsById($id)
+    {
+        $query = 'SELECT * FROM video WHERE video_id = :video_id LIMIT 1';
+
+        $video = $this->getDatabase()->fetch(
+            [
+                'query' => $query,
+                'bindings' => [Database::binding('video_id', $id)]
+            ]
+        );
+
+        return [
+            'video' => $video,
+            'tags' => []
+        ];
+    }
+
+    public function deleteVideoById($user_id, $video_id)
+    {
+        $query = 'DELETE FROM video WHERE video_id = :video_id AND user_id =:user_id';
+
+        return $this->getDatabase()->execute(
+            $query,
+            [Database::binding('video_id', $video_id), Database::binding('user_id', $user_id)]
+        );
+    }
+
     public function getUserVideos($user_id)
     {
-        $query = 'SELECT * FROM video WHERE user_id = :user_id LIMIT 1';
+        $query = 'SELECT * FROM video WHERE user_id = :user_id';
         $bindings = [Database::binding('user_id', $user_id)];
-        return $this->getDatabase()->fetch(Database::fetchParam($query, $bindings));
+        return $this->getDatabase()->fetchAll(Database::fetchParam($query, $bindings));
     }
 
     public function updateVideo($user_id, $video_id, $data)

@@ -68,6 +68,21 @@ function showToast(message, duration = 5000) {
     }, duration + 500);
 }
 
+
+const closePopUp = (e) => {
+
+    const targetElement = e.target;
+    const popupContainers = document.getElementsByClassName('popup-container');
+
+    // Check if the clicked element is a child of any popup container
+    Array.from(popupContainers).forEach((popupContainer) => {
+        if (popupContainer.contains(targetElement)) {
+            popupContainer.style.display = 'none';
+        }
+    });
+    
+}
+
 const addPopUpAction = (popUpElement, action) => {
     const actionButton = popUpElement.querySelector('.action-button');
     const initialAction = actionButton.onclick;
@@ -83,16 +98,14 @@ const addPopUpAction = (popUpElement, action) => {
     }
 }
 
-const closePopUp = (e) => {
+const showPopUp = (popUpId, action) => {
+    const popUpElement = document.getElementById(popUpId);
 
-    const targetElement = e.target;
-    const popupContainers = document.getElementsByClassName('popup-container');
+    if (popUpElement) {
+        // Find the button with class "action-button" inside the popUpElement
+        addPopUpAction(popUpElement, action);
 
-    // Check if the clicked element is a child of any popup container
-    Array.from(popupContainers).forEach((popupContainer) => {
-        if (popupContainer.contains(targetElement)) {
-            popupContainer.style.display = 'none';
-        }
-    });
-    
-}
+        // Set the display of popUpElement to block
+        popUpElement.style.display = 'flex';
+    }
+};

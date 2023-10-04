@@ -3,6 +3,8 @@
 include_once (APP_PATH . '/components/elements/customInput.php');
 
 function form($pageTitle, $data) {
+    $video = $data['video'] ?? null;
+    $tags = $data['tags'] ?? [];
 ?>
     <div>
         <span class="page-title"><?=$pageTitle?></span>
@@ -34,6 +36,9 @@ function form($pageTitle, $data) {
                             </label>
 
                             <div class="thumbnail-image">
+                                <?php if ($video) : ?>
+                                    <img src="<?=$video->thumbnail?>" />
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -46,7 +51,8 @@ function form($pageTitle, $data) {
                             "title",
                             required: true,
                             placeholder: "My Video",
-                            inputLabel: "Title"
+                            inputLabel: "Title",
+                            defaultValue: $video ? $video->title : ''
                         );
                     ?>
 
@@ -56,7 +62,8 @@ function form($pageTitle, $data) {
                             "video_desc",
                             placeholder: "This is my video",
                             inputClasses:"desc-input",
-                            inputLabel: "Description"
+                            inputLabel: "Description",
+                            defaultValue: $video ? $video->video_desc : ''
                         );
                     ?>
 
@@ -66,7 +73,8 @@ function form($pageTitle, $data) {
                             "tags",
                             placeholder: "Gaming, Valorant",
                             inputClasses: "tags-input",
-                            inputLabel: "Tags"
+                            inputLabel: "Tags",
+                            defaultValue: implode(', ', $tags)
                         );
                     ?>
                 </div>

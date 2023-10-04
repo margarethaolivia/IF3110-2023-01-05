@@ -71,17 +71,6 @@ const changeProfilePicture = (e) => {
     }
 }
 
-const showProfileFormPopUp = (popUpId, action) => {
-    const popUpElement = document.getElementById(popUpId);
-
-    if (popUpElement) {
-        // Find the button with class "action-button" inside the popUpElement
-        addPopUpAction(popUpElement, action);
-
-        // Set the display of popUpElement to block
-        popUpElement.style.display = 'flex';
-    }
-};
 const submitProfileUpdate = (body) =>
 {   
     const requestBody = JSON.stringify(body);
@@ -199,7 +188,7 @@ const updateProfile = (e, popUpId) => {
         showToast("New password required");
     }
 
-    showProfileFormPopUp(
+    showPopUp(
         popUpId, 
         () => submitProfileUpdate({ first_name, last_name, old_password, new_password })
     )

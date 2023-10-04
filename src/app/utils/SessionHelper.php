@@ -8,6 +8,7 @@ class SessionHelper {
         $_SESSION['user_id'] = $user->user_id;
         $_SESSION['profile_pic'] = $user->profile_pic;
         $_SESSION['is_admin'] = $user->is_admin;
+        $_SESSION['full_name'] = $user->first_name . ' ' . $user->last_name;
 
         // Set a cookie (adjust parameters as needed)
         setcookie('user', $user->username, time() + 3600, '/');

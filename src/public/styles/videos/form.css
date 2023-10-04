@@ -85,6 +85,13 @@
 .thumbnail-segment .thumbnail-image {
     background-color: #D9D9D9;
     border: 1px solid #57AEFF;
+
+
+}
+
+.thumbnail-segment .thumbnail-image img {
+    max-width: 100%;
+    height: auto;
 }
 
 .desc-input {

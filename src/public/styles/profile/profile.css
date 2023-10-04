@@ -114,8 +114,8 @@
 @media screen and (min-width: 1280px) {
     /* PROFILE AND USER */
     .profile-picture {
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
     }
 
     .change-pic-icon {
@@ -125,11 +125,11 @@
     }
     
     .full-name {
-        font-size: 40px;
+        font-size: 30px;
     }
     
     .user-info {
-        font-size: 20px;
+        font-size: 15px;
     }
     
     /* MAIN BODY */
@@ -145,7 +145,7 @@
     }
     
     .form-label {
-        font-size: 20px;
+        font-size: 15px;
     }
     
     .form-inputs {
@@ -156,15 +156,15 @@
     /* STATS */
     
     .stats {
-        width: 40%;
-        font-size: 20px;
+        width: 45%;
+        font-size: 15px;
         gap: 2rem;
     }
     
     /* UPLOAD VIDEO */
     
     .upload-title {
-        font-size: 30px;
+        font-size: 25px;
     }
     
     .upload-desc {
@@ -172,6 +172,6 @@
     }
     
     .upload-button {
-        font-size: 20px;
+        font-size: 15px;
     }
 }

@@ -5,7 +5,7 @@ function customInput($inputType, $inputName, $inputLabel="", $required = false, 
 
     <div class="custom-input flex flex-row">
 
-         <?php if (!$disableLabel) : ?>
+        <?php if (!$disableLabel) : ?>
             <span class="input-label"><?= $inputLabel?> <span class="required-mark <?= $required ? "required" : ""?>">*</span></span>
         <?php endif; ?>
 
