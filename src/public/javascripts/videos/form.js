@@ -119,7 +119,7 @@ const submitVideoUpload = (formData) => {
     const data = JSON.parse(xhr.responseText);
     if (xhr.status === 201) {
       sessionStorage.setItem('formSuccessMessage', data.message);
-      // window.location.href = "/myvideos";
+      window.location.href = "/myvideos";
     } else {
       // If not a redirect, proceed with handling the response
       // Handle the response data

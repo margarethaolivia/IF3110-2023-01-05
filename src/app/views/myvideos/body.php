@@ -16,22 +16,11 @@ function body($data) {
             </div>
         </div>
         <?php if (count($videos) === 0) : ?>
-            <span class="empty-message">Empty List</span>
+            <span class="empty-message" id="empty-message">Empty List</span>
         <?php endif; ?>
-        <section id="video-list" class="mb-2">
-            <?php  
-                foreach ($videos as $video) {
-                    videoCard(
-                        $video, 
-                        noUser: true, 
-                        settings: true, 
-                        editLink: "/myvideos/edit/" . $video->video_id,
-                        deleteAction: "deleteMyVideo(event, " . $video->video_id . ", 'popup-delete-video')",
-                        cardId: 'card-' . $video->video_id, 
-                    );
-                }
-            ?>      
+        <section id="video-list" class="mb-2">    
         </section>
+        <div id="pagination-container"></div>
         <?php 
             popup("Delete Video", "Are you sure you want to delete this video?", "delete-video", "Delete", actionButtonClass: 'red-action-button');
         ?>

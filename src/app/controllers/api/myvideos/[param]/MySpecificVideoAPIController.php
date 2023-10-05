@@ -49,7 +49,7 @@ class MySpecificVideoAPIController extends APIController {
 
             $videoService->updateVideo($user_id, $video_id, $request_data);
     
-            return self::response('Video is updated', 200);
+            return self::response('Video is edited', 200);
     
         } catch (Exception $e) {
             $this->sendResponseOnError($e);

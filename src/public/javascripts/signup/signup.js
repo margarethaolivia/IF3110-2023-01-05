@@ -12,7 +12,7 @@ const signup = (e) => {
     const last_name = formData.get('last_name') ?? "";
 
     if (password !== confirmPassword) {
-        console.log("Passwords do not match");
+        showToast("Passwords do not match");
         return;
     }
 
@@ -36,15 +36,13 @@ const signup = (e) => {
     xhr.onload = function () {
         if (xhr.status === 200) {
             // You can access the final redirected URL using xhr.getResponseHeader('Location')
-            console.log('Redirected to:', xhr.responseURL);
-
             // You might want to handle the redirect URL here
             window.location.href = xhr.responseURL;
         } else {
             // If not a redirect, proceed with handling the response
             const data = JSON.parse(xhr.responseText);
             // Handle the response data
-            console.log('Response:', data);
+            showToast(data.message);
         }
     };
 

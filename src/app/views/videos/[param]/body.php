@@ -6,6 +6,7 @@ include_once APP_PATH . '/utils/DateParser.php';
 function body($data) {
     $dataParser = new DateParser();
     $comments = $data['comments'];
+    $video = $data['video'];
 ?>
     <div>
         <div class="flex">
@@ -17,43 +18,76 @@ function body($data) {
             </div>   
         </div>
         
-        <div class="my-2">
-            <h2 class="text-bold"><?=$data['video']->title?></h2>
-            <h3 class="my-1 text-bold text-grey flex align-center"><?=$data['video']->first_name . ' ' . $data['video']->last_name?> 
-                <?php if ($data['video']->is_admin) : ?>
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 72 72">
-                    <path fill="#808080" d="M36,12c13.234,0,24,10.766,24,24c0,13.234-10.766,24-24,24S12,49.234,12,36	C12,22.766,22.766,12,36,12z M46.362,32.878c0.781-0.781,0.781-2.047,0-2.828c-0.781-0.781-2.047-0.781-2.828,0l-9.121,9.121	l-5.103-5.103c-0.781-0.781-2.047-0.781-2.828,0c-0.781,0.781-0.781,2.047,0,2.828l6.517,6.517C33.374,43.789,33.883,44,34.413,44	s1.039-0.211,1.414-0.586L46.362,32.878z"></path>
-                </svg>
+        <div class="flex flex-col items-center my-2">
+            <div class="publisher-pic-container">
+                <?php if ($video->profile_pic) : ?>
+                    <img src="<?=$video->profile_pic?>" class="publisher-pic user-pic">
                 <?php endif; ?>
-                
-            </h3>
-            <h4 class="my-1 text-grey flex align-center">Uploaded <?=$dataParser->dateTimeToString($data['video']->created_at)?>
-
-            <?php if ($data['video']->updated_at != $data['video']->created_at) : ?>
-                | Updated <?=$dataParser->dateTimeToString($data['video']->updated_at)?>
-            <?php endif; ?>
-            </h4>
+                <?php if (!$_SESSION['profile_pic']) : ?>
+                    <svg class="publisher-pic profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                <?php endif; ?>
+            </div>
+            <div class="flex flex-row">
+                <h2 class="video-title"><?=$video->title?></h2>
+                <div class="flex flex-col items-center publisher-container">
+                    <h3 class="flex align-center full-name"><?=$video->first_name . ' ' . $video->last_name?> </h3>
+                    <?php if ($video->is_official) : ?>
+                        <div class="official-logo">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
 
-        <h3 class="text-bold mt-5 mb-2">Description</h3>
         <div class="video-desc">
-            <p><?=$data['video']->video_desc?></p>
+            <?php if ($video->updated_at == $video->created_at) : ?>
+                <span class="my-1 flex align-center time-desc">Uploaded <?=$dataParser->dateTimeToString($video->created_at)?></span>
+            <?php endif; ?>
+
+            <?php if ($video->updated_at != $video->created_at) : ?>
+                <span class="my-1 flex align-center time-desc">Edited <?=$dataParser->dateTimeToString($data['video']->updated_at)?></span>
+            <?php endif; ?>
+            
+            <div class="desc-container">
+                <?php if ($video->video_desc) : ?>
+                    <div id="desc-text-container" class="desc-text-container">
+                        <p><?=$video->video_desc?></p>
+                    </div>
+                    <span class="span-button show-more" id="show-more">Show more</span>
+                    <span class="span-button show-less" id="show-less">Show less</span>
+                <?php endif; ?>
+
+                <?php if (!$video->video_desc) : ?>
+                    <p>No description</p>
+                <?php endif; ?>
+            </div>
         </div>
         
-        <h3 class="text-bold mt-5 mb-2">Comments</h3>
-
-        <div class="">
-
-            <form onsubmit="createVideoComment(event)">
-                <div class="flex">
-                    <div class="w-big">
-                        <div class="form-group">
-                            <input type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here">
-                        </div>
+        <h3 class="mt-5 mb-2 comment-title">Comments</h3>
+        <div class="flex">
+            <form onsubmit="createVideoComment(event)" class="flex flex-row items-end justify-between w-full">
+                <div class="flex flex-col">
+                    <div class="user-pic-container">
+                        <?php if ($_SESSION['profile_pic']) : ?>
+                            <img src="<?=$_SESSION['profile_pic']?>" class="user-pic">
+                        <?php endif; ?>
+                        <?php if (!$_SESSION['profile_pic']) : ?>
+                            <svg class="profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        <?php endif; ?>
                     </div>
-                    <div class="w-small">
-                        <input class="float-end"  type="submit" value="Submit">
-                    </div>
+                    
+                    <textarea onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here"></textarea>
+                </div>
+                <div class="flex flex-col justify-end comment-button-container" id="comment-button-container">
+                    <button onclick="closeCommentButtons(event)" id="cancel-comment-button" >Cancel</button>
+                    <button class="submit-comment-button" id="submit-comment-button" type="submit">Comment</button>
                 </div>
             </form>
 

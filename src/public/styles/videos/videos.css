@@ -1,7 +1,86 @@
+.video-title {
+    color: #0F0F0F;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.full-name {
+    color: #0F0F0F;
+    font-size: 15px;
+}
+
+.official-logo svg {
+    width: 20px;
+    margin-top: 5px;
+}
+
+.publisher-container {
+    gap: 5px;
+}
+
+.publisher-pic-container {
+    width: 50px;
+    border-radius: 100%;
+    aspect-ratio: 1;
+    margin-right: 10px;
+}
+
+.publisher-pic {
+    width: 50px;
+    object-fit: cover; /* or object-fit: contain; depending on your preference */
+    border-radius: 100%; /* to make it a circular image */
+    aspect-ratio: 1;
+    color: #D9D9D9;
+}
+
+.user-pic-container {
+    width: 50px;
+    border-radius: 100%;
+    aspect-ratio: 1;
+    margin-right: 10px;
+}
+
+
+.user-pic {
+    width: 50px;
+    object-fit: cover; /* or object-fit: contain; depending on your preference */
+    border-radius: 100%; /* to make it a circular image */
+    aspect-ratio: 1;
+    color: #D9D9D9;
+}
+
+
 .video-desc {
     background-color: #ebebeb;
     padding: 1rem;
     border-radius: 10px;
+}
+
+.desc-text-container {
+    max-height: 2em; /* Adjust based on your font size and line height */
+    overflow: hidden;
+    position: relative;
+}
+
+.desc-text-container.expanded {
+    max-height: none;
+}
+
+.span-button {
+    font-size: 14px;
+    font-weight: 500;
+    display: none;
+}
+
+
+.span-button:hover {
+    cursor: pointer;
+}
+
+.time-desc {
+    color: #0F0F0F;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .comment-box {
@@ -11,22 +90,35 @@
     padding: 1rem;
 }
 
-input[type="text"] {
+.desc-container {
+    margin-top: 20px;
+}
+
+.desc-container p {
+    color: #606060;
+    font-size: 14px;
+}
+
+.comment-title {
+    font-size: 15px;
+    color: #0F0F0F;
+}
+
+textarea {
     width: 100%;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 3px;
 }
 
-input[type="submit"] {
-    background-color: black;
-    color: white;
-    padding: 1rem;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+.comment-button-container {
+    padding: 10px 0;
+    display: none;
 }
 
-input[type="submit"]:hover {
-    background-color: #404040;
+.comment-button-container button {
+    padding: 10px 15px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.submit-comment-button {
+    background-color: #faf9f9;
 }

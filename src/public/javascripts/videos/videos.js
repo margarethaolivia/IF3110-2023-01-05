@@ -1,3 +1,28 @@
+document.addEventListener('DOMContentLoaded', function () {
+  const descContainer = document.getElementById('desc-text-container');
+  const showMoreButton = document.getElementById('show-more');
+  const showLessButton = document.getElementById('show-less');
+
+  // Check if the text exceeds 2 lines
+  if (descContainer.scrollHeight > descContainer.clientHeight) {
+      showMoreButton.style.display = 'block';
+  }
+
+  // Handle "Show more" button click
+  showMoreButton.addEventListener('click', function () {
+      descContainer.classList.add('expanded');
+      showMoreButton.style.display = 'none';
+      showLessButton.style.display = 'block';
+  });
+
+  // Handle "Show less" button click
+  showLessButton.addEventListener('click', function () {
+      descContainer.classList.remove('expanded');
+      showMoreButton.style.display = 'block';
+      showLessButton.style.display = 'none';
+  });
+});
+
 const createVideoComment = (e) => {
   e.preventDefault();
 
@@ -40,3 +65,14 @@ const deleteMyComment = (e, commentId, popUpId) => {
   e.preventDefault();
   showPopUp(popUpId, () => submitDeleteAction(commentId));
 };
+
+const showCommentButtons = (e) => {
+  const container = document.getElementById('comment-button-container');
+  container.style.display = "flex";
+}
+
+const closeCommentButtons = (e) => {
+  e.preventDefault();
+  const container = document.getElementById('comment-button-container');
+  container.style.display = "none";
+}

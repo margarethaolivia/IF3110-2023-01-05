@@ -116,11 +116,28 @@ class VideoService extends Service
 
     public function getUserVideos($user_id, $page_number=1)
     {
-        $query = 'SELECT * FROM video WHERE user_id = :user_id OFFSET :offset LIMIT :video_limit';
         $limit = MAX_VIDEO_DISPLAY;
         $offset = $this->getPageOffset($page_number, $limit);
+
+        $whereCondition = "user_id = :user_id";
+
+        $query = "WITH TotalCount AS (
+            SELECT CEIL(COUNT(video_id) / :video_limit) AS total_page
+            FROM video
+            WHERE $whereCondition
+        )
+        
+        SELECT *
+        FROM video, TotalCount
+        WHERE $whereCondition
+        OFFSET :offset LIMIT :video_limit";
+
         $bindings = [Database::binding('user_id', $user_id), Database::binding('offset', $offset), Database::binding('video_limit', $limit)];
-        return $this->getDatabase()->fetchAll(Database::fetchParam($query, $bindings));
+
+        $videos = $this->getDatabase()->fetchAll(
+            Database::fetchParam($query, $bindings));
+        
+        return $videos;
     }
 
     public function updateVideo($user_id, $video_id, $data)

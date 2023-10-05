@@ -126,11 +126,10 @@ const showPopUp = (popUpId, action) => {
 };
 
 
-const getVideoList = ({page= 1, searchValue= "", tag= ""}) =>
+const getVideoList = ({page= 1, searchValue= "", tag= "", baseUrl='/api/videos'}) =>
 {
     const xhr = new XMLHttpRequest();
-    const apiUrl = `/api/videos?page=${encodeURIComponent(page)}&search=${encodeURIComponent(searchValue)}&tag=${encodeURIComponent(tag)}`;
-    
+    const apiUrl = `${baseUrl}?page=${encodeURIComponent(page)}&search=${encodeURIComponent(searchValue)}&tag=${encodeURIComponent(tag)}`;
     xhr.open('GET', apiUrl, true);
 
     xhr.onload = function() {
@@ -219,7 +218,6 @@ const movePage = (buttonString) => {
     if (buttonString === "next")
     {
         page = Math.min(parseInt(sessionStorage.getItem('page')) + 1, sessionStorage.getItem('total_page') ?? 1);
-        console.log(page);
     }
 
     else if (buttonString === "prev")
@@ -239,6 +237,5 @@ const movePage = (buttonString) => {
         search = searchBar.value;
     }
 
-    console.log(page);
     getVideoList({page, searchValue: search, tag});
 }

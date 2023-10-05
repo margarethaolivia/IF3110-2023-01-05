@@ -108,6 +108,10 @@ border-radius: 50%;
     justify-content: space-between;
 }
 
+.justify-end {
+    justify-content: end;
+}
+
 .items-center {
     align-items: center;
 }
@@ -509,10 +513,11 @@ transform: translateX(100%);
 }
 
 .video-card .publisher-pic {
-    width: 100%; /* or adjust to the desired width */
+    width: 35px;
     object-fit: cover; /* or object-fit: contain; depending on your preference */
     border-radius: 100%; /* to make it a circular image */
     aspect-ratio: 1;
+    color: #D9D9D9;
 }
 
 .video-card .publisher-pic .img, .video-card .publisher-pic svg {
@@ -691,4 +696,8 @@ video {
 .empty-message {
     color: #DEDEDE;
     padding-top: 10px;
+}
+
+.profile_svg {
+    color: #D9D9D9;
 }

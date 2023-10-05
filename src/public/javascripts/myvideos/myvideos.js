@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    getVideoList({baseUrl: '/api/myvideos'})
+});
+
+document.addEventListener('DOMContentLoaded', function() {
     const successMessage = sessionStorage.getItem('formSuccessMessage');
     if (successMessage) {
         // Display the success message
