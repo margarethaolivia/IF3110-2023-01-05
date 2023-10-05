@@ -84,7 +84,7 @@ function body($data) {
         </div>
         
         <h3 class="mt-5 mb-2 comment-title">Comments</h3>
-        <div class="flex">
+        <div class="flex flex-row">
             <form onsubmit="createVideoComment(event, <?=$video->video_id?>)" class="flex flex-row items-end justify-between w-full">
                 <div class="flex flex-col">
                     <div class="user-pic-container">
