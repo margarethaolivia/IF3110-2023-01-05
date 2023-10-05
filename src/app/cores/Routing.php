@@ -79,6 +79,11 @@ $router->add([
 ]);
 
 $router->add([
+    'pattern' => "#^/api/videos/$PARAM_PATTERN/comments$#", // Match "/api/videos/{video_id}/comments"
+    'controller' => 'CommentAPIController'
+]);
+
+$router->add([
     'pattern' => "#^/api/myvideos$#", // Match "/api/myvideos"
     'controller' => 'MyVideoAPIController'
 ]);
@@ -107,6 +112,7 @@ $router->add([
     'pattern' => "#^/api/profile/picture$#", // Match "/profile/picture"
     'controller' => 'ProfilePictureController'
 ]);
+
 
 
 $router->index();

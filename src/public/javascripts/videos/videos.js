@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-const createVideoComment = (e) => {
+const createVideoComment = (e, videoId) => {
   e.preventDefault();
 
   // Create a FormData object from the form
@@ -36,18 +36,17 @@ const createVideoComment = (e) => {
   // Get values using FormData.get
   const comment_text = formData.get("comment_text");
 
-  console.log(comment_text);
-
   if (!comment_text) {
     showToast("Comment text is required");
     return;
   }
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", "/api/comment", true);
+  xhr.open("POST", `/api/videos/${videoId}/comments`, true);
 
   xhr.onload = function () {
     console.log(xhr.responseText);
+    return;
     const data = JSON.parse(xhr.responseText);
     if (xhr.status === 200) {
       showToast(data.message);
@@ -62,7 +61,7 @@ const createVideoComment = (e) => {
     showToast(error);
   };
 
-  xhr.send(formData);
+  xhr.send(JSON.stringify({comment_text}));
 };
 
 const deleteMyComment = (e, commentId, popUpId) => {
@@ -105,7 +104,7 @@ const submitTakeDown = (e, videoId) =>
           undoTakeDownButton.style.display = "block";
           showTakeDownButton.style.display = "none";
           takeDownForm.style.display = "none";
-          
+
           showToast("Video is taken down");
       } else {
 

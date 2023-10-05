@@ -27,7 +27,7 @@ class CommentService extends Service
             ]
         );
 
-        return $res;
+        return $this->getDatabase()->getLastInsertID();
     }
 
     public function updateComment($user_id, $comment_id, $data) {

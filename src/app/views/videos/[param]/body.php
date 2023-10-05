@@ -85,7 +85,7 @@ function body($data) {
         
         <h3 class="mt-5 mb-2 comment-title">Comments</h3>
         <div class="flex">
-            <form onsubmit="createVideoComment(event)" class="flex flex-row items-end justify-between w-full">
+            <form onsubmit="createVideoComment(event, <?=$video->video_id?>)" class="flex flex-row items-end justify-between w-full">
                 <div class="flex flex-col">
                     <div class="user-pic-container">
                         <?php if ($_SESSION['profile_pic']) : ?>
