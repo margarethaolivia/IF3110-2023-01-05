@@ -18,7 +18,7 @@ class CommentService extends Service
     public function getCommentById($comment_id) {
         $query = "SELECT * FROM comment INNER JOIN metube_user USING (user_id) WHERE comment_id = :comment_id";
 
-        return $this->getDatabase()->fetchAll(
+        return $this->getDatabase()->fetch(
             [
                 'query' => $query,
                 'bindings' => [Database::binding('comment_id', $comment_id)]

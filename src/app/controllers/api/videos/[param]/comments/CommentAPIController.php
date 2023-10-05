@@ -27,7 +27,9 @@ class CommentAPIController extends APIController {
         try {
             $commentService = $this->getService('CommentService');
             $comment_id = $commentService->createComment($postBody);
-            return self::response('Comment posted', 201, ['comment_id' => $comment_id]);
+
+            $comment = $commentService->getCommentById($comment_id);
+            return self::response('Comment posted', 201, ['comment' => $comment]);
 
         } catch (Exception $e) {
             return $this->sendResponseOnError($e);

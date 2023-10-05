@@ -106,16 +106,17 @@ function body($data) {
                     <button class="submit-comment-button" id="submit-comment-button" type="submit">Comment</button>
                 </div>
             </form>
-
-            <?php 
-                foreach ($comments as $comment) {
-                    commentCard(
-                        $comment,
-                        deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
-                        cardId: $comment->comment_id
-                    );
-                }
-            ?>     
+            <div id="comment-section">
+                <?php 
+                    foreach ($comments as $comment) {
+                        commentCard(
+                            $comment,
+                            deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
+                            cardId: $comment->comment_id
+                        );
+                    }
+                ?>  
+            </div>
         </div>
         <?php 
             popup("Delete Comment", "Are you sure you want to delete this comment?", "delete-comment", "Delete", actionButtonClass: 'red-action-button');
