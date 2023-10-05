@@ -99,7 +99,7 @@ function body($data) {
                         <?php endif; ?>
                     </div>
                     
-                    <textarea onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here"></textarea>
+                    <textarea onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text_input" name="comment_text_input" placeholder="Type your comment here"></textarea>
                 </div>
                 <div class="flex flex-col justify-end action-button-container hidden" id="comment-button-container">
                     <button onclick="closeCommentButtons(event)" id="cancel-comment-button" >Cancel</button>
@@ -112,7 +112,9 @@ function body($data) {
                         commentCard(
                             $comment,
                             deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
-                            cardId: $comment->comment_id
+                            editAction: "submitEditAction(" . $video->video_id . ", " . $comment->comment_id . ")",
+                            cardId: $comment->comment_id,
+                            videoId: $video->video_id
                         );
                     }
                 ?>  

@@ -9,8 +9,9 @@ function createCommentCard(
   noUser = false,
   settings = false,
   deleteAction = "",
-  editLink = "",
-  cardId = ""
+  editAction = "",
+  cardId = "",
+  videoId
 ) {
   // Create a div element for the comment card
   const commentCardElement = document.createElement("div");
@@ -34,7 +35,9 @@ function createCommentCard(
           </div>
           
           <div class="flex justify-center items-center">
-              <a href="${editLink}" class="video-card-button video-edit-button">
+              <a href="openEditInput(${videoId}, ${comment.comment_id}, ${
+    comment.comment_text
+  })" class="video-card-button video-edit-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z" />
@@ -92,7 +95,7 @@ const createVideoComment = (e, videoId) => {
   const formData = new FormData(e.target);
 
   // Get values using FormData.get
-  const comment_text = formData.get("comment_text");
+  const comment_text = formData.get("comment_text_input");
 
   if (!comment_text) {
     e.preventDefault();
@@ -118,8 +121,9 @@ const createVideoComment = (e, videoId) => {
         ", " +
         commentData.comment_id +
         ", 'popup-delete-comment')", // deleteAction
-      undefined, // editLink
-      commentData.comment_id // cardId
+      undefined, // editAction
+      commentData.comment_id, // cardId
+      videoId
     );
 
     // Get the parent element where you want to append the comment card
@@ -129,7 +133,7 @@ const createVideoComment = (e, videoId) => {
     commentSection.appendChild(newCommentCard);
 
     // Get a reference to the input element by its ID
-    const inputElement = document.getElementById("comment_text");
+    const inputElement = document.getElementById("comment_text_input");
 
     // Clear the value by setting it to an empty string
     inputElement.value = "";
@@ -148,6 +152,48 @@ const createVideoComment = (e, videoId) => {
   };
 
   xhr.send(JSON.stringify({ comment_text }));
+};
+
+const openEditInput = (video_id, comment_id, comment_text) => {
+  const paragraphElement = document.getElementById(`paragraph-${comment_id}`);
+
+  const inputElement = document.createElement("div");
+  inputElement.className = "pt-2";
+
+  inputElement.innerHTML = `
+    <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus>${comment_text}</textarea>
+    <div class="flex flex-col justify-end action-button-container hidden" id="edit-button-container-${comment_id}">
+        <button onclick="closeEditCommentButtons(event, ${comment_id})" id="cancel-comment-button" >Cancel</button>
+        <button class="submit-comment-button" id="submit-comment-button" type="submit" onclick="submitEditAction(${video_id}, ${comment_id})">Edit</button>
+    </div>
+  `;
+
+  // Replace the <p> element with the <textarea> element
+  paragraphElement.parentNode.replaceChild(inputElement, paragraphElement);
+};
+
+const closeEditCommentButtons = (e, comment_id) => {
+  e.preventDefault();
+
+  // Get references to the <p> and <textarea> elements
+  const textareaElement = document.getElementById("comment_text");
+  const paragraphElement = document.createElement("p");
+  paragraphElement.id = `paragraph-${comment_id}`;
+  paragraphElement.className = "pt-2";
+
+  // Copy the content of the <textarea> element to the <p>
+  paragraphElement.textContent = textareaElement.value;
+
+  // Replace the <textarea> element with the <p> element
+  textareaElement.parentNode.replaceChild(paragraphElement, textareaElement);
+
+  // remove the buttons
+  const buttonContainer = document.getElementById(
+    `edit-button-container-${comment_id}`
+  );
+  if (buttonContainer) {
+    buttonContainer.remove();
+  }
 };
 
 const submitDeleteAction = (videoId, commentId) => {
