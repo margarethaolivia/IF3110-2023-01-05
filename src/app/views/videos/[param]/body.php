@@ -2,6 +2,7 @@
 
 include_once APP_PATH . '/components/elements/commentCard.php';
 include_once APP_PATH . '/utils/DateParser.php';
+include_once APP_PATH . '/components/elements/popup.php';
 
 function body($data) {
     $dataParser = new DateParser();
@@ -110,11 +111,15 @@ function body($data) {
                 foreach ($comments as $comment) {
                     commentCard(
                         $comment,
-                        deleteAction: "deleteMyComment(event, " . $comment->comment_id . ", 'popup-delete-comment')",
+                        deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
+                        cardId: $comment->comment_id
                     );
                 }
             ?>     
         </div>
+        <?php 
+            popup("Delete Comment", "Are you sure you want to delete this comment?", "delete-comment", "Delete", actionButtonClass: 'red-action-button');
+        ?>
     </div>
  <?php 
 }

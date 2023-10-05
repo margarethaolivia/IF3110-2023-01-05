@@ -15,6 +15,17 @@ class CommentService extends Service
         );
     }
 
+    public function getCommentById($comment_id) {
+        $query = "SELECT * FROM comment INNER JOIN metube_user USING (user_id) WHERE comment_id = :comment_id";
+
+        return $this->getDatabase()->fetchAll(
+            [
+                'query' => $query,
+                'bindings' => [Database::binding('comment_id', $comment_id)]
+            ]
+        );
+    }
+
     public function createComment($data) {
         $query = 'INSERT INTO comment (video_id, comment_text, user_id) VALUES(:video_id, :comment_text, :user_id)';
         

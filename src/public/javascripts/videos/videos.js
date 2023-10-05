@@ -34,6 +34,7 @@ const createVideoComment = (e, videoId) => {
   const comment_text = formData.get("comment_text");
 
   if (!comment_text) {
+    e.preventDefault();
     showToast("Comment text is required");
     return;
   }
@@ -61,9 +62,47 @@ const createVideoComment = (e, videoId) => {
   xhr.send(JSON.stringify({ comment_text }));
 };
 
-const deleteMyComment = (e, commentId, popUpId) => {
+const submitDeleteAction = (videoId, commentId) => {
+  // Create a new XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+  // Set up the request
+  const requestUrl = `/api/videos/${videoId}/comments/${commentId}`;
+  xhr.open("DELETE", requestUrl, true);
+
+  // Set up the event handler for when the request completes
+  xhr.onload = function () {
+    if (xhr.status == 200) {
+      // Remove the DOM element with the ID "card-{commentId}"
+      const commentCardElement = document.getElementById(`card-${commentId}`);
+      if (commentCardElement) {
+        commentCardElement.remove();
+      }
+
+      // If not a redirect, proceed with handling the response
+      const data = JSON.parse(xhr.responseText);
+      // Handle the response data
+      showToast(data.message);
+    } else {
+      // If not a redirect, proceed with handling the response
+      const data = JSON.parse(xhr.responseText);
+      // Handle the response data
+      showToast(data.message);
+    }
+  };
+
+  // Set up the event handler for network errors
+  xhr.onerror = function () {
+    // Handle errors
+    console.error("Error:", xhr.statusText);
+  };
+
+  // Send the request with the body
+  xhr.send();
+};
+
+const deleteMyComment = (e, videoId, commentId, popUpId) => {
   e.preventDefault();
-  showPopUp(popUpId, () => submitDeleteAction(commentId));
+  showPopUp(popUpId, () => submitDeleteAction(videoId, commentId));
 };
 
 const submitTakeDown = (e, videoId) => {
