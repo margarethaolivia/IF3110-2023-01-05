@@ -128,6 +128,12 @@ const createVideoComment = (e, videoId) => {
     // Append the new comment card to the comment section
     commentSection.appendChild(newCommentCard);
 
+    // Get a reference to the input element by its ID
+    const inputElement = document.getElementById("comment_text");
+
+    // Clear the value by setting it to an empty string
+    inputElement.value = "";
+
     if (xhr.status === 200) {
       showToast(data.message);
     } else {
