@@ -8,16 +8,26 @@ abstract class FileHandler {
     }
 
     abstract protected function getMiddlePath();
-    abstract public function getRoute($id, $extension);
-    abstract public function getFilePath($id, $extension);
-    abstract public function getUrl($id, $extension);
+    abstract public function getRoute($id, $extension, $dateTimeString);
+    abstract public function getFilePath($id, $extension, $dateTimeString);
+    abstract public function getUrl($id, $extension, $dateTimeString);
 
     public function getBasePath() {
         return PUBLIC_PATH . $this->getMiddlePath();
     }
 
-    public function writeFile($id, $extension, $formDataName) {
-        $filePath = $this->getFilePath($id, $extension);
+    public function getCurrentDateTimeStringExtension()
+    {
+        return date('Ymd_His_U');
+    }
+    public function writeFile($id, $extension, $formDataName, $dateTimeString=null) {
+
+        if (!$dateTimeString) 
+        {
+            $dateTimeString = $this->getCurrentDateTimeStringExtension();
+        }
+        
+        $filePath = $this->getFilePath($id, $extension, $dateTimeString);
         
         $directory = pathinfo($filePath, PATHINFO_DIRNAME);
 
@@ -28,7 +38,7 @@ abstract class FileHandler {
         // Move uploaded files to destination
         move_uploaded_file($_FILES[$formDataName]['tmp_name'], $filePath);
 
-        return $this->getUrl($id, $extension);
+        return $this->getUrl($id, $extension, $dateTimeString);
     }
 
     private function removeFileOrDirectory($path)

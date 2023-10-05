@@ -9,18 +9,19 @@ class VideoFileHandler extends FileHandler {
         return "/videoFiles";
     }
     
-    public function getRoute($id, $extension)
+    public function getRoute($id, $extension, $dateTimeString)
     {
-        return $this->getMiddlePath() . "/$id/vid.$extension"; 
+        $extension = ltrim($extension, '.');
+        return $this->getMiddlePath() . "/$id/vid$dateTimeString.$extension"; 
     }
 
-    public function getFilePath($id, $extension)
+    public function getFilePath($id, $extension, $dateTimeString)
     {
-        return PUBLIC_PATH .  $this->getRoute($id, $extension);
+        return PUBLIC_PATH .  $this->getRoute($id, $extension, $dateTimeString);
     }
 
-    public function getUrl($id, $extension)
+    public function getUrl($id, $extension, $dateTimeString)
     {
-        return BASE_URL . $this->getRoute($id, $extension);
+        return BASE_URL . $this->getRoute($id, $extension, $dateTimeString);
     }
 }

@@ -30,6 +30,16 @@ abstract class Controller
         exit;
     }
 
+    protected function sendHTMLResponse($data)
+    {
+    
+        // Set the HTTP status code
+        http_response_code($data['code']);
+ 
+        echo $data['body'];
+        exit;
+    }
+
     protected function sendResponseOnError($e) {
 
         $code = $e->getCode();

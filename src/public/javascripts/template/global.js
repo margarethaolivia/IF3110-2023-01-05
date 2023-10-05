@@ -1,3 +1,6 @@
+sessionStorage.setItem('page', 1);
+sessionStorage.removeItem('tag');
+
 function watchVideo(event, videoId) {
     const target = event.target;
 
@@ -121,3 +124,121 @@ const showPopUp = (popUpId, action) => {
         popUpElement.style.display = 'flex';
     }
 };
+
+
+const getVideoList = ({page= 1, searchValue= "", tag= ""}) =>
+{
+    const xhr = new XMLHttpRequest();
+    const apiUrl = `/api/videos?page=${encodeURIComponent(page)}&search=${encodeURIComponent(searchValue)}&tag=${encodeURIComponent(tag)}`;
+    
+    xhr.open('GET', apiUrl, true);
+
+    xhr.onload = function() {
+        const jsonResponse = JSON.parse(xhr.responseText);
+        if (xhr.status === 200) {   
+
+            const body = jsonResponse.body;
+
+            const emptyMessageElement = document.getElementById('empty-message');
+
+            // Assuming that the response is a valid HTML string
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(body.video_list_html, 'text/html');
+
+            // Assuming the video-list is a div element where you want to append the HTML
+            const videoListContainer = document.getElementById('video-list');
+
+            // Clear existing content in the container
+            videoListContainer.innerHTML = '';
+
+            // Append the new content
+            const bodyChildren = Array.from(doc.body.children);
+            bodyChildren.forEach(child => {
+                videoListContainer.appendChild(child.cloneNode(true));
+            });
+
+            if (emptyMessageElement)
+            {
+                if (body.video_list_html)
+                {
+                    emptyMessageElement.style.display = 'none';
+                }
+
+                else
+                {
+                    emptyMessageElement.style.display = 'block';
+                }
+            }
+
+            sessionStorage.setItem('total_page', body.total_page);
+
+            const paginationContainer = document.getElementById('pagination-container');
+            if (paginationContainer)
+            {
+
+                const existingPagination = Array.from(paginationContainer.children);
+                existingPagination.forEach(child => {
+                    child.remove();
+                });
+                
+                if (body.total_page > 1)
+                {
+                    const pagination = parser.parseFromString(body.pagination_html, 'text/html');
+                    const children = Array.from(pagination.body.children);
+                    children.forEach(child => {
+                        paginationContainer.appendChild(child.cloneNode(true));
+                    });   
+                }
+            }
+            
+            
+            sessionStorage.setItem('page', page);
+        }
+
+        else
+        {
+            showToast(jsonResponse.message);
+        }
+    };
+
+    xhr.onerror = function() {
+        // Handle errors
+        jsonResponse = JSON.parse(xhr.responseText);
+        showToast(jsonResponse.message);
+    };
+
+    // Send the request
+    xhr.send();
+}
+
+const movePage = (buttonString) => {
+    var search = "";
+    const tag = sessionStorage.getItem('tag') ?? "";
+    var page = null;
+
+    if (buttonString === "next")
+    {
+        page = Math.min(parseInt(sessionStorage.getItem('page')) + 1, sessionStorage.getItem('total_page') ?? 1);
+        console.log(page);
+    }
+
+    else if (buttonString === "prev")
+    {
+        page = Math.max(parseInt(sessionStorage.getItem('page')) - 1, 1);
+    }
+
+    else
+    {
+        page = parseInt(buttonString);
+    }
+
+    const searchBar = document.getElementById('searchBar');
+
+    if (searchBar)
+    {
+        search = searchBar.value;
+    }
+
+    console.log(page);
+    getVideoList({page, searchValue: search, tag});
+}

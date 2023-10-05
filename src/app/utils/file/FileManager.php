@@ -16,7 +16,7 @@ class FileManager {
         ];
     }
 
-    public function writeFile($id, $extension, $formDataName)
+    public function writeFile($id, $extension, $formDataName, $dateTimeString=null)
     {
         return $this->handlerMap[$formDataName]->writeFile($id, $extension, $formDataName);
     }

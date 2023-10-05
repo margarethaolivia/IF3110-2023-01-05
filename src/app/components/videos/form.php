@@ -1,6 +1,7 @@
 <?php 
 
 include_once (APP_PATH . '/components/elements/customInput.php');
+include_once (APP_PATH . '/components/elements/popup.php');
 
 function form($pageTitle, $data) {
     $video = $data['video'] ?? null;
@@ -8,7 +9,7 @@ function form($pageTitle, $data) {
 ?>
     <div>
         <span class="page-title"><?=$pageTitle?></span>
-        <form class="flex flex-row items-center upload-form" onsubmit="<?= $video ? 'updateVideo(event, ' . $video->video_id . ')' : 'uploadVideo(event)'?>">
+        <form class="flex flex-row items-center upload-form" onsubmit="<?= $video ? 'updateVideo(event, ' . $video->video_id . ', \'popup-update-video\')' : 'uploadVideo(event, \'popup-upload-video\')'?>">
             <div class="flex main-segment w-full">
                 <div class="file-segment flex flex-row justify-between items-center">
                     <?php if ($video) : ?>
@@ -91,8 +92,13 @@ function form($pageTitle, $data) {
                 </div>
 
             </div>
-            <button class="blue-button upload-button" type="submit">Upload Video</button>
+            <button class="blue-button upload-button" type="submit"><?=$video? 'Update Video' : 'Upload Video'?></button>
         </form>
+
+        <?php
+            popup('Upload Video', 'Are you sure you want to upload this video?', 'upload-video', "Upload", actionButtonClass: 'popup-save-button');
+            popup('Upload Video', 'Are you sure you want to update this video?', 'update-video', "Update", actionButtonClass: 'popup-save-button') 
+        ?>
     </div>
 
 <?php

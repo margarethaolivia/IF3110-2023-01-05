@@ -4,6 +4,11 @@ include_once (APP_PATH . '/cores/Database.php');
 
 class VideoService extends Service
 {   
+    private function getPageOffset($page_number, $limit)
+    {
+        return ($page_number - 1) * $limit;
+    }
+
     public function getVideoCount($user_id)
     {
         $sql = "SELECT COUNT(*) AS count FROM video WHERE user_id = :user_id";
@@ -31,16 +36,41 @@ class VideoService extends Service
         return $this->getDatabase()->getLastInsertID();
     }
 
-    public function getAllVideo($page_number)
+    public function getAllVideo($page_number=1, $search='')
     {
-        $offset = ($page_number - 1) * 9;
+        $limit = MAX_VIDEO_DISPLAY;
+        $offset = $this->getPageOffset($page_number, $limit);
 
-        $query = "SELECT video_id, title, thumbnail, is_official, video.created_at, first_name || ' ' || last_name as full_name 
-        FROM video INNER JOIN metube_user USING(user_id) 
-        WHERE is_taken_down = false AND is_taken_down = FALSE 
-        OFFSET :offset LIMIT 9";
+        $searchCondition = '';
 
-        $videos = $this->getDatabase()->fetchAll(Database::fetchParam($query, [Database::binding('offset', $offset)]));
+        if ($search)
+        {
+            $searchCondition = "AND title ILIKE :search";
+            $search = '%' . $search . '%';
+        }
+
+        $whereCondition = "is_taken_down = false $searchCondition";
+
+        $query = "WITH TotalCount AS (
+            SELECT CEIL(COUNT(video_id) / :video_limit) AS total_page
+            FROM video
+            WHERE $whereCondition
+        )
+
+        SELECT video_id, title, thumbnail, is_official, video.created_at, first_name || ' ' || last_name as full_name, profile_pic, TotalCount.total_page
+        FROM video INNER JOIN metube_user USING(user_id), TotalCount
+        WHERE $whereCondition
+        OFFSET :offset LIMIT :video_limit";
+
+        $bindings = [Database::binding('offset', $offset), Database::binding('video_limit', $limit)];
+
+        if ($searchCondition)
+        {
+            $bindings[] = Database::binding('search', $search);
+        }
+
+        $videos = $this->getDatabase()->fetchAll(
+            Database::fetchParam($query, $bindings));
         
         return $videos;
     }
@@ -84,10 +114,12 @@ class VideoService extends Service
         );
     }
 
-    public function getUserVideos($user_id)
+    public function getUserVideos($user_id, $page_number=1)
     {
-        $query = 'SELECT * FROM video WHERE user_id = :user_id';
-        $bindings = [Database::binding('user_id', $user_id)];
+        $query = 'SELECT * FROM video WHERE user_id = :user_id OFFSET :offset LIMIT :video_limit';
+        $limit = MAX_VIDEO_DISPLAY;
+        $offset = $this->getPageOffset($page_number, $limit);
+        $bindings = [Database::binding('user_id', $user_id), Database::binding('offset', $offset), Database::binding('video_limit', $limit)];
         return $this->getDatabase()->fetchAll(Database::fetchParam($query, $bindings));
     }
 

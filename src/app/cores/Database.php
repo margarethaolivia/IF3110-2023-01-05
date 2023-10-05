@@ -96,7 +96,8 @@ class Database
         try {
             if ($params) $this->execute($params['query'], $params['bindings'], true);
             return $this->statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (PDOException) {
+        } catch (PDOException $e) {
+            echo $e;
             throw new Exception('Internal Server Error', 500);
         }
     }

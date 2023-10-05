@@ -16,8 +16,8 @@ define('DB_PASSWORD', $_ENV['POSTGRES_PASSWORD']);
 define('IMAGE_MAX_SIZE', 10 * 1024 * 1024);
 define('VIDEO_MAX_SIZE', 50 * 1024 * 1024);
 define('ALLOWED_VIDEOS', ['.mp4']);
-
 define('ALLOWED_IMAGES', ['.jpg', '.jpeg', '.png']);
+define('MAX_VIDEO_DISPLAY', 6);
 
 // Bcrypt
 define('BCRYPT_COST', 10);

@@ -1,3 +1,14 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const successMessage = sessionStorage.getItem('formSuccessMessage');
+    if (successMessage) {
+        // Display the success message
+        showToast(successMessage);
+
+        // Clear the success message from session storage
+        sessionStorage.removeItem('formSuccessMessage');
+    }
+});
+
 const submitDeleteAction = (videoId) =>
 {   
     // Create a new XMLHttpRequest object

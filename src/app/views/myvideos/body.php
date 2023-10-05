@@ -1,6 +1,5 @@
 <?php
 
-include_once (APP_PATH . '/components/template/pagination.php');
 include_once APP_PATH . '/components/elements/videoCard.php';
 include_once APP_PATH . '/components/elements/popup.php';
 
@@ -34,8 +33,7 @@ function body($data) {
             ?>      
         </section>
         <?php 
-            popup("Delete Video", "Are you sure you want delete this video?", "delete-video", "Delete", actionButtonClass: 'red-action-button');
-            pagination(10);
+            popup("Delete Video", "Are you sure you want to delete this video?", "delete-video", "Delete", actionButtonClass: 'red-action-button');
         ?>
     </main>
 <?php

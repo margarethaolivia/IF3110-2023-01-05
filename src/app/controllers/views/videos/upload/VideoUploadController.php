@@ -1,8 +1,8 @@
 <?php
 
-require_once APP_PATH . '/controllers/views/ViewController.php';
+require_once APP_PATH . '/controllers/views/UserViewController.php';
 
-class VideoUploadController extends ViewController
+class VideoUploadController extends UserViewController
 {    
     public function __construct($folder_path)
     {

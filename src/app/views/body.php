@@ -1,58 +1,18 @@
 <?php
 
-include_once (APP_PATH . '/components/template/pagination.php');
 include_once APP_PATH . '/components/elements/toast.php';
 include_once APP_PATH . '/components/elements/videoCard.php';
 
 function body($data) {
-    $videos = $data['videos'];
+
 ?>
-    <main class="pb-2">
-        <div class="flex items-center">
-            <div class="w-big">
-                <div class="scrollmenu">
-                    <span class="badge p-2 mtbr-2">Music</span>
-                    <span class="badge p-2 mtbr-2">Animation</span>
-                    <span class="badge p-2 mtbr-2">Drama</span>
-                    <span class="badge p-2 mtbr-2">Education</span>
-                    <span class="badge p-2 mtbr-2">Music</span>
-                    <span class="badge p-2 mtbr-2">Animation</span>
-                    <span class="badge p-2 mtbr-2">Drama</span>
-                    <span class="badge p-2 mtbr-2">Education</span>
-                    <span class="badge p-2 mtbr-2">Music</span>
-                    <span class="badge p-2 mtbr-2">Animation</span>
-                    <span class="badge p-2 mtbr-2">Drama</span>
-                    <span class="badge p-2 mtbr-2">Education</span>
-                    <span class="badge p-2 mtbr-2">Music</span>
-                    <span class="badge p-2 mtbr-2">Animation</span>
-                    <span class="badge p-2 mtbr-2">Drama</span>
-                    <span class="badge p-2 mtbr-2">Education</span>
-                    <span class="badge p-2 mtbr-2">Music</span>
-                    <span class="badge p-2 mtbr-2">Animation</span>
-                    <span class="badge p-2 mtbr-2">Drama</span>
-                    <span class="badge p-2 mtbr-2">Education</span>
-                </div>
-            </div>
-            <div class="w-small">
-                <span class="sort-button">Sort</span>
-            </div>
-        </div>
+    <div class="pb-2 main-page">
 
-        <?php if (count($videos) === 0) : ?>
-            <span class="empty-message">Empty List</span>
-        <?php endif; ?>
+        <span class="empty-message" id="empty-message">Empty List</span>
         
-        <section id="video-list" class="mb-2">
-
-            <?php 
-                foreach ($videos as $video) {
-                    videoCard($video);
-                }
-            ?>     
+        <section id="video-list" class="mb-2">    
         </section>
-        <?php 
-            pagination(10);
-        ?>
-    </main>
+        <div id="pagination-container"></div>
+    </div>
 <?php
 }

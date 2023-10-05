@@ -1,6 +1,8 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
 include_once APP_PATH . '/utils/file/FileManager.php';
+include_once APP_PATH . '/components/elements/videoCard.php';
+include_once APP_PATH . '/utils/OutputHandler.php';
 
 class VideoAPIController extends APIController {
     public function __construct($folder_path)
@@ -9,11 +11,41 @@ class VideoAPIController extends APIController {
     }
 
     protected function GET($param) {
+
+        $searchValue = $_GET['search'] ?? '';
+        $page = intval($_GET['page'] ?? 1);
+
+        $outputHandler =  new OutputHandler();
+
         try {
             $videoService = $this->getService('VideoService');
-            $videos = $videoService->getAllVideo(1);
+            $videos = $videoService->getAllVideo($page, $searchValue);
 
-            return self::response('Videos is fetched', 200, ['videos' => $videos]);
+            $body = [];
+            $html = "";
+
+            $totalPage = 1;
+
+            foreach ($videos as $video)
+            {
+                if ($totalPage === 1 && $video->total_page > 1)
+                {
+                    $totalPage = $video->total_page;
+                }
+                $html = $html . $outputHandler->outputComponentAsString('videoCard', APP_PATH . '/components/elements/videoCard.php', ['video' => $video]);
+            }
+            
+            $paginationHTML = $outputHandler->outputComponentAsString(
+                'pagination', 
+                APP_PATH . '/components/elements/pagination.php', 
+                ['maxNum' => $totalPage, 'currentPage' => $page]
+            );
+
+            $body['video_list_html'] = $html;
+            $body['pagination_html'] = $paginationHTML;
+            $body['total_page'] = $totalPage;
+
+            return self::response('HTML fetched', 200, $body);
     
         } catch (Exception $e) {
             $this->sendResponseOnError($e);

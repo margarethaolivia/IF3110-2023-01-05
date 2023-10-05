@@ -26,8 +26,8 @@ class ProfilePictureController extends APIController {
         $extension = '.' . pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION);
         
         $handler = new ProfilePicHandler();
-
-        $filepath = $handler->getFilePath($user_id, $extension);
+        $dateTimeString = $handler->getCurrentDateTimeStringExtension();
+        $filepath = $handler->getFilePath($user_id, $extension, $dateTimeString);
 
         $directory = pathinfo($filepath, PATHINFO_DIRNAME);
 
@@ -37,7 +37,7 @@ class ProfilePictureController extends APIController {
             unlink($existingFile);
         }
 
-        $path = $handler->writeFile($user_id, $extension, 'profile_pic');
+        $path = $handler->writeFile($user_id, $extension, 'profile_pic', $dateTimeString);
         $userService->addProfilePicture($user->user_id, $path);
 
         $_SESSION['profile_pic'] = $path;

@@ -294,17 +294,32 @@ border-radius: 50%;
 }
 
 .page-button {
-    border: 1px solid #0085FF;
-    color:#0085FF;
+    color:#0F0F0F;
     padding: 10px;
     aspect-ratio: 1;
     width: 35px;
     font-size: 10px;
     text-align: center;
+    font-weight: 600;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-button svg {
+    margin-top: 1px;
+}
+
+.current-page-button {
+    background-color: #f2f2f2;
 }
 
 .page-button:hover {
-    background-color: #E5F3FF;
+    background-color: #f2f2f2;
+    box-shadow: none;
+}
+
+.no-click:hover {
+    cursor: default;
 }
 
 /* PROFILE PIC */
@@ -312,7 +327,7 @@ border-radius: 50%;
     width: 100%; /* or adjust to the desired width */
     height: 100%; /* or adjust to the desired height */
     object-fit: cover; /* or object-fit: contain; depending on your preference */
-    border-radius: 50%; /* to make it a circular image */
+    border-radius: 100%; /* to make it a circular image */
       
 }
 
@@ -487,9 +502,23 @@ transform: translateX(100%);
     object-fit: cover;
 }
 
-.video-card .publisher-pic {
+.video-card .publisher-pic-container {
     width: 35px;
     border-radius: 100%;
+    aspect-ratio: 1;
+}
+
+.video-card .publisher-pic {
+    width: 100%; /* or adjust to the desired width */
+    object-fit: cover; /* or object-fit: contain; depending on your preference */
+    border-radius: 100%; /* to make it a circular image */
+    aspect-ratio: 1;
+}
+
+.video-card .publisher-pic .img, .video-card .publisher-pic svg {
+    width: 35px;
+    border-radius: 100%;
+    aspect-ratio: 1;
 }
 
 .video-card h2 {

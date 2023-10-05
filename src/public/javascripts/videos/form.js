@@ -69,28 +69,14 @@ const onThumbnailChange = (e, keepValue=false) => {
   }
 };
 
-const updateVideo = (e, videoId) => {
-  e.preventDefault();
-
-  // Create a FormData object from the form
-  const formData = new FormData(e.target);
-
-  // Get values using FormData.get
-  const title = formData.get("title");
-  console.log(title);
-  if (!title) {
-    showToast('Title is required');
-    return;
-  }
-  
+const submitVideoUpdate = (videoId, formData) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", `/api/myvideos/${videoId}`, true);
 
   xhr.onload = function () {
     const data = JSON.parse(xhr.responseText);
     if (xhr.status === 200) {
-      showToast(data.message);
-      console.log("Redirected to: /myvideos");
+      sessionStorage.setItem('formSuccessMessage', data.message);
       window.location.href = "/myvideos";
     } else {
       // If not a redirect, proceed with handling the response
@@ -105,11 +91,56 @@ const updateVideo = (e, videoId) => {
     showToast(error);
   };
 
-  console.log(formData.get('thumbnail'))
   xhr.send(formData);
 }
 
-const uploadVideo = (e) => {
+const updateVideo = (e, videoId, popUpId) => {
+  e.preventDefault();
+
+  // Create a FormData object from the form
+  const formData = new FormData(e.target);
+
+  // Get values using FormData.get
+  const title = formData.get("title");
+  if (!title) {
+    showToast('Title is required');
+    return;
+  }
+  
+  showPopUp(popUpId, () => submitVideoUpdate(videoId, formData));
+}
+
+const submitVideoUpload = (formData) => {
+  
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "/api/videos", true);
+
+  xhr.onload = function () {
+    const data = JSON.parse(xhr.responseText);
+    if (xhr.status === 201) {
+      sessionStorage.setItem('formSuccessMessage', data.message);
+      // window.location.href = "/myvideos";
+    } else {
+      // If not a redirect, proceed with handling the response
+      // Handle the response data
+      showToast(data.message);
+    }
+  };
+
+  xhr.onprogress = function () {
+
+  }
+
+  // Set up the callback for errors
+  xhr.onerror = function (error) {
+    // Handle errors
+    showToast(error);
+  };
+
+  xhr.send(formData);
+}
+
+const uploadVideo = (e, popUpId) => {
   e.preventDefault();
   // Create a FormData object from the form
   const formData = new FormData(e.target);
@@ -133,31 +164,5 @@ const uploadVideo = (e) => {
     return;
   }
   
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", "/api/videos", true);
-
-  xhr.onload = function () {
-    const data = JSON.parse(xhr.responseText);
-    if (xhr.status === 200) {
-      showToast(data.message);
-      // console.log("Redirected to: /myvideos");
-      // window.location.href = "/myvideos";
-    } else {
-      // If not a redirect, proceed with handling the response
-      // Handle the response data
-      showToast(data.message);
-    }
-  };
-
-  xhr.onprogress = function () {
-
-  }
-
-  // Set up the callback for errors
-  xhr.onerror = function (error) {
-    // Handle errors
-    showToast(error);
-  };
-
-  xhr.send(formData);
+  showPopUp(popUpId, () => submitVideoUpload(formData));
 };

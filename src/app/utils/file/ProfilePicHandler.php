@@ -8,18 +8,19 @@ class ProfilePicHandler extends FileHandler {
         return "/images/profile";
     }
 
-    public function getRoute($id, $extension)
+    public function getRoute($id, $extension, $dateTimeString)
     {
-        return $this->getMiddlePath() . "/$id/pic" . $extension;
+        $extension = ltrim($extension, '.');
+        return $this->getMiddlePath() . "/$id/pic$dateTimeString.$extension";
     }
 
-    public function getFilePath($id, $extension)
+    public function getFilePath($id, $extension, $dateTimeString)
     {
-        return PUBLIC_PATH . $this->getRoute($id, $extension);
+        return PUBLIC_PATH . $this->getRoute($id, $extension, $dateTimeString);
     }
 
-    public function getUrl($id, $extension)
+    public function getUrl($id, $extension, $dateTimeString)
     {
-        return BASE_URL . $this->getRoute($id, $extension);
+        return BASE_URL . $this->getRoute($id, $extension, $dateTimeString);
     }
 }

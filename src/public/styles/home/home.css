@@ -4,17 +4,6 @@ body, h1, h2, p {
     padding: 0;
 }
 
-div.scrollmenu {
-overflow: auto;
-white-space: nowrap;
-}
-
-.badge {
-background-color: #ebebeb;
-text-align: center;
-border-radius: 5px;
-}
-
 .p-2 {
     padding: 0.5rem;
 }
@@ -29,16 +18,7 @@ border-radius: 5px;
     display: inline;
 }
 
-.sort-button {
-    background-color: black;
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    padding: 0.5rem 2rem;
-    float: right;
-    cursor: pointer;
+.main-page {
+    margin-top: 140px;
 }
 
-.sort-button:hover {
-    background-color: #404040;
-}

@@ -1,7 +1,6 @@
 <?php
 
 include_once (APP_PATH . '/components/takedowns/takedownRow.php');
-include_once (APP_PATH . '/components/template/pagination.php');
 
 function body($data) {
 ?>
@@ -40,7 +39,6 @@ function body($data) {
         </div>
 
         <?php 
-            pagination(10);
         ?>
     </div>
 <?php

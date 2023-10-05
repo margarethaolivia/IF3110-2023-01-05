@@ -12,14 +12,10 @@ class HomeController extends ViewController
     protected function getData($params)
     {
 
-        $videoService = $this->getService('VideoService');
-        $videos = $videoService->getAllVideo(1);
-
         return [
             'title' => 'WeTube',
             'script_paths' => ['home/home.js'],
             'style_paths' => ['home/home.css'],
-            'videos' => $videos
         ];
     }
 }
