@@ -1,3 +1,5 @@
+sessionStorage.setItem('pagination_base_url', '/api/myvideos');
+
 document.addEventListener('DOMContentLoaded', function() {
     getVideoList({baseUrl: '/api/myvideos'})
 });

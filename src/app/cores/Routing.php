@@ -114,10 +114,14 @@ $router->add([
 ]);
 
 $router->add([
-    'pattern' => "#^/api/profile/picture$#", // Match "/profile/picture"
+    'pattern' => "#^/api/profile/picture$#", // Match "/api/profile/picture"
     'controller' => 'ProfilePictureController'
 ]);
 
+$router->add([
+    'pattern' => "#^/api/takedowns$#", // Match "/api/takedowns"
+    'controller' => 'TakeDownController'
+]);
 
 
 $router->index();

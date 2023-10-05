@@ -176,4 +176,30 @@ class VideoService extends Service
 
         return $res;
     }
+
+    public function getTakedowns($user_id, $page_number=1)
+    {
+        $limit = MAX_TAKEDOWN_DISPLAY;
+        $offset = $this->getPageOffset($page_number, $limit);
+
+        $whereCondition = "is_taken_down = TRUE AND taken_down_by = :user_id";
+
+        $query = "WITH TotalCount AS (
+            SELECT CEIL(COUNT(video_id) / :video_limit) AS total_page 
+            FROM video
+            WHERE $whereCondition
+        )
+        
+        SELECT video_id, title, video_desc, thumbnail, first_name || ' ' || last_name as full_name, TotalCount.total_page, take_down_comment
+        FROM video INNER JOIN metube_user USING(user_id), TotalCount
+        WHERE $whereCondition
+        OFFSET :offset LIMIT :video_limit";
+
+        $bindings = [Database::binding('user_id', $user_id), Database::binding('offset', $offset), Database::binding('video_limit', $limit)];
+
+        $videos = $this->getDatabase()->fetchAll(
+            Database::fetchParam($query, $bindings));
+        
+        return $videos;
+    }
 }

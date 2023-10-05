@@ -52,7 +52,7 @@ abstract class APIController extends Controller
     protected function checkRequiredField($request_data, $required_fields, $returnMissingField=false)
     {
         foreach ($required_fields as $field) {
-            if (!isset($request_data[$field])) {
+            if (!array_key_exists($field, $request_data)) {
                 if ($returnMissingField) return $field;
                 $this->sendResponse(self::response('Missing required field: ' . $field, 400));
             }

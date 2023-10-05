@@ -1,13 +1,8 @@
 .page-title {
     margin-bottom: 30px;
-    font-size: 20px;
+    font-size: 25px;
 }
 
-.table-header {
-    display: none;
-    margin-bottom: 15px;
-    font-size: 17px;
-}
 
 .table-content {
     gap: 20px;
@@ -17,7 +12,7 @@
 .main-columns {
     width: 100%;
     flex-direction: column;
-    gap: 20px;
+    gap: 50px;
 }
 
 .table-content .video-column {
@@ -27,19 +22,20 @@
 
 
 .video-column .title {
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .video-column .fullname {
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .video-column .desc {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .user-info {
-    gap: 5px;
+    gap: 2px;
 }
 
 .takedown-row {
@@ -50,31 +46,38 @@
 }
 
 .video-thumbnail {
-    aspect-ratio: 16/9;
-    background-color: #FF0000;
+    object-position: top;
+    aspect-ratio: 16 / 9;
     border-radius: 10px;
+    width: 200x;
+    overflow: hidden;
 }
 
-.undo-button {
-    border: 1px solid #FF0000;
-    color: #FF0000;
-    padding: 5px 10px;
-    font-size: 10px;
+.video-thumbnail:hover {
+    cursor: pointer;
 }
 
-.undo-button:hover {
-    background-color: #ffcccf;
+
+.video-thumbnail img {
+    width: 200px;
+    object-fit: cover;
+    aspect-ratio: 16/9;
 }
 
 .desc {
-    max-height: 50px;
+    max-height: 2.9rem;
     overflow-y: auto;
 }
 
+.comment-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
 .comment {
-    font-size: 10px;
-    text-align: center;
-    max-height: 50px;
+    font-size: 12px;
+    max-height: 2.9rem;
     overflow-y: auto;
 }
 
@@ -82,11 +85,7 @@
     height: 50px;
 }
 
-@media screen and (min-width: 1280px) {
-
-    .table-header {
-        display: block;
-    } 
+@media screen and (min-width: 700px) {
 
     .video-column {
         width: 55%;
@@ -107,7 +106,7 @@
     }
 
     .comment {
-        max-height: 100px;
+        max-height: 60px;
         text-align: start;
     }
 

@@ -1,3 +1,5 @@
+sessionStorage.setItem('pagination_base_url', '/api/videos');
+
 document.addEventListener('DOMContentLoaded', function() {
     const searchValue = sessionStorage.getItem('searchValue') ?? "";
 
