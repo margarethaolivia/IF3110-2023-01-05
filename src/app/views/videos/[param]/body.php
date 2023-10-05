@@ -117,10 +117,10 @@ function body($data) {
                     foreach ($comments as $comment) {
                         commentCard(
                             $comment,
+                            $video->video_id,
                             deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
                             editAction: "submitEditAction(" . $video->video_id . ", " . $comment->comment_id . ")",
                             cardId: $comment->comment_id,
-                            videoId: $video->video_id
                         );
                     }
                     if (count($comments) === 0)

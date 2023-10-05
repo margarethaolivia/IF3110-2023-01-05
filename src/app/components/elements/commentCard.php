@@ -1,7 +1,7 @@
 <?php
 include_once APP_PATH . '/utils/DateParser.php';
 
-function commentCard($comment, $noUser=false, $settings=false, $deleteAction="", $editAction="", $cardId="", $videoId) {
+function commentCard($comment, $videoId, $noUser=false, $settings=false, $deleteAction="", $editAction="", $cardId="") {
     $dataParser = new DateParser();
 ?>
     <div id="card-<?=$cardId?>" class="comment-box my-1">

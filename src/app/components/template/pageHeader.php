@@ -71,9 +71,10 @@ function pageHeader() {
                     
                     
                 </div>
-                <div class="options-container">
+                <div class="options-container flex flex-col">
                     <?php
                         option('Filters', []);
+                        option('Searchs', [], true);
                         option('Sorts', [], true);
                     ?>
                 </div>

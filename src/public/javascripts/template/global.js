@@ -8,7 +8,6 @@ var dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(function (dropdown) {
     dropdown.addEventListener('click', function () {
         this.setAttribute('tabindex', 1);
-        this.focus();
         this.classList.toggle('active');
         var menu = this.querySelector('.dropdown-menu');
         if (menu.style.display === 'block') {

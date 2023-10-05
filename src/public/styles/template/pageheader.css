@@ -90,7 +90,7 @@
 }
 
 .options-container {
-    gap: 10px;
+    gap: 20px;
 }
 
 @media screen and (min-width: 500px) {
