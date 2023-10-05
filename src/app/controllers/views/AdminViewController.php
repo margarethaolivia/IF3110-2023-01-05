@@ -14,7 +14,11 @@ abstract class AdminViewController extends AuthViewController
         $user = $this->getSessionMiddleware()->authorizeUser(true);
 
         if (!$user->is_admin) {
-            echo "no";
+            $this->renderForbiddenPage([
+                'link' => '/', 
+                'src' => BASE_URL . '/images/vector/403.svg', 
+                'desc' => 'This page can only be accessed by admin.'   
+            ]);
             exit;
         }
     }

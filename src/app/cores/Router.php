@@ -1,6 +1,6 @@
 <?php
 require_once APP_PATH . '/utils/PatternHandler.php';
-require_once APP_PATH . '/views/template/404.php';
+require_once APP_PATH . '/views/template/view.php';
 
 class Router {
     private $routes;
@@ -9,6 +9,21 @@ class Router {
     public function __construct()
     {
         $this->routes = [];
+    }
+
+    private function renderNotFoundPage()
+    {
+        $data = [
+            'link' => '/', 
+            'src' => BASE_URL . '/images/vector/404.svg',  
+            'desc' => 'WeTube currently does not have this page.',
+            'isPlainPage' => true,
+            'style_paths' => ['template/404.css']
+        ];
+
+        $view = new View('/error', $data);
+        $view->render();
+        exit;
     }
 
     public function add($route) {
@@ -78,7 +93,7 @@ class Router {
 
         // If no matching route is found, you can handle a 404 error here.
         // For example, you can include a 404 error page.
-        notFound();
+        $this->renderNotFoundPage();
     }
 
 }

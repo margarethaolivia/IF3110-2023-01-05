@@ -24,6 +24,15 @@ class VideoController extends ViewController
             $user = $this->getService('UserService')->getUserById($_SESSION['user_id']);
         }
 
+        if ($video->is_taken_down && !($user && ($user->is_admin || $video->user_id === $user->user_id)))
+        {
+            $this->renderForbiddenPage([
+                'link' => '/', 
+                'src' => BASE_URL . '/images/vector/403.svg', 
+                'desc' => 'This video is taken down by admin.'
+            ]);
+        }
+
         return [
             'title' => 'Video - WeTube',
             'script_paths' => ['videos/videos.js'],
