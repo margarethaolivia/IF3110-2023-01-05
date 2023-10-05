@@ -174,7 +174,7 @@ background-color: #57AEFF;
 }
 
     
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 100px) {
 
     .video-upload-box {
         width: 450px;
@@ -185,8 +185,8 @@ background-color: #57AEFF;
     .main-segment {
         flex-direction: row;
         justify-content: space-between;
-        height: 70vh;
-        margin-bottom: 30px;
+        height: 56vh;
+        margin-bottom: 40px;
     }
 
     .input-segment {
@@ -200,7 +200,7 @@ background-color: #57AEFF;
     }
 
     .desc-input {
-        height: 200px;
+        height: 150px;
     }
 
 }
