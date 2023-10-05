@@ -21,9 +21,11 @@ class CommentAPIController extends APIController {
         $request_data['user_id'] = $user_id;
 
         try {
+            $commentService = $this->getService('CommentService');$commentService->createComment($request_data);
 
+            return self::response('Comment is posted', 201);
         } catch (Exception $e) {
-            $this->sendResponseOnError($e);
+            return $this->sendResponseOnError($e);
         }
     }
 }

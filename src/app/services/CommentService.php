@@ -18,7 +18,7 @@ class CommentService extends Service
     public function createComment($data) {
         $query = 'INSERT INTO comment (video_id, comment_text, user_id) VALUES(:video_id, :comment_text, :user_id)';
         
-        $this->getDatabase()->execute(
+        $res = $this->getDatabase()->execute(
             $query,
             [
                 Database::binding('video_id', $data['video_id']),
@@ -27,7 +27,7 @@ class CommentService extends Service
             ]
         );
 
-        return $this->getDatabase()->getLastInsertID();
+        return $res;
     }
 
     public function updateComment($user_id, $comment_id, $data) {
