@@ -98,7 +98,7 @@ class UserService extends Service
         $bindings = [Database::binding('user_id', $user_id)];
 
         foreach ($allowedAttributes as $attribute) {
-            if (isset($data[$attribute])) {
+            if (array_key_exists($attribute, $data)) {
                 $setClause .= "$attribute = :$attribute, ";
 
                 if ($attribute == 'pass')

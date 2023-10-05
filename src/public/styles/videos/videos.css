@@ -49,6 +49,12 @@
     color: #D9D9D9;
 }
 
+.takedown-button {
+    color: red;
+    height: fit-content;
+    padding: 5px 10px;
+}
+
 
 .video-desc {
     background-color: #ebebeb;
@@ -108,17 +114,20 @@ textarea {
     width: 100%;
 }
 
-.comment-button-container {
+.action-button-container {
     padding: 10px 0;
-    display: none;
 }
 
-.comment-button-container button {
+.action-button-container button {
     padding: 10px 15px;
     font-weight: 500;
     font-size: 12px;
 }
 
-.submit-comment-button {
+#submit-comment-button {
+    color: red;
+}
+
+.submit-action-button {
     background-color: #faf9f9;
 }

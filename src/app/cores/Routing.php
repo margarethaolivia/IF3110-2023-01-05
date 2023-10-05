@@ -74,10 +74,14 @@ $router->add([
 ]);
 
 $router->add([
+    'pattern' => "#^/api/videos/$PARAM_PATTERN$#", // Match "/api/videos/{video_id}"
+    'controller' => 'SpecificVideoController'
+]);
+
+$router->add([
     'pattern' => "#^/api/myvideos$#", // Match "/api/myvideos"
     'controller' => 'MyVideoAPIController'
 ]);
-
 
 $router->add([
     'pattern' => "#^/api/myvideos/$PARAM_PATTERN$#", // Match "/api/myvideos/{video_id}"

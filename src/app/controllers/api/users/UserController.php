@@ -29,13 +29,8 @@ class UserController extends APIController {
 
         // Check if all required fields are present
         $required_fields = ['username', 'password', 'first_name'];
-        $missing_field = $this->checkRequiredField($request_data, $required_fields);
-
-        if ($missing_field)
-        {
-            return self::response('Missing required field: ' . $missing_field, 400);
-        }
-
+        $this->checkRequiredField($request_data, $required_fields);
+        
         // Check if username only consists of characters and underscore
         $username = $request_data['username'];
         if (!$this->userService->isUsernameValid($username)) {

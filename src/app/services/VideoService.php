@@ -140,17 +140,22 @@ class VideoService extends Service
         return $videos;
     }
 
-    public function updateVideo($user_id, $video_id, $data)
+    public function updateVideo($video_id, $data, $user_id = null)
     {
         // Define the allowed attributes that can be updated
         $allowedAttributes = ['title', 'video_desc', 'thumbnail', 'video_file', 'is_taken_down', 'taken_down_by', 'take_down_comment'];
 
         // Prepare the SET part of the SQL query
         $setClause = '';
-        $bindings = [Database::binding('video_id', $video_id), Database::binding('user_id', $user_id)];
+        $bindings = [Database::binding('video_id', $video_id)];
+
+        if ($user_id)
+        {
+            $bindings[] = Database::binding('user_id', $user_id);
+        }
 
         foreach ($allowedAttributes as $attribute) {
-            if (isset($data[$attribute])) {
+            if (array_key_exists($attribute, $data)) {
                 $setClause .= "$attribute = :$attribute, ";
                 array_push($bindings, Database::binding($attribute, $data[$attribute]));
             }
@@ -158,10 +163,14 @@ class VideoService extends Service
         
         // Remove the trailing comma and space from the setClause
         $setClause = rtrim($setClause, ', ');
+        $whereClause = "video_id = :video_id";
 
+        if ($user_id)
+        {
+            $whereClause = $whereClause . " AND user_id = :user_id";
+        }
         // Construct the SQL query
-        $sql = "UPDATE video SET $setClause WHERE video_id = :video_id AND user_id = :user_id";
-
+        $sql = "UPDATE video SET $setClause WHERE $whereClause";
         // Execute the update query
         $res = $this->getDatabase()->execute($sql, $bindings, true);
 

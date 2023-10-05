@@ -15,6 +15,7 @@ class ProfileController extends APIController {
 
         $userService = $this->getService('UserService');
         $user_id = $user->user_id;
+        $body = [];
 
         if (isset($request_body['first_name']))
         {
@@ -28,6 +29,9 @@ class ProfileController extends APIController {
             {
                 return self::response("Combination of firstname and lastname already exists", 400);
             }
+
+            $body['first_name'] = $request_body['first_name'];
+            $body['last_name'] = $request_body['last_name'] ?? '';
         }
 
         if (isset($request_body['old_password']) ^ isset($request_body['new_password']))
@@ -52,11 +56,13 @@ class ProfileController extends APIController {
                 return self::response("New password must be different", 400);
             }
 
+            $body['pass'] = $request_body['new_password'];
+
             $request_body['pass'] = $request_body['new_password'];
         }
 
         try {
-            $userService->updateUser($user_id, $request_body);
+            $userService->updateUser($user_id, $body);
 
             return self::response("User data changed");
         }   

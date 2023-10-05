@@ -7,6 +7,7 @@ function body($data) {
     $dataParser = new DateParser();
     $comments = $data['comments'];
     $video = $data['video'];
+    $user = $data['user'];
 ?>
     <div>
         <div class="flex">
@@ -18,31 +19,45 @@ function body($data) {
             </div>   
         </div>
         
-        <div class="flex flex-col items-center my-2">
-            <div class="publisher-pic-container">
-                <?php if ($video->profile_pic) : ?>
-                    <img src="<?=$video->profile_pic?>" class="publisher-pic user-pic">
-                <?php endif; ?>
-                <?php if (!$video->profile_pic) : ?>
-                    <svg class="publisher-pic profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                <?php endif; ?>
-            </div>
-            <div class="flex flex-row">
-                <h2 class="video-title"><?=$video->title?></h2>
-                <div class="flex flex-col items-center publisher-container">
-                    <h3 class="flex align-center full-name"><?=$video->first_name . ' ' . $video->last_name?> </h3>
-                    <?php if ($video->is_official) : ?>
-                        <div class="official-logo">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
+        <div class="flex flex-col justify-between items-center">
+            <div class="flex flex-col items-center my-2">
+                <div class="publisher-pic-container">
+                    <?php if ($video->profile_pic) : ?>
+                        <img src="<?=$video->profile_pic?>" class="publisher-pic user-pic">
+                    <?php endif; ?>
+                    <?php if (!$video->profile_pic) : ?>
+                        <svg class="publisher-pic profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                     <?php endif; ?>
                 </div>
+                <div class="flex flex-row">
+                    <h2 class="video-title"><?=$video->title?></h2>
+                    <div class="flex flex-col items-center publisher-container">
+                        <h3 class="flex align-center full-name"><?=$video->first_name . ' ' . $video->last_name?> </h3>
+                        <?php if ($video->is_official) : ?>
+                            <div class="official-logo">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
+            <?php if ($user && $user->is_admin) : ?>
+                <button onclick="undoTakeDown(event, <?=$video->video_id?>)" class="takedown-button <?=!$video->is_taken_down ? 'hidden' : ''?>" id="undo-takedown-button">Undo Takedown</button>
+                <button onclick="showTakeDown(event)" class="takedown-button <?=$video->is_taken_down ? 'hidden' : ''?>" id="show-takedown-button">Take Down</button>
+            <?php endif; ?>
         </div>
+
+        <form id="takedown-form" class="hidden" onsubmit="submitTakeDown(event, <?=$video->video_id?>)">
+            <textarea onfocus="showCommentButtons(event)"  name="take_down_comment" placeholder="Type your takedown comment here"></textarea>
+            <div class="flex flex-col justify-end action-button-container" id="takedown-button-container">
+                <button onclick="closeTakeDownButtons(event)" id="cancel-comment-button" >Cancel</button>
+                <button class="submit-action-button" id="submit-comment-button" type="submit">Take Down</button>
+            </div>
+        </form>
 
         <div class="video-desc">
             <?php if ($video->updated_at == $video->created_at) : ?>
@@ -85,7 +100,7 @@ function body($data) {
                     
                     <textarea onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here"></textarea>
                 </div>
-                <div class="flex flex-col justify-end comment-button-container" id="comment-button-container">
+                <div class="flex flex-col justify-end action-button-container hidden" id="comment-button-container">
                     <button onclick="closeCommentButtons(event)" id="cancel-comment-button" >Cancel</button>
                     <button class="submit-comment-button" id="submit-comment-button" type="submit">Comment</button>
                 </div>

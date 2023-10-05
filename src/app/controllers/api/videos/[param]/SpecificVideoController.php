@@ -7,16 +7,36 @@ class SpecificVideoController extends APIController {
         parent::__construct($folder_path);
     }
 
-    protected function GET($params)
+    protected function PATCH($params)
     {
-        $request_data = $this->getBody();
+        $sessionMiddleware = $this->getMiddleware('SessionMiddleware');
+        $user = $sessionMiddleware->authorizeAdmin();
+        $body = $this->getBody();
+
+        $this->checkRequiredField($body, ['is_taken_down']);
+
+        if ($body['is_taken_down'])
+        {
+            $this->checkRequiredField($body, ['take_down_comment']);
+        }
+
         try {
-            $this->videoService->getVideoById($request_data);            
-            $redirect_value = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-            header("Location: " . BASE_URL . "/videos/" . ltrim($request_data, '/'), true, 302);
-            exit();
-        } catch (Exception $e) {
+            $videoService = $this->getService('VideoService');
+            $videoService->updateVideo(
+                $params[0], 
+                [
+                    'take_down_comment' => $body['take_down_comment'] ?? null, 
+                    'taken_down_by' => $body['is_taken_down'] ? $user->user_id : null, 
+                    'is_taken_down' => $body['is_taken_down']
+                ]
+            );
+        }
+
+        catch (Exception $e)
+        {
             $this->sendResponseOnError($e);
         }
+       
+        return self::response('Video edited', 200);
     }
 }

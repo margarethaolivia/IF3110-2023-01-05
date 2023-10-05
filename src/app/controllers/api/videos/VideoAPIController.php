@@ -99,12 +99,12 @@ class VideoAPIController extends APIController {
             $thumbnailPath = $manager->writeFile($video_id, $thumbnailExtension, 'thumbnail');
 
             $videoService->updateVideo(
-                $user_id, 
                 $video_id, 
                 [
                     'thumbnail' => $thumbnailPath, 
                     'video_file' => $videoPath
-                ]
+                ],
+                $user_id
             );
     
             return self::response('Video is uploaded', 201);

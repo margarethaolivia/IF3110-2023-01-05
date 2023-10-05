@@ -12,17 +12,25 @@ class VideoController extends ViewController
     public function getData($params)
     {
         $videoService = $this->getService('videoService');
-        $getVideoById = $videoService->getVideoById($params[0]);
+        $video = $videoService->getVideoById($params[0]);
 
         $commentService = $this->getService('commentService');
-        $getCommentByVideoId = $commentService->getCommentByVideoId($params[0]);
+        $comments = $commentService->getCommentByVideoId($params[0]);
+
+        $user = null;
+
+        if (isset($_SESSION['user_id']))
+        {
+            $user = $this->getService('UserService')->getUserById($_SESSION['user_id']);
+        }
 
         return [
             'title' => 'Video - WeTube',
             'script_paths' => ['videos/videos.js'],
             'style_paths' => ['videos/videos.css'],
-            'video' => $getVideoById,
-            'comments' => $getCommentByVideoId,
+            'video' => $video,
+            'comments' => $comments,
+            'user' => $user
         ];
     }
 

@@ -43,8 +43,9 @@ const login = (e) => {
 
     // Set up the event handler for network errors
     xhr.onerror = function () {
-        // Handle errors
-        console.error('Error:', xhr.statusText);
+        const data = JSON.parse(xhr.responseText);
+        // Handle the response data
+        showToast(data.message);
     };
 
     // Send the request with the form data
