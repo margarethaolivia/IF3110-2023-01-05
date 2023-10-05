@@ -1,3 +1,65 @@
+function dateTimeToString(datetime) {
+  const dateTimeObj = new Date(datetime);
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return dateTimeObj.toLocaleDateString(undefined, options);
+}
+
+function createCommentCard(
+  comment,
+  noUser = false,
+  settings = false,
+  deleteAction = "",
+  editAction = "",
+  cardId = "",
+  videoId
+) {
+  // Create a div element for the comment card
+  const commentCardElement = document.createElement("div");
+  commentCardElement.id = `card-${cardId}`;
+  commentCardElement.className = "comment-box my-1";
+
+  // Create the HTML content for the comment card
+  const innerHTML = `
+      <div class="flex justify-between">
+          <div>
+              <h4 class="text-bold">${comment.first_name} ${
+    comment.last_name
+  }</h4>
+              <h5 class="text-grey">${dateTimeToString(comment.created_at)}
+                  ${
+                    comment.updated_at !== comment.created_at
+                      ? `| updated ${dateTimeToString(comment.updated_at)}`
+                      : ""
+                  }
+              </h5>
+          </div>
+          
+          <div class="flex justify-center items-center">
+              <a href="openEditInput(${videoId}, ${comment.comment_id}, ${
+    comment.comment_text
+  })" class="video-card-button video-edit-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z" />
+                </svg>
+              </a>
+              <button onclick="${deleteAction}" class="video-card-button video-delete-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                </svg>
+              </button>
+          </div>
+      </div>
+      
+      <p class="pt-2">${comment.comment_text}</p>
+  `;
+
+  // Set the HTML content for the comment card
+  commentCardElement.innerHTML = innerHTML;
+
+  return commentCardElement;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const descContainer = document.getElementById("desc-text-container");
 
@@ -27,11 +89,13 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const createVideoComment = (e, videoId) => {
+  e.preventDefault();
+
   // Create a FormData object from the form
   const formData = new FormData(e.target);
 
   // Get values using FormData.get
-  const comment_text = formData.get("comment_text");
+  const comment_text = formData.get("comment_text_input");
 
   if (!comment_text) {
     e.preventDefault();
@@ -43,9 +107,37 @@ const createVideoComment = (e, videoId) => {
   xhr.open("POST", `/api/videos/${videoId}/comments`, true);
 
   xhr.onload = function () {
-    console.log(xhr.responseText);
-    return;
     const data = JSON.parse(xhr.responseText);
+
+    // Assuming you have the comment data and other necessary variables
+    const commentData = data.body.comment;
+
+    const newCommentCard = createCommentCard(
+      commentData,
+      undefined, // noUser
+      undefined, // settings
+      "deleteMyComment(event, " +
+        videoId +
+        ", " +
+        commentData.comment_id +
+        ", 'popup-delete-comment')", // deleteAction
+      undefined, // editAction
+      commentData.comment_id, // cardId
+      videoId
+    );
+
+    // Get the parent element where you want to append the comment card
+    const commentSection = document.getElementById("comment-section");
+
+    // Append the new comment card to the comment section
+    commentSection.appendChild(newCommentCard);
+
+    // Get a reference to the input element by its ID
+    const inputElement = document.getElementById("comment_text_input");
+
+    // Clear the value by setting it to an empty string
+    inputElement.value = "";
+
     if (xhr.status === 200) {
       showToast(data.message);
     } else {
@@ -60,6 +152,48 @@ const createVideoComment = (e, videoId) => {
   };
 
   xhr.send(JSON.stringify({ comment_text }));
+};
+
+const openEditInput = (video_id, comment_id, comment_text) => {
+  const paragraphElement = document.getElementById(`paragraph-${comment_id}`);
+
+  const inputElement = document.createElement("div");
+  inputElement.className = "pt-2";
+
+  inputElement.innerHTML = `
+    <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus>${comment_text}</textarea>
+    <div class="flex flex-col justify-end action-button-container hidden" id="edit-button-container-${comment_id}">
+        <button onclick="closeEditCommentButtons(event, ${comment_id})" id="cancel-comment-button" >Cancel</button>
+        <button class="submit-comment-button" id="submit-comment-button" type="submit" onclick="submitEditAction(${video_id}, ${comment_id})">Edit</button>
+    </div>
+  `;
+
+  // Replace the <p> element with the <textarea> element
+  paragraphElement.parentNode.replaceChild(inputElement, paragraphElement);
+};
+
+const closeEditCommentButtons = (e, comment_id) => {
+  e.preventDefault();
+
+  // Get references to the <p> and <textarea> elements
+  const textareaElement = document.getElementById("comment_text");
+  const paragraphElement = document.createElement("p");
+  paragraphElement.id = `paragraph-${comment_id}`;
+  paragraphElement.className = "pt-2";
+
+  // Copy the content of the <textarea> element to the <p>
+  paragraphElement.textContent = textareaElement.value;
+
+  // Replace the <textarea> element with the <p> element
+  textareaElement.parentNode.replaceChild(paragraphElement, textareaElement);
+
+  // remove the buttons
+  const buttonContainer = document.getElementById(
+    `edit-button-container-${comment_id}`
+  );
+  if (buttonContainer) {
+    buttonContainer.remove();
+  }
 };
 
 const submitDeleteAction = (videoId, commentId) => {
