@@ -750,7 +750,7 @@ video {
 .dropdown-multiple .select-multiple {
     cursor: pointer;
     display: block;
-    padding: 10px;
+    padding: 7px 10px;
 }
 .dropdown .select > i,
 .dropdown-multiple .select-multiple > i {

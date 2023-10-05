@@ -53,7 +53,7 @@ dropdowns.forEach(function (dropdown) {
     
     var menu = this.querySelector('.dropdown-menu-multiple');
     if (menu.style.display === 'block') {
-        if (event.target.closest('.select'))
+        if (!menu.contains(event.target))
         {
             menu.style.display = 'none';
             toggleDropDown(this);
