@@ -3,7 +3,7 @@ const createVideoComment = (e) => {
 
   // Create a FormData object from the form
   const formData = new FormData(e.target);
-  
+
   // Get values using FormData.get
   const comment_text = formData.get("comment_text");
 
@@ -14,12 +14,16 @@ const createVideoComment = (e) => {
     return;
   }
 
-
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "/api/comment", true);
 
   xhr.onload = function () {
+    console.log(xhr.responseText);
+    const data = JSON.parse(xhr.responseText);
     if (xhr.status === 200) {
+      showToast(data.message);
+    } else {
+      showToast(data.message);
     }
   };
 
@@ -32,3 +36,7 @@ const createVideoComment = (e) => {
   xhr.send(formData);
 };
 
+const deleteMyComment = (e, commentId, popUpId) => {
+  e.preventDefault();
+  showPopUp(popUpId, () => submitDeleteAction(commentId));
+};
