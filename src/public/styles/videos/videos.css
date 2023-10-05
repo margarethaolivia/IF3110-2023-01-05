@@ -83,7 +83,7 @@
     cursor: pointer;
 }
 
-.time-desc {
+.title-desc {
     color: #0F0F0F;
     font-size: 15px;
     font-weight: 500;
@@ -98,6 +98,15 @@
 
 .desc-container {
     margin-top: 20px;
+}
+
+.takedown-desc-container {
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.takedown-title {
+    color: rgb(236, 0, 0);
 }
 
 .desc-container p {
@@ -130,4 +139,21 @@ textarea {
 
 .submit-action-button {
     background-color: #faf9f9;
+}
+
+.comment-input {
+    max-height: 200px;
+    resize: vertical;
+}
+
+.empty-comment-message {
+    margin-top: 20px;
+    margin-left: 65px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    color: #606060;
+}
+
+#comment-button-container {
+    display: none;
 }

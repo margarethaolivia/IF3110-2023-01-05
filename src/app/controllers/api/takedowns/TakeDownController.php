@@ -31,11 +31,7 @@ class TakeDownController extends APIController {
                 {
                     $totalPage = $video->total_page;
                 }
-                $html = $html . $outputHandler->outputComponentAsString(
-                    'takedownRow', 
-                    APP_PATH . '/components/takedowns/takedownRow.php', 
-                    ['video' => $video]
-                );
+                $html = $html . $outputHandler->outputComponentAsString('videoCard', APP_PATH . '/components/elements/videoCard.php', ['video' => $video]);
             }
             
             $paginationHTML = $outputHandler->outputComponentAsString(

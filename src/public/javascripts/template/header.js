@@ -31,6 +31,19 @@ searchBar.addEventListener('input', function() {
 
 const container = document.getElementById('horizontal-scroll-container');
 
+const selectElements = document.getElementsByClassName('custom-select');
+
+// Loop through each select element
+for (var j = 0; j < selectElements.length; j++) {
+    // Get the option elements within each select
+    var optionElements = selectElements[j].getElementsByTagName('option');
+
+    // Loop through the option elements and add the custom class
+    for (var i = 0; i < optionElements.length; i++) {
+        optionElements[i].classList.add('custom-option');
+    }
+}
+
 const openSidebar = (e) => {
     const sidebar = document.getElementById('sidebar');
 

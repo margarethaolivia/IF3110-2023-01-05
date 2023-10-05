@@ -53,7 +53,7 @@ function body($data) {
         </div>
 
         <form id="takedown-form" class="hidden" onsubmit="submitTakeDown(event, <?=$video->video_id?>)">
-            <textarea onfocus="showCommentButtons(event)"  name="take_down_comment" placeholder="Type your takedown comment here"></textarea>
+            <textarea class="comment-input" onfocus="showCommentButtons(event)"  name="take_down_comment" placeholder="Type your takedown comment here"></textarea>
             <div class="flex flex-col justify-end action-button-container" id="takedown-button-container">
                 <button onclick="closeTakeDownButtons(event)" id="cancel-comment-button" >Cancel</button>
                 <button class="submit-action-button" id="submit-comment-button" type="submit">Take Down</button>
@@ -61,12 +61,19 @@ function body($data) {
         </form>
 
         <div class="video-desc">
+            <?php if ($video->is_taken_down) : ?>
+                <span class="my-1 flex align-center title-desc takedown-title">This video is taken down by WeTube</span>
+                <div class="desc-container takedown-desc-container">
+                    <p><?=$video->take_down_comment?></p>
+                </div>
+            <?php endif; ?>
+
             <?php if ($video->updated_at == $video->created_at) : ?>
-                <span class="my-1 flex align-center time-desc">Uploaded <?=$dataParser->dateTimeToString($video->created_at)?></span>
+                <span class="my-1 flex align-center title-desc">Uploaded <?=$dataParser->dateTimeToString($video->created_at)?></span>
             <?php endif; ?>
 
             <?php if ($video->updated_at != $video->created_at) : ?>
-                <span class="my-1 flex align-center time-desc">Edited <?=$dataParser->dateTimeToString($data['video']->updated_at)?></span>
+                <span class="my-1 flex align-center title-desc">Edited <?=$dataParser->dateTimeToString($data['video']->updated_at)?></span>
             <?php endif; ?>
             
             <div class="desc-container">
@@ -89,17 +96,17 @@ function body($data) {
             <form onsubmit="createVideoComment(event, <?=$video->video_id?>)" class="flex flex-row items-end justify-between w-full">
                 <div class="flex flex-col">
                     <div class="user-pic-container">
-                        <?php if ($_SESSION['profile_pic']) : ?>
+                        <?php if (isset($_SESSION['profile_pic'])) : ?>
                             <img src="<?=$_SESSION['profile_pic']?>" class="user-pic">
                         <?php endif; ?>
-                        <?php if (!$_SESSION['profile_pic']) : ?>
+                        <?php if (!isset($_SESSION['profile_pic'])) : ?>
                             <svg class="profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                         <?php endif; ?>
                     </div>
                     
-                    <textarea onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here"></textarea>
+                    <textarea class="comment-input" onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here"></textarea>
                 </div>
                 <div class="flex flex-col justify-end action-button-container hidden" id="comment-button-container">
                     <button onclick="closeCommentButtons(event)" id="cancel-comment-button" >Cancel</button>
@@ -114,6 +121,13 @@ function body($data) {
                         deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
                         cardId: $comment->comment_id
                     );
+                }
+
+                if (count($comments) === 0)
+                {
+                    ?>
+                        <span class="empty-comment-message" id="empty-comment-message">No Comments</span>
+                    <?php
                 }
             ?>     
         </div>

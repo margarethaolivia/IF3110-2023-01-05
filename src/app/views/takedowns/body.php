@@ -8,7 +8,7 @@ function body($data) {
         <span class="page-title">Takedowns</span>
 
         <span class="empty-message" id="empty-message">Empty List</span>
-        <div class="table-content flex flex-row" id="video-list">
+        <div class="pb-2" id="video-list">
         </div>
 
         <div id="pagination-container"></div>

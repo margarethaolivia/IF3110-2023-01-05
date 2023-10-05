@@ -1,6 +1,7 @@
 <?php
 include_once (APP_PATH . '/components/elements/logo.php');
 include_once (APP_PATH . '/components/elements/signInButton.php');
+include_once (APP_PATH . '/components/elements/option.php');
 function pageHeader() {
     $isHome = !(isset($_SERVER['PATH_INFO']));
 ?>
@@ -52,6 +53,7 @@ function pageHeader() {
         <?php if ($isHome) : ?>
             <div class="flex flex-col items-center justify-between filters">
                 <div class="scrollmenu no-scrollbar" id="horizontal-scroll-container">
+                    <button class="badge all-tags-filter p-2 mtbr-2">All</button>
                     <button class="badge p-2 mtbr-2">Music</button>
                     <button class="badge p-2 mtbr-2">Music</button>
                     <button class="badge p-2 mtbr-2">Music</button>
@@ -69,7 +71,12 @@ function pageHeader() {
                     
                     
                 </div>
-                <button class="sort-button">Sort</button>
+                <div class="options-container">
+                    <?php
+                        option('Filters', []);
+                        option('Sorts', [], true);
+                    ?>
+                </div>
             </div>
         <?php endif; ?>
     </div>

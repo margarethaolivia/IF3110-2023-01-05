@@ -36,7 +36,7 @@ class VideoService extends Service
         return $this->getDatabase()->getLastInsertID();
     }
 
-    public function getAllVideo($page_number=1, $search='')
+    public function getAllVideo($page_number=1, $search='', $sortCategories=[])
     {
         $limit = MAX_VIDEO_DISPLAY;
         $offset = $this->getPageOffset($page_number, $limit);
@@ -45,7 +45,7 @@ class VideoService extends Service
 
         if ($search)
         {
-            $searchCondition = "AND title ILIKE :search";
+            $searchCondition = "AND (title ILIKE :search OR CONCAT(first_name, ' ', last_name) ILIKE :search)";
             $search = '%' . $search . '%';
         }
 
@@ -53,7 +53,7 @@ class VideoService extends Service
 
         $query = "WITH TotalCount AS (
             SELECT CEIL(COUNT(video_id) / :video_limit) AS total_page
-            FROM video
+            FROM video INNER JOIN metube_user USING(user_id)
             WHERE $whereCondition
         )
 
@@ -179,7 +179,7 @@ class VideoService extends Service
 
     public function getTakedowns($user_id, $page_number=1)
     {
-        $limit = MAX_TAKEDOWN_DISPLAY;
+        $limit = MAX_VIDEO_DISPLAY;
         $offset = $this->getPageOffset($page_number, $limit);
 
         $whereCondition = "is_taken_down = TRUE AND taken_down_by = :user_id";
@@ -190,7 +190,7 @@ class VideoService extends Service
             WHERE $whereCondition
         )
         
-        SELECT video_id, title, video_desc, thumbnail, first_name || ' ' || last_name as full_name, TotalCount.total_page, take_down_comment
+        SELECT video_id, title, video_desc, thumbnail, profile_pic, video.created_at, is_official, first_name || ' ' || last_name as full_name, TotalCount.total_page
         FROM video INNER JOIN metube_user USING(user_id), TotalCount
         WHERE $whereCondition
         OFFSET :offset LIMIT :video_limit";
