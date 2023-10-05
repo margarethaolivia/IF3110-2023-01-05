@@ -4,7 +4,7 @@ include_once APP_PATH . '/utils/DateParser.php';
 function commentCard($comment, $noUser=false, $settings=false, $deleteAction="", $editLink="", $cardId="") {
     $dataParser = new DateParser();
 ?>
-    <div id="<?=$cardId?>" class="comment-box my-2">
+    <div id="<?=$cardId?>" class="comment-box my-1">
         <div class="flex justify-between">
         <div>
             <h4 class="text-bold"><?=$comment->first_name . ' ' . $comment->last_name?></h4>
