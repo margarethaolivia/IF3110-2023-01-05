@@ -135,7 +135,6 @@ const getVideoList = ({page= 1, searchValue= "", tag= "", baseUrl='/api/videos'}
     xhr.onload = function() {
         const jsonResponse = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {   
-
             const body = jsonResponse.body;
 
             const emptyMessageElement = document.getElementById('empty-message');
@@ -237,5 +236,5 @@ const movePage = (buttonString) => {
         search = searchBar.value;
     }
 
-    getVideoList({page, searchValue: search, tag});
+    getVideoList({page, searchValue: search, tag, baseUrl: sessionStorage.getItem('pagination_base_url') ?? undefined});
 }

@@ -18,6 +18,11 @@ class SpecificVideoController extends APIController {
         if ($body['is_taken_down'])
         {
             $this->checkRequiredField($body, ['take_down_comment']);
+
+            if (strlen($body['take_down_comment']) === 0)
+            {
+                return self::response('Takedown comment length can not be zero', 400);
+            }
         }
 
         try {

@@ -328,8 +328,6 @@ border-radius: 50%;
 
 /* PROFILE PIC */
 .profile_pic {
-    width: 100%; /* or adjust to the desired width */
-    height: 100%; /* or adjust to the desired height */
     object-fit: cover; /* or object-fit: contain; depending on your preference */
     border-radius: 100%; /* to make it a circular image */
       
