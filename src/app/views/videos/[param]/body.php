@@ -91,7 +91,7 @@ function body($data) {
             </div>
         </div>
         
-        <h3 class="mt-5 mb-2 comment-title">Comments</h3>
+        <h3 class="mt-5 mb-2 comment-title"><?=count($comments)?> Comment(s)</h3>
         <div class="flex flex-row">
             <form onsubmit="createVideoComment(event, <?=$video->video_id?>)" class="flex flex-row items-end justify-between w-full">
                 <div class="flex flex-col">
@@ -105,7 +105,7 @@ function body($data) {
                             </svg>
                         <?php endif; ?>
                     </div>    
-                    <textarea class="comment-input" onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text_input" name="comment_text_input" placeholder="Type your comment here"></textarea>
+                    <textarea <?=$user ? '' : 'disabled'?> class="comment-input <?=$user ? 'vertical-resize' : 'no-resize'?>" onfocus="showCommentButtons(event)" type="text" autocomplete="off" id="comment_text_input" name="comment_text_input" placeholder="<?=$user ? 'Type your comment here' : 'Comment disabled for non user'?> "></textarea>
                 </div>
                 <div class="flex flex-col justify-end action-button-container hidden" id="comment-button-container">
                     <button onclick="closeCommentButtons(event)" id="cancel-comment-button" >Cancel</button>
@@ -122,12 +122,6 @@ function body($data) {
                             editAction: "submitEditAction(" . $video->video_id . ", " . $comment->comment_id . ")",
                             cardId: $comment->comment_id,
                         );
-                    }
-                    if (count($comments) === 0)
-                    {
-                        ?>
-                            <span class="empty-comment-message" id="empty-comment-message">No Comments</span>
-                        <?php
                     }
                 ?>  
             </div>

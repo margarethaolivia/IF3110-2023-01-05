@@ -217,6 +217,14 @@ border-radius: 50%;
     height: 100vh;
 }
 
+.no-resize {
+    resize: none;
+}
+
+.vertical-resize {
+    resize: vertical;
+}
+
 .inline-block {
     display: inline-block;
 }

@@ -143,7 +143,6 @@ textarea {
 
 .comment-input {
     max-height: 200px;
-    resize: vertical;
 }
 
 .empty-comment-message {
