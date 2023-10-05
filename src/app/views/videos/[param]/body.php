@@ -48,7 +48,7 @@ function body($data) {
             </div>
             <?php if ($user && $user->is_admin) : ?>
                 <button onclick="undoTakeDown(event, <?=$video->video_id?>)" class="takedown-button <?=!$video->is_taken_down ? 'hidden' : ''?>" id="undo-takedown-button">Undo Takedown</button>
-                <button onclick="showTakeDown(event)" class="takedown-button <?=$video->is_taken_down ? 'hidden' : ''?>" id="show-takedown-button">Take Down</button>
+                <button onclick="showTakeDown(event)" class="takedown-button <?=$video->is_taken_down || $video->is_official ? 'hidden' : ''?>" id="show-takedown-button">Take Down</button>
             <?php endif; ?>
         </div>
 

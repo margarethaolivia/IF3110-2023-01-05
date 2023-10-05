@@ -18,7 +18,7 @@ function head($data, $template_style_paths = [], $template_script_paths = []) {
         <!-- Global CSS -->
         <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/template/global.css">
 
-        <?php foreach ($data['style_paths'] as $path) : ?>
+        <?php if (isset($data['style_paths'])) foreach ($data['style_paths'] as $path) : ?>
             <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/styles/<?= $path ?>">
         <?php endforeach; ?>
 
@@ -35,7 +35,7 @@ function head($data, $template_style_paths = [], $template_script_paths = []) {
 
         <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/template/global.js" defer></script>
 
-        <?php  foreach ($data['script_paths'] as $path) : ?>
+        <?php if (isset($data['script_paths'])) foreach ($data['script_paths'] as $path) : ?>
             <script type="text/javascript" src="<?= BASE_URL ?>/javascripts/<?= $path ?>" defer></script>
         <?php endforeach; ?>
 

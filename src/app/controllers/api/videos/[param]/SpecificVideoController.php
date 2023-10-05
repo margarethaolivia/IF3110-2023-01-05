@@ -23,7 +23,15 @@ class SpecificVideoController extends APIController {
             {
                 return self::response('Takedown comment length can not be zero', 400);
             }
+
+            $video = $this->getService('VideoService')->getVideoById($params[0]);
+
+            if ($video->is_official)
+            {
+                return self::response('Official video can not be taken down', 403);
+            }
         }
+
 
         try {
             $videoService = $this->getService('VideoService');

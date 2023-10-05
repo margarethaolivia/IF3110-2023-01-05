@@ -17,6 +17,15 @@ abstract class ViewController extends Controller
         return new View($this->getFolderPath(), $data);
     }
 
+    protected function renderForbiddenPage($data)
+    {
+        $data['isPlainPage'] = true;
+        $data['style_paths'] = ['template/403.css'];
+        $view = new View('/error', $data);
+        $view->render();
+        exit;
+    }
+
     public function index($params)
     {
         switch ($_SERVER['REQUEST_METHOD']) {
