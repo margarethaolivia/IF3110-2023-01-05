@@ -63,10 +63,11 @@
 .filters {
     width: 85%;
     margin-bottom: 10px;
+    flex-direction: column;
 }
 
 .scrollmenu {
-    width: 60%;
+    width: 100%;
     white-space: nowrap;
     overflow-x: auto;
     border-radius: 10px;
@@ -90,7 +91,11 @@
 }
 
 .options-container {
-    gap: 10px;
+    width: 100%;
+}
+
+.dropdown, .dropdown-multiple {
+    width: 30%;
 }
 
 @media screen and (min-width: 500px) {
@@ -106,5 +111,18 @@
 
     .search-div {
         margin-right: 10%;
+    }
+
+    .filters {
+        flex-direction: row;
+    }
+
+    .options-container {
+        width: 40%;
+   
+    }
+
+    .scrollmenu {
+        width: 58%;
     }
 }

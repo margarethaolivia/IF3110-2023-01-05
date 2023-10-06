@@ -51,7 +51,7 @@ function pageHeader() {
         </div>
 
         <?php if ($isHome) : ?>
-            <div class="flex flex-col items-center justify-between filters">
+            <div class="flex items-center justify-between filters">
                 <div class="scrollmenu no-scrollbar" id="horizontal-scroll-container">
                     <button class="badge all-tags-filter p-2 mtbr-2">All</button>
                     <button class="badge p-2 mtbr-2">Music</button>
@@ -71,7 +71,7 @@ function pageHeader() {
                     
                     
                 </div>
-                <div class="options-container flex flex-col">
+                <div class="options-container flex flex-col justify-between">
                     <?php
                         option(
                             'Filters', 
