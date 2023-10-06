@@ -12,6 +12,7 @@ class CommentAPIController extends APIController {
 
         $outputHandler =  new OutputHandler();
         $videoId = $param[0];
+        $isAdmin = $_SESSION['is_admin'] ?? false;
 
         try {
             $commentService = $this->getService('CommentService');

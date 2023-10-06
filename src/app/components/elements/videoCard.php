@@ -2,7 +2,7 @@
 
 require_once APP_PATH . '/utils/DateParser.php';
 
-function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $editLink="", $cardId="") {
+function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $editLink="", $cardId="", $showTakeDown=false) {
     $parser = new DateParser();
 ?> 
     <div id="<?=$cardId?>" class="video-card" onclick="<?='watchVideo(event, ' . $video->video_id . ')'?>">
@@ -38,6 +38,9 @@ function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $ed
                     </div>
                 <?php endif; ?>
                 <p class="upload-info">Uploaded <?=$parser->dateTimeToString($video->created_at)?></p>
+                <?php if ($showTakeDown && isset($video->is_taken_down) && $video->is_taken_down) : ?>
+                    <p class="takedown-info">Taken down by Wetube</p>
+                <?php endif; ?>
             </div>
             <?php if ($settings) : ?>
                 <div class="flex flex-row justify-center items-center videocard-button-container">

@@ -14,10 +14,26 @@ class SpecificCommentController extends APIController {
         $user_id = $user->user_id;
         $comment_id = $params[1];
 
+        
+
         try {
             $commentService = $this->getService('CommentService');
             $comment = $commentService->getCommentById($comment_id);
-            $commentService->deleteCommentById($user_id, $comment_id);
+
+            if($user_id !== $comment->user_id)
+            {
+                if (!$user->is_admin)
+                {
+                    return self::response('Unauthorized', 401);
+                }
+
+                else if ($comment->is_admin)
+                {
+                    return self::response('Forbidden', 403);
+                }
+            }
+            
+            $commentService->deleteCommentById($comment->user_id, $comment_id);
     
             return self::response('Comment is deleted', 200);
     
@@ -31,7 +47,6 @@ class SpecificCommentController extends APIController {
         $user = $this->getMiddleware('SessionMiddleware')->authorizeuser();
         $user_id = $user->user_id;
         $request_data = [];
-        $video_id = $params[0];
         $comment_id = $params[1];
 
         // Check if comment_text is empty

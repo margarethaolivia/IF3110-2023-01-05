@@ -3,11 +3,21 @@ include_once APP_PATH . '/utils/DateParser.php';
 
 function commentCard($comment, $deleteAction="") {
     $dataParser = new DateParser();
+    $isAdmin = isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : false;
 ?>
     <div id="card-<?=$comment->comment_id?>" class="comment-box my-1">
         <div class="flex justify-between">
         <div class="comment-info">
-            <h4 class="commenter"><?=$comment->first_name . ' ' . $comment->last_name?></h4>
+            <div class="flex flex-col comment-account-info items-center">
+                <span class="commenter"><?=$comment->first_name . ' ' . $comment->last_name?></span>
+                <?php if ($comment->is_admin) : ?>
+                    <div class="official-logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                <?php endif; ?>
+            </div>
             <?php if ($comment->updated_at === $comment->created_at) : ?>
                 <span class="text-grey">Posted <?=$dataParser->dateTimeToString($comment->created_at)?></span>
             <?php endif; ?>
@@ -30,7 +40,15 @@ function commentCard($comment, $deleteAction="") {
                         </svg>
                     </button>
                 </div>
-            
+        <?php endif; ?>
+        <?php if ($isAdmin && isset($comment->is_admin) && !$comment->is_admin) : ?>
+            <div id="admin-delete-button-container" class="flex justify-center items-center">
+                    <button onclick="<?=$deleteAction?>" class="video-card-button video-delete-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                    </button>
+                </div>
         <?php endif; ?>
         </div>
     

@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const fetchComments = () => {
-  console.log("what");
   const path = window.location.pathname;
   const pathSegments = path.split('/');
   const lastSegment = pathSegments.pop(); // Removes the last segment from the array and returns it

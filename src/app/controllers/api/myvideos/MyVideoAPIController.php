@@ -42,6 +42,7 @@ class MyVideoAPIController extends APIController {
                         'editLink' => "/myvideos/edit/" . $video->video_id,
                         'deleteAction' => "deleteMyVideo(event, " . $video->video_id . ", 'popup-delete-video')",
                         'cardId' => 'card-' . $video->video_id, 
+                        'showTakeDown' => false
                     ]
                 );
             }

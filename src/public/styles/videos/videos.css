@@ -164,6 +164,11 @@ textarea {
     font-size: 12px;
 }
 
+.comment-account-info
+{
+    gap: 5px
+}
+
 @media screen and (min-width: 600px) {
     .video-title {
         font-size: 20px;
