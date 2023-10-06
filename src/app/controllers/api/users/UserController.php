@@ -41,7 +41,7 @@ class UserController extends APIController {
         
         // Check if password meets the specified criteria
         if (!$this->userService->isPasswordValid($password)) {
-            return self::response('Invalid password format', 400);
+            return self::response('Password must be 8 to 20 in length and consists of minimum an uppercase character, a lowercase character, a number, and a special character', 400);
         }
 
         // Check if concatenation of firstname and lastname doesn't exist in the database

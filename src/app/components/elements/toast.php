@@ -3,7 +3,7 @@
 function toastChild($id) {
 ?>
     <div class="flex flex-col items-center justify-between toast" id="toast-<?=$id?>">
-        <div class="toast-value-container no-scrollbar">
+        <div class="toast-value-container">
             <p id="toast-value-<?=$id?>"></p>
         </div>
         <button id="toast-close-button-<?=$id?>">

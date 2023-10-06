@@ -32,6 +32,7 @@ const login = (e) => {
         if (xhr.status == 200) {
             // You can access the final redirected URL using xhr.getResponseHeader('Location')
             // You might want to handle the redirect URL here
+            sessionStorage.setItem('loginMessage', 'Logged in');
             window.location.href =  xhr.responseURL;
         } else {
             // If not a redirect, proceed with handling the response
