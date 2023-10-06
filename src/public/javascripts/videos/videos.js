@@ -144,6 +144,8 @@ const submitCreateComment = (videoId, formData) => {
   xhr.open("POST", `/api/videos/${videoId}/comments`, true);
 
   xhr.onload = function () {
+
+    console.log("loh");
     const data = JSON.parse(xhr.responseText);
 
     // Assuming you have the comment data and other necessary variables
@@ -175,11 +177,11 @@ const submitCreateComment = (videoId, formData) => {
     // Clear the value by setting it to an empty string
     inputElement.value = "";
 
-    if (xhr.status === 200) {
-      showToast(data.message);
-    } else {
-      showToast(data.message);
+    if (xhr.status === 201) {
+      closeCommentButtons();
     }
+
+    showToast(data.message);
   };
 
   // Set up the callback for errors
@@ -193,57 +195,51 @@ const submitCreateComment = (videoId, formData) => {
   );
 };
 
-const openEditInput = (video_id, comment_id, comment_text) => {
-  const container = document.getElementById("edit-delete-button-container");
+const openEditInput = (event, paragraphId) => {
+  const container = event.target.getElementById("edit-delete-button-container");
   container.classList.add("hidden");
 
-  const paragraphElement = document.getElementById(`paragraph-${comment_id}`);
+  const paragraphElement = document.getElementById(paragraphId);
+  const formElement = paragraphElement.closest('#comment-content').querySelector('.edit-form-container');
+  const input = formElement.querySelector('textarea');
 
-  const inputElement = document.createElement("div");
-  inputElement.className = "pt-2";
-
-  inputElement.innerHTML = `
-  <form onsubmit="submitEditAction(event, ${video_id}, ${comment_id})">
-    <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus>${comment_text}</textarea>
-    <div class="flex flex-col justify-end action-button-container" id="edit-button-container-${comment_id}">
-        <button type="reset" onclick="closeEditCommentButtons(event, ${comment_id}, '${comment_text}')" id="cancel-comment-button" >Cancel</button>
-        <button class="submit-comment-button" id="submit-comment-button" type="submit">Edit</button>
-    </div>
-  </form>
-  `;
-
-  // Replace the <p> element with the <textarea> element
-  paragraphElement.parentNode.replaceChild(inputElement, paragraphElement);
+  input.value = paragraphElement.textContent;
+  paragraphElement.classList.add("hidden");
+  formElement.classList.remove("hidden");
 };
 
-const closeEditCommentButtons = (e, comment_id, comment_text) => {
-  e.preventDefault();
+const closeEditCommentButtons = ({e=null, target=null, cancel=false}) => {
 
-  const container = document.getElementById("edit-delete-button-container");
-  container.classList.remove("hidden");
+  if (e)
+  {
+    e.preventDefault();
+    target = e.currentTarget;
+  }
 
-  // Get references to the <p> and <textarea> elements
-  const textareaElement = document.getElementById(`comment_text`);
-  const paragraphElement = document.createElement("p");
-  paragraphElement.id = `paragraph-${comment_id}`;
-  // paragraphElement.className = "pt-2";
+  console.log(target);
 
-  // Copy the content of the <textarea> element to the <p>
-  paragraphElement.textContent = comment_text;
+  if (target)
+  {
+    const container = document.getElementById("edit-delete-button-container");
+    container.classList.remove("hidden");
 
-  // Replace the <textarea> element with the <p> element
-  textareaElement.parentNode.replaceChild(paragraphElement, textareaElement);
+    // Get references to the <p> and <textarea> elements
+    parent = target.closest('#comment-content');
+    const formContainer = parent.querySelector('.edit-form-container');
+    const textareaElement = formContainer.querySelector('textarea');
+    const paragraphElement = parent.querySelector("p");
 
-  // remove the buttons
-  const buttonContainer = document.getElementById(
-    `edit-button-container-${comment_id}`
-  );
-  if (buttonContainer) {
-    buttonContainer.remove();
+    // Copy the content of the <textarea> element to the <p>
+    if (!cancel) paragraphElement.textContent = textareaElement.value;
+    textareaElement.value = null;
+    formContainer.classList.add("hidden");
+    paragraphElement.classList.remove("hidden");
+
   }
 };
 
-const submitEditComment = (e, videoId, commentId, formData) => {
+const submitEditComment = (target, videoId, commentId, formData) => {
+  console.log(target);
   // Create a new XMLHttpRequest object
   const xhr = new XMLHttpRequest();
   // Set up the request
@@ -254,10 +250,10 @@ const submitEditComment = (e, videoId, commentId, formData) => {
   xhr.onload = function () {
     const data = JSON.parse(xhr.responseText);
     if (xhr.status == 200) {
-      showToast(data.message);
-    } else {
-      showToast(data.message);
+      closeEditCommentButtons({target});
     }
+
+    showToast(data.message);
   };
 
   // Set up the event handler for network errors
@@ -268,12 +264,11 @@ const submitEditComment = (e, videoId, commentId, formData) => {
 
   // Send the request with the body
   xhr.send(formData);
-
-  closeEditCommentButtons(e, commentId, formData.get(`comment_text`));
 };
 
 const submitEditAction = (e, videoId, commentId) => {
   e.preventDefault();
+  const target = e.currentTarget;
   const formData = new FormData(e.target);
 
   const comment_text = formData.get(`comment_text`);
@@ -283,7 +278,7 @@ const submitEditAction = (e, videoId, commentId) => {
   }
 
   showPopUp("popup-edit-comment", () =>
-    submitEditComment(e, videoId, commentId, formData)
+    submitEditComment(target, videoId, commentId, formData)
   );
 };
 
@@ -479,10 +474,15 @@ const showCommentButtons = (e) => {
   container.style.display = "flex";
 };
 
-const closeCommentButtons = (e) => {
-  e.preventDefault();
+const closeCommentButtons = (e=null) => {
+  if (e)
+  {
+    e.preventDefault();
+  }
+  console.log("bruh");
+
   const container = document.getElementById("comment-button-container");
-  container.style.display = "none";
+  container.classList.add("hidden");
 
   const input = document.getElementById("comment_text_input");
   input.value = null;
