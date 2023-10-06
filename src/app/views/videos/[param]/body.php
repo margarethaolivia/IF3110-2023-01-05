@@ -3,6 +3,7 @@
 include_once APP_PATH . '/components/elements/commentCard.php';
 include_once APP_PATH . '/utils/DateParser.php';
 include_once APP_PATH . '/components/elements/popup.php';
+include_once APP_PATH . '/components/takedowns/takedownInfo.php';
 
 function body($data) {
     $dataParser = new DateParser();
@@ -53,7 +54,7 @@ function body($data) {
         </div>
 
         <form id="takedown-form" class="hidden" onsubmit="submitTakeDown(event, <?=$video->video_id?>)">
-            <textarea class="comment-input" onfocus="showCommentButtons(event)"  name="take_down_comment" placeholder="Type your takedown comment here"></textarea>
+            <textarea class="comment-input" name="take_down_comment" placeholder="Type your takedown comment here"></textarea>
             <div class="flex flex-col justify-end action-button-container" id="takedown-button-container">
                 <button onclick="closeTakeDownButtons(event)" id="cancel-comment-button" >Cancel</button>
                 <button class="submit-action-button" id="submit-comment-button" type="submit">Take Down</button>
@@ -62,9 +63,10 @@ function body($data) {
 
         <div class="video-desc">
             <?php if ($video->is_taken_down) : ?>
-                <span class="my-1 flex align-center title-desc takedown-title">This video is taken down by WeTube</span>
-                <div class="desc-container takedown-desc-container">
-                    <p><?=$video->take_down_comment?></p>
+                <div id="takedown-container">
+                    <?php
+                        takedownInfo($video->take_down_comment);
+                    ?>
                 </div>
             <?php endif; ?>
 
