@@ -16,7 +16,7 @@ function body($data) {
                 <a href='videos/upload' class="upload-button">Upload</a>
             </div>
         </div>
-        <div id="empty-message">
+        <div id="empty-message" class="hidden">
             <?php
                 emptyList(BASE_URL . "/images/webp/EmptyList.webp", "You don't have any video");
             ?>
