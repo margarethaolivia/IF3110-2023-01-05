@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS VIDEO (
 );
 
 CREATE TABLE IF NOT EXISTS COMMENT (
-    video_id INTEGER REFERENCES VIDEO,
+    video_id INTEGER REFERENCES VIDEO ON DELETE CASCADE,
     comment_id SERIAL,
     comment_text VARCHAR(255) NOT NULL,
     user_id INTEGER NOT NULL REFERENCES METUBE_USER,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS TAG (
 );
 
 CREATE TABLE IF NOT EXISTS VIDEO_TAG (
-    video_id INTEGER REFERENCES VIDEO,
+    video_id INTEGER REFERENCES VIDEO ON DELETE CASCADE,
     tag_id INTEGER REFERENCES TAG,
     CONSTRAINT video_tag_pk PRIMARY KEY(video_id, tag_id)
 );
@@ -78,3 +78,60 @@ CREATE OR REPLACE TRIGGER update_comment_timestamp
 BEFORE UPDATE ON COMMENT
 FOR EACH ROW
 EXECUTE FUNCTION update_timestamp();
+
+CREATE OR REPLACE FUNCTION add_or_update_video_tags(video_id_arg INTEGER, tags_arg VARCHAR[])
+RETURNS VOID AS $$
+DECLARE
+    v_tag_name VARCHAR;
+    v_tag_id INTEGER;
+BEGIN
+    -- Iterate through the provided tags
+    FOR v_tag_name IN SELECT unnest(tags_arg) AS tag_name
+    LOOP
+        -- Convert the tag to lowercase
+        v_tag_name := LOWER(v_tag_name);
+
+        -- Check if the tag already exists
+        SELECT tag_id INTO v_tag_id FROM tag WHERE LOWER(tag_name) = v_tag_name;
+
+        -- If the tag does not exist, create it
+        IF v_tag_id IS NULL THEN
+            INSERT INTO tag(tag_name) VALUES (v_tag_name) RETURNING tag_id INTO v_tag_id;
+        END IF;
+
+        -- Insert or update the relationship in video_tag
+        INSERT INTO video_tag(video_id, tag_id) VALUES (video_id_arg, v_tag_id)
+        ON CONFLICT (video_id, tag_id) DO NOTHING;
+    END LOOP;
+
+    -- Delete relationships not in the provided list of tags
+    DELETE FROM video_tag
+    WHERE video_id = video_id_arg AND video_tag.tag_id NOT IN (
+        SELECT tag_id FROM tag WHERE LOWER(tag_name) = ANY(SELECT unnest(tags_arg))
+    );
+
+    -- Delete tags with zero relationships
+    DELETE FROM tag
+    WHERE tag_id NOT IN (SELECT video_tag.tag_id FROM video_tag);
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION delete_unused_tags()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM TAG
+    WHERE tag_id = OLD.tag_id
+    AND NOT EXISTS (
+        SELECT 1
+        FROM VIDEO_TAG
+        WHERE tag_id = OLD.tag_id
+    );
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_delete_unused_tags
+AFTER DELETE ON VIDEO_TAG
+FOR EACH ROW
+EXECUTE FUNCTION delete_unused_tags();

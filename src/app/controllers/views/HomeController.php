@@ -11,11 +11,13 @@ class HomeController extends ViewController
     
     protected function getData($params)
     {
+        $tags = $this->getService('TagService')->getPopularTags();
 
         return [
             'title' => 'WeTube',
             'script_paths' => ['home/home.js'],
             'style_paths' => ['home/home.css'],
+            'tags' => $tags
         ];
     }
 }

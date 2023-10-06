@@ -38,9 +38,11 @@ class VideoService extends Service
 
     public function getAllVideo($page_number=1, $search='', $sortCategories=['created_at'], $searchCategories=['title'], $tag="", $officialCategory="")
     {
+        // PAGINATION
         $limit = MAX_VIDEO_DISPLAY;
         $offset = $this->getPageOffset($page_number, $limit);
 
+        // SEARCHS
         $searchCondition = "";
 
         if ($search)
@@ -64,20 +66,35 @@ class VideoService extends Service
             $search = '%' . $search . '%';
         }
 
-        $filterCondition = "";
+        // OFFICIAL VIDEO FILTER
+        $officialFilterCondition = "";
 
         if ($officialCategory === "true")
         {
-            $filterCondition = "AND is_official = TRUE";
+            $officialFilterCondition = "AND is_official = TRUE";
         }
 
         else if ($officialCategory === "false")
         {
-            $filterCondition = "AND is_official = FALSE";
+            $officialFilterCondition = "AND is_official = FALSE";
         }
 
-        $whereCondition = "is_taken_down = false $searchCondition $filterCondition";
+        // TAG FILTER
+        $tagFilterCondition = "";
 
+        if ($tag)
+        {
+            $tagFilterCondition = "AND video.video_id IN (
+                SELECT video_id
+                FROM video_tag
+                JOIN tag ON video_tag.tag_id = tag.tag_id
+                WHERE LOWER(tag.tag_name) = LOWER(:tag)
+            )";
+        }
+
+        $whereCondition = "is_taken_down = false $searchCondition $officialFilterCondition $tagFilterCondition";
+
+        // SORTING
         $sortCondition = "";
         if (count($sortCategories) > 0)
         {
@@ -102,6 +119,7 @@ class VideoService extends Service
             $sortCondition = rtrim($sortCondition, ", ");
         }
 
+        // FINAL QUERY
         $query = "WITH TotalCount AS (
             SELECT CEIL(COUNT(video_id) / :video_limit) AS total_page
             FROM video INNER JOIN metube_user USING(user_id)
@@ -119,6 +137,11 @@ class VideoService extends Service
         if ($searchCondition)
         {
             $bindings[] = Database::binding('search', $search);
+        }
+
+        if ($tag)
+        {
+            $bindings[] = Database::binding('tag', $tag);
         }
 
         $videos = $this->getDatabase()->fetchAll(
@@ -139,7 +162,7 @@ class VideoService extends Service
         );
     }
 
-    public function getVideoAndTagsById($id)
+    public function getVideoWithoutUser($id)
     {
         $query = 'SELECT * FROM video WHERE video_id = :video_id LIMIT 1';
 
@@ -150,10 +173,7 @@ class VideoService extends Service
             ]
         );
 
-        return [
-            'video' => $video,
-            'tags' => []
-        ];
+        return $video;
     }
 
     public function deleteVideoById($user_id, $video_id)

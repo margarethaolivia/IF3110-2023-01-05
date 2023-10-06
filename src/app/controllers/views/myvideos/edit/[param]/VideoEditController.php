@@ -12,13 +12,15 @@ class VideoEditController extends UserViewController
     protected function getData($params)
     {
         $videoService = $this->getService('VideoService');
-        $data = $videoService->getVideoAndTagsById($params[0]);
+        $tagService = $this->getService('TagService');
+        $video = $videoService->getVideoWithoutUser($params[0]);
+        $tags = $tagService->getVideoTags($params[0]);
         return [
             'title' => 'Edit Video - WeTube',
             'script_paths' => ['videos/form.js'],
             'style_paths' => ['videos/form.css'],
-            'video' => $data['video'],
-            'tags' => $data['tags']
+            'video' => $video,
+            'tags' => $tags
         ];
     }
 }

@@ -1,3 +1,37 @@
+const stringListToArray = (input) => {
+  // Split the string by commas
+
+  if (input === "") return [];
+
+  const words = input.split(',');
+
+  for (let i = 0; i < words.length; i++) {
+    // Trim whitespace from the beginning and end of each word
+    const trimmedWord = words[i].trim();
+
+    // Check if each word only consists of alphabets
+    if (!/^[a-zA-Z]+$/.test(trimmedWord)) {
+      if (trimmedWord.includes(' ')) {
+        throw new Error("Each tag must be consist only 1 word and separated by a comma");
+      }
+      throw new Error("Each tag must be only consist of alphabets");
+    }
+
+    // Replace the original word with the trimmed version
+    words[i] = trimmedWord;
+  }
+
+  return words;
+};
+
+const convertTags = (formData) => {
+  var tags = [];
+  tags = stringListToArray(formData.get('tags'));
+  new FormData().delete('tags');
+  tags.forEach(tag => formData.append('tags[]', tag));
+}
+
+
 const updateVideoFileDesc = (selectedFile) => {
   const videoFileDesc = document.querySelector('.video-file-desc');
 
@@ -106,6 +140,16 @@ const updateVideo = (e, videoId, popUpId) => {
     showToast('Title is required');
     return;
   }
+
+  try {
+    convertTags(formData);
+  }
+
+  catch (e)
+  {
+    showToast(e.message);
+    return;
+  }
   
   showPopUp(popUpId, () => submitVideoUpdate(videoId, formData));
 }
@@ -116,6 +160,7 @@ const submitVideoUpload = (formData) => {
   xhr.open("POST", "/api/videos", true);
 
   xhr.onload = function () {
+  
     const data = JSON.parse(xhr.responseText);
     if (xhr.status === 201) {
       sessionStorage.setItem('formSuccessMessage', data.message);
@@ -161,6 +206,16 @@ const uploadVideo = (e, popUpId) => {
   if (!formData.has('thumbnail') || formData.get('thumbnail').size === 0)
   {
     showToast('Thumbnail is required');
+    return;
+  }
+
+  try {
+    convertTags(formData);
+  }
+
+  catch (e)
+  {
+    showToast(e.message);
     return;
   }
   

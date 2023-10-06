@@ -5,7 +5,6 @@ include_once APP_PATH . '/components/elements/videoCard.php';
 include_once APP_PATH . '/components/elements/emptyList.php';
 
 function body($data) {
-
 ?>
     <div class="pb-2 main-page">
 

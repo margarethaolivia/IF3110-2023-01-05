@@ -18,6 +18,7 @@ class MyVideoAPIController extends APIController {
 
         try {
             $videoService = $this->getService('VideoService');
+            
             $videos = $videoService->getUserVideos($user->user_id, $page);
 
             $body = [];

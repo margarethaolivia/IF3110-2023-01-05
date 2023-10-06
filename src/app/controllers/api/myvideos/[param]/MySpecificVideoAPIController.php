@@ -28,6 +28,19 @@ class MySpecificVideoAPIController extends APIController {
         if ($_FILES['thumbnail']['size'] > IMAGE_MAX_SIZE) {
             return self::response('Thumbnail size exceeds the limit', 400);
         }
+
+        $tagService = $this->getService('TagService');
+        $tags = !empty($_POST['tags']) ? $_POST['tags'] : [];
+
+
+        try {
+            $tagService->isTagsValid($tags);
+        }
+
+        catch (Exception $e)
+        {
+            return self::response($e->getMessage(), 400);
+        }
     
         $request_data['title'] = $_POST['title'];
         $request_data['video_desc'] = $_POST['video_desc'] ?? '';
@@ -47,7 +60,8 @@ class MySpecificVideoAPIController extends APIController {
                 $request_data['thumbnail'] = $thumbnailPath;
             }
 
-            $videoService->updateVideo($user_id, $video_id, $request_data);
+            $videoService->updateVideo($video_id, $request_data, user_id: $user_id);
+            $tagService->updateVideoTags($video_id, $tags);
     
             return self::response('Video is edited', 200);
     

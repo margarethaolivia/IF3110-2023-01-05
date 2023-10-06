@@ -248,7 +248,7 @@ const getVideoList = ({
     sortCategories=JSON.parse(sessionStorage.getItem('sort_categories')) ?? ['created_at'], 
     officialCategory=sessionStorage.getItem('official_category'), 
     searchCategories=JSON.parse(sessionStorage.getItem('search_categories')) ?? ['title'], 
-    tag= defaultTag
+    tag= sessionStorage.getItem('tag') ?? defaultTag
 }) =>
 
 {
@@ -282,7 +282,7 @@ const getVideoList = ({
     xhr.open('GET', apiUrl, true);
 
     xhr.onload = function() {
-        console.log(xhr.responseText);
+        // console.log(xhr.responseText);
         // return;
         const jsonResponse = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {   

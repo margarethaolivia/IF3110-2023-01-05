@@ -4,9 +4,15 @@ include_once (APP_PATH . '/components/elements/signInButton.php');
 include_once (APP_PATH . '/components/elements/option.php');
 include_once (APP_PATH . '/components/header/officialCategories.php');
 
-function pageHeader() {
+function pageHeader($data) {
     $isHome = !(isset($_SERVER['PATH_INFO']));
+    
     $tags = [];
+
+    if ($isHome)
+    {
+        $tags = $data['tags'];
+    }
 ?>
     <div class="navbar flex flex-row items-center fixed w-full">
         <div class="flex flex-col justify-between items-center global-navbar w-full">
@@ -56,9 +62,9 @@ function pageHeader() {
         <?php if ($isHome) : ?>
             <div class="flex items-center filters">
                 <div class="scrollmenu no-scrollbar horizontal-scroll-container hidden" id="tags-container">
-                    <button class='badge selected p-2 mtbr-2'>All</button>
+                    <button onclick="setFilter(event, '', 'tag')" class='badge selected p-2 mtbr-2'>All</button>
                     <?php foreach ($tags as $tag) : ?>
-                        <button class='badge p-2 mtbr-2'><?=$tag?></button>
+                        <button onclick="setFilter(event, '<?=$tag?>', 'tag')" class='badge p-2 mtbr-2'><?=$tag?></button>
                     <?php endforeach; ?>
                 </div>
                 <div class="scrollmenu no-scrollbar horizontal-scroll-container hidden" id="official-categories-container">

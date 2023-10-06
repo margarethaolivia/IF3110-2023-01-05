@@ -25,6 +25,18 @@ class VideoAPIController extends APIController {
         {
             return self::response('Search category must be filled for searching', 400);
         }
+        
+        if ($tag)
+        {
+            try {
+                $this->getService('TagService')->isTagValid($tag);
+            }
+
+            catch (Exception $e)
+            {
+                return self::response($e->getMessage(), 400);
+            }
+        }
 
         $outputHandler =  new OutputHandler();
 
@@ -91,13 +103,24 @@ class VideoAPIController extends APIController {
         if ($_FILES['thumbnail']['size'] > IMAGE_MAX_SIZE) {
             return self::response('Thumbnail size exceeds the limit', 400);
         }
+
+        $tagService = $this->getService('TagService');
+        $tags = !empty($_POST['tags']) ? $_POST['tags'] : [];
+
+        try {
+            $tagService->isTagsValid($tags);
+        }
+
+        catch (Exception $e)
+        {
+            return self::response($e->getMessage(), 400);
+        }
     
         $request_data['user_id'] = $user_id;
         $request_data['title'] = $_POST['title'];
         $request_data['video_desc'] = $_POST['video_desc'] ?? '';
         $request_data['is_official'] = $user->is_admin;
 
-    
         try {
             $videoService = $this->getService('VideoService');
             $video_id = $videoService->createVideo($request_data);
@@ -117,6 +140,8 @@ class VideoAPIController extends APIController {
                 ],
                 $user_id
             );
+
+            $tagService->updateVideoTags($video_id, $tags);
     
             return self::response('Video is uploaded', 201);
     

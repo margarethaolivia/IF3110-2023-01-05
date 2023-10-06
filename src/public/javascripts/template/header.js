@@ -56,11 +56,13 @@ searchBar.addEventListener('input', function() {
 });
 
 const filterParent = document.querySelector('.filters');
-filterParent.style.justifyContent = 'end';
+if (filterParent)
+{
+    filterParent.style.justifyContent = 'end';
+}
 
 const openSidebar = (e) => {
     const sidebar = document.getElementById('sidebar');
-
     if (sidebar) {
         sidebar.style.visibility = 'visible';
     }

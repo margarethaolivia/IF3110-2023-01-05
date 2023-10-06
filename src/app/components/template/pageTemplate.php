@@ -32,7 +32,7 @@ function pageTemplate($data, $template_body_path) {
         <?php
             if ($includeComponents)
             {
-                pageHeader();
+                pageHeader($data);
                 sidebar();
             }
             toast();

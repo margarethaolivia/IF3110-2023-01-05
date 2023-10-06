@@ -75,7 +75,7 @@ class Database
             $this->statement->execute();
         
         } catch (PDOException $e) {
-
+            echo $e;
             if ($forwardException) throw $e;
             throw new Exception('Internal Server Error', 500);
         }
