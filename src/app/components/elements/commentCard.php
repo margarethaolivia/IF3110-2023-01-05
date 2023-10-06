@@ -1,10 +1,10 @@
 <?php
 include_once APP_PATH . '/utils/DateParser.php';
 
-function commentCard($comment, $videoId, $deleteAction="", $editAction="", $cardId="") {
+function commentCard($comment, $deleteAction="") {
     $dataParser = new DateParser();
 ?>
-    <div id="card-<?=$cardId?>" class="comment-box my-1">
+    <div id="card-<?=$comment->comment_id?>" class="comment-box my-1">
         <div class="flex justify-between">
         <div class="comment-info">
             <h4 class="commenter"><?=$comment->first_name . ' ' . $comment->last_name?></h4>
@@ -35,9 +35,9 @@ function commentCard($comment, $videoId, $deleteAction="", $editAction="", $card
         </div>
     
         <div id="comment-content">
-            <p class="pt-2" id="paragraph-<?=$cardId?>"><?=$comment->comment_text?></p>
+            <p class="pt-2" id="paragraph-<?=$comment->comment_id?>"><?=$comment->comment_text?></p>
             <div class="pt-2 hidden edit-form-container">
-                <form onsubmit="submitEditAction(event, '<?=$videoId?>', '<?=$comment->comment_id?>')">
+                <form onsubmit="submitEditAction(event, '<?=$comment->video_id?>', '<?=$comment->comment_id?>')">
                     <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus></textarea>
                     <div class="flex flex-col justify-end action-button-container" id="edit-button-container-${comment_id}">
                         <button type="reset" onclick="closeEditCommentButtons({e: event, cancel: true})" id="cancel-comment-button" >Cancel</button>

@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/OutputHandler.php';
 
 class CommentAPIController extends APIController {
     public function __construct($folder_path)
@@ -22,8 +23,8 @@ class CommentAPIController extends APIController {
             foreach ($comments as $comment)
             {
                 $html = $html . $outputHandler->outputComponentAsString('commentCard', APP_PATH . '/components/elements/commentCard.php', [
-                    'comment' => $comment,
-                    'videoId' => $videoId
+                    'comment' =>$comment,
+                    'deleteAction' => "deleteMyComment(event, " . $comment->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
                 ]);
             }
 
@@ -58,7 +59,13 @@ class CommentAPIController extends APIController {
             $comment_id = $commentService->createComment($postBody);
 
             $comment = $commentService->getCommentById($comment_id);
-            return self::response('Comment posted', 201, ['comment' => $comment]);
+            $outputHandler =  new OutputHandler();
+            $html = $outputHandler->outputComponentAsString('commentCard', APP_PATH . '/components/elements/commentCard.php', [
+                'comment' =>$comment,
+                'deleteAction' => "deleteMyComment(event, " . $comment->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
+            ]);
+
+            return self::response('Comment posted', 201, ['comment' => $comment, 'comment_card_html' => $html]);
 
         } catch (Exception $e) {
             return $this->sendResponseOnError($e);

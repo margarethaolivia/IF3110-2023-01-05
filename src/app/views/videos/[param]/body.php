@@ -7,7 +7,6 @@ include_once APP_PATH . '/components/takedowns/takedownInfo.php';
 
 function body($data) {
     $dataParser = new DateParser();
-    $comments = $data['comments'];
     $video = $data['video'];
     $user = $data['user'];
 ?>
@@ -89,7 +88,7 @@ function body($data) {
             </div>
         </div>
         
-        <h3 class="mt-5 mb-2 comment-title"><?=count($comments)?> Comment(s)</h3>
+        <h3 class="mt-5 mb-2 comment-title">Comments</h3>
         <div class="flex flex-row">
             <form onsubmit="createVideoComment(event, <?=$video->video_id?>)" class="flex flex-row items-end justify-between w-full">
                 <div class="flex flex-col">
@@ -111,17 +110,7 @@ function body($data) {
                 </div>
             </form>
             <div id="comment-section">
-                <?php 
-                    foreach ($comments as $comment) {
-                        commentCard(
-                            $comment,
-                            $video->video_id,
-                            deleteAction: "deleteMyComment(event, " . $video->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
-                            editAction: "submitEditAction(" . $video->video_id . ", " . $comment->comment_id . ")",
-                            cardId: $comment->comment_id,
-                        );
-                    }
-                ?>  
+
             </div>
         </div>
         <?php 

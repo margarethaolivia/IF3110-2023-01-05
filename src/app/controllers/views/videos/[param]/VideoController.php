@@ -14,9 +14,6 @@ class VideoController extends ViewController
         $videoService = $this->getService('videoService');
         $video = $videoService->getVideoById($params[0]);
 
-        $commentService = $this->getService('commentService');
-        $comments = $commentService->getCommentByVideoId($params[0]);
-
         $user = null;
 
         if (isset($_SESSION['user_id']))
@@ -39,7 +36,6 @@ class VideoController extends ViewController
             'script_paths' => ['videos/videos.js'],
             'style_paths' => ['videos/videos.css'],
             'video' => $video,
-            'comments' => $comments,
             'user' => $user
         ];
     }
