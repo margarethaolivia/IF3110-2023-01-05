@@ -25,4 +25,35 @@ class SpecificCommentController extends APIController {
             $this->sendResponseOnError($e);
         }
     }
+
+    protected function POST($params)
+    {
+        $user = $this->getMiddleware('SessionMiddleware')->authorizeuser();
+        $user_id = $user->user_id;
+        $request_data = [];
+        $video_id = $params[0];
+        $comment_id = $params[1];
+
+        // Check if comment_text is empty
+        if (empty($_POST['comment_text'])) {
+            return self::response('Comment text is required', 400);
+        }
+
+        $request_data['comment_text'] = $_POST['comment_text'];
+
+        $commentService = $this->getService('CommentService');
+
+        try {
+            $commentService->updateComment($user_id, $comment_id, $request_data);
+            
+            return self::response('Comment is edited', 200);
+        }
+
+        catch (Exception $e)
+        {
+            $this->sendResponseOnError($e);
+        }
+       
+        return self::response('Comment edited', 200);
+    }
 }

@@ -161,11 +161,13 @@ const openEditInput = (video_id, comment_id, comment_text) => {
   inputElement.className = "pt-2";
 
   inputElement.innerHTML = `
+  <form onsubmit="submitEditAction(event, ${video_id}, ${comment_id})">
     <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus>${comment_text}</textarea>
     <div class="flex flex-col justify-end action-button-container hidden" id="edit-button-container-${comment_id}">
         <button onclick="closeEditCommentButtons(event, ${comment_id})" id="cancel-comment-button" >Cancel</button>
-        <button class="submit-comment-button" id="submit-comment-button" type="submit" onclick="submitEditAction(${video_id}, ${comment_id})">Edit</button>
+        <button class="submit-comment-button" id="submit-comment-button" type="submit">Edit</button>
     </div>
+  </form>
   `;
 
   // Replace the <p> element with the <textarea> element
@@ -176,10 +178,10 @@ const closeEditCommentButtons = (e, comment_id) => {
   e.preventDefault();
 
   // Get references to the <p> and <textarea> elements
-  const textareaElement = document.getElementById("comment_text");
+  const textareaElement = document.getElementById(`comment_text`);
   const paragraphElement = document.createElement("p");
   paragraphElement.id = `paragraph-${comment_id}`;
-  paragraphElement.className = "pt-2";
+  // paragraphElement.className = "pt-2";
 
   // Copy the content of the <textarea> element to the <p>
   paragraphElement.textContent = textareaElement.value;
@@ -194,6 +196,46 @@ const closeEditCommentButtons = (e, comment_id) => {
   if (buttonContainer) {
     buttonContainer.remove();
   }
+};
+
+const submitEditAction = (e, videoId, commentId) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+
+  const comment_text = formData.get(`comment_text`);
+  console.log(comment_text);
+  if (!comment_text) {
+    showToast("Comment text is required");
+    return;
+  }
+
+  // Create a new XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+  // Set up the request
+  const requestUrl = `/api/videos/${videoId}/comments/${commentId}`;
+  xhr.open("POST", requestUrl, true);
+  console.log("response text: " + xhr.responseText);
+
+  // Set up the event handler for when the request completes
+  xhr.onload = function () {
+    const data = JSON.parse(xhr.responseText);
+    if (xhr.status == 200) {
+      showToast(data.message);
+    } else {
+      showToast(data.message);
+    }
+  };
+
+  // Set up the event handler for network errors
+  xhr.onerror = function () {
+    // Handle errors
+    console.error("Error:", xhr.statusText);
+  };
+
+  // Send the request with the body
+  xhr.send(formData);
+
+  closeEditCommentButtons(e, commentId);
 };
 
 const submitDeleteAction = (videoId, commentId) => {
