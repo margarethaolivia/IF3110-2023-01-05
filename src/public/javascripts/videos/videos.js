@@ -422,6 +422,7 @@ const closeTakeDownButtons = (e) => {
 
 const showCommentButtons = (e) => {
   const container = document.getElementById("comment-button-container");
+  container.classList.remove("hidden");
   container.style.display = "flex";
 };
 
