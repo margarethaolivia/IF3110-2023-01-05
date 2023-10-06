@@ -86,6 +86,36 @@ document.addEventListener("DOMContentLoaded", function () {
       showLessButton.style.display = "none";
     });
   }
+
+  const xhr = new XMLHttpRequest();
+  const apiUrl = `/api/videos/${videoId}/comments`;
+
+  xhr.open("GET", apiUrl, true);
+  xhr.onload = function () {
+    const htmlResponse = xhr.responseText;
+    if (xhr.status === 200) {
+      const htmlResponse = xhr.responseText;
+
+      // Assuming that the response is a valid HTML string
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlResponse, "text/html");
+
+      // Assuming the video-list is a div element where you want to append the HTML
+      const commentContainer = document.getElementById("comment-section");
+
+      // Clear existing content in the container
+      commentContainer.innerHTML = "";
+
+      // Append the new content
+      const bodyChildren = Array.from(doc.body.children);
+      bodyChildren.forEach((child) => {
+        commentContainer.appendChild(child.cloneNode(true));
+      });
+    } else {
+      jsonResponse = JSON.parse(xhr.responseText);
+      showToast(jsonResponse.message);
+    }
+  };
 });
 
 const createVideoComment = (e, videoId) => {
@@ -309,9 +339,9 @@ const requestTakeDown = (videoId, take_down_comment) => {
       );
       const takeDownForm = document.getElementById("takedown-form");
 
-      undoTakeDownButton.classList.remove('hidden');
-      showTakeDownButton.classList.add('hidden');
-      takeDownForm.classList.add('hidden');
+      undoTakeDownButton.classList.remove("hidden");
+      showTakeDownButton.classList.add("hidden");
+      takeDownForm.classList.add("hidden");
 
       const parser = new DOMParser();
       const takeDownInfo = parser.parseFromString(
@@ -345,7 +375,7 @@ const requestTakeDown = (videoId, take_down_comment) => {
 
   // Send the request with the body
   xhr.send(JSON.stringify({ take_down_comment, is_taken_down: true }));
-}
+};
 
 const submitTakeDown = (e, videoId, popUpId) => {
   e.preventDefault();
@@ -359,11 +389,7 @@ const submitTakeDown = (e, videoId, popUpId) => {
     return;
   }
 
-  showPopUp(
-    popUpId, 
-    () => requestTakeDown(videoId, take_down_comment)
-  )
-  
+  showPopUp(popUpId, () => requestTakeDown(videoId, take_down_comment));
 };
 
 const submitTakeDownUndo = (videoId) => {
@@ -391,8 +417,8 @@ const submitTakeDownUndo = (videoId) => {
       const takeDownContainer = document.getElementById("takedown-container");
       takeDownContainer.innerHTML = "";
 
-      undoTakeDownButton.classList.add('hidden');
-      showTakeDownButton.classList.remove('hidden');
+      undoTakeDownButton.classList.add("hidden");
+      showTakeDownButton.classList.remove("hidden");
 
       showToast("Takedown undone");
     } else {
@@ -409,30 +435,27 @@ const submitTakeDownUndo = (videoId) => {
 
   // Send the request with the body
   xhr.send(JSON.stringify({ take_down_comment: null, is_taken_down: false }));
-}
+};
 
 const undoTakeDown = (e, videoId, popUpId) => {
   e.preventDefault();
-  showPopUp(
-    popUpId, 
-    () => submitTakeDownUndo(videoId)
-  )
+  showPopUp(popUpId, () => submitTakeDownUndo(videoId));
 };
 
 const showTakeDown = (e) => {
   const form = document.getElementById("takedown-form");
   const showButton = document.getElementById("show-takedown-button");
-  form.classList.remove('hidden');
-  showButton.classList.add('hidden');
+  form.classList.remove("hidden");
+  showButton.classList.add("hidden");
 };
 
 const closeTakeDownButtons = (e) => {
   e.preventDefault();
   const form = document.getElementById("takedown-form");
   const showButton = document.getElementById("show-takedown-button");
-  const input = document.getElementById('take-down-comment-input');
-  form.classList.add('hidden');
-  showButton.classList.remove('hidden');
+  const input = document.getElementById("take-down-comment-input");
+  form.classList.add("hidden");
+  showButton.classList.remove("hidden");
   input.value = null;
 };
 
@@ -447,6 +470,6 @@ const closeCommentButtons = (e) => {
   const container = document.getElementById("comment-button-container");
   container.style.display = "none";
 
-  const input = document.getElementById('comment_text_input');
+  const input = document.getElementById("comment_text_input");
   input.value = null;
 };

@@ -7,6 +7,35 @@ class CommentAPIController extends APIController {
         parent::__construct($folder_path);
     }
 
+    protected function GET($param) {
+
+        $outputHandler =  new OutputHandler();
+        $videoId = $param[0];
+
+        try {
+            $commentService = $this->getService('CommentService');
+            $comments = $commentService->getCommentByVideoId($videoId);
+
+            $body = [];
+            $html = "";
+
+            foreach ($comments as $comment)
+            {
+                $html = $html . $outputHandler->outputComponentAsString('commentCard', APP_PATH . '/components/elements/commentCard.php', [
+                    'comment' => $comment,
+                    'videoId' => $videoId
+                ]);
+            }
+
+            $body['comment_list_html'] = $html;
+
+            return self::response('HTML fetched', 200, $body);
+
+        } catch (Exception $e) {
+            $this->sendResponseOnError($e);
+        }
+    }
+
     protected function POST($params) {
         $user = $this->getMiddleware('SessionMiddleware')->authorizeuser();
         $body = $this->getBody();
