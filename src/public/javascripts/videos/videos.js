@@ -196,7 +196,7 @@ const submitCreateComment = (videoId, formData) => {
 };
 
 const openEditInput = (event, paragraphId) => {
-  const container = event.target.getElementById("edit-delete-button-container");
+  const container = event.target.closest("#edit-delete-button-container");
   container.classList.add("hidden");
 
   const paragraphElement = document.getElementById(paragraphId);
