@@ -6,7 +6,6 @@
     top: 0;
     left: 0;
     background-color: black;
-    font-size: 400px;
     opacity: 35%;
 }
 
@@ -41,7 +40,7 @@
 
 .panel-content .menu {
     padding: 5px 10px;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .menu-segment {
@@ -50,7 +49,7 @@
 }
 
 .menu svg{
-    width: 30px;
+    width: 25px;
 }
 
 a.menu:hover {
@@ -60,4 +59,20 @@ a.menu:hover {
 
 .signin-text {
     margin-bottom: 10px;
+}
+
+@media screen and (min-width: 500px) {
+    
+    .menu svg{
+        width: 30px;
+    }
+
+    
+    .panel-content .menu {
+        font-size: 17px;
+    }
+
+    .panel-content .menu {
+        padding: 8px 10px;
+    }
 }

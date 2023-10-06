@@ -9,11 +9,11 @@ function body($data) {
 ?>
     <div class="pb-2 main-page">
 
-        <span id="empty-message">
+        <div id="empty-message">
             <?php
                 emptyList(BASE_URL . "/images/webp/EmptyList.webp", "There is currently no video");
             ?>
-        </span>
+        </div>
         
         <section id="video-list" class="mb-2">    
         </section>
