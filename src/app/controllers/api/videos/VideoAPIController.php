@@ -11,15 +11,26 @@ class VideoAPIController extends APIController {
     }
 
     protected function GET($param) {
-
+        
         $searchValue = $_GET['search'] ?? '';
         $page = intval($_GET['page'] ?? 1);
+
+        $tag = isset($_GET['tag']) ? $_GET['tag'] : "";
+        $officialCategory = isset($_GET['official_category']) ? $_GET['official_category'] : "";
+
+        $sortCategories = isset($_GET['sort_categories']) ? $_GET['sort_categories'] : ['created_at'];
+        $searchCategories = isset($_GET['sort_categories']) ? $_GET['search_categories'] : ['title'];
+
+        if ($searchValue && count($searchCategories) === 0)
+        {
+            return self::response('Search category must be filled for searching', 400);
+        }
 
         $outputHandler =  new OutputHandler();
 
         try {
             $videoService = $this->getService('VideoService');
-            $videos = $videoService->getAllVideo($page, $searchValue);
+            $videos = $videoService->getAllVideo($page, $searchValue, $sortCategories, $searchCategories, $tag, $officialCategory);
 
             $body = [];
             $html = "";

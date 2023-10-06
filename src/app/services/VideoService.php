@@ -36,20 +36,60 @@ class VideoService extends Service
         return $this->getDatabase()->getLastInsertID();
     }
 
-    public function getAllVideo($page_number=1, $search='', $sortCategories=[])
+    public function getAllVideo($page_number=1, $search='', $sortCategories=['created_at'], $searchCategories=['title'], $tag="", $officialCategory="")
     {
         $limit = MAX_VIDEO_DISPLAY;
         $offset = $this->getPageOffset($page_number, $limit);
 
-        $searchCondition = '';
+        $searchCondition = "";
 
         if ($search)
         {
-            $searchCondition = "AND (title ILIKE :search OR CONCAT(first_name, ' ', last_name) ILIKE :search)";
+            $searchTitleCondition = "title ILIKE :search";
+            $searchFullNameCondition = "CONCAT(first_name, ' ', last_name) ILIKE :search";
+            $searchCondition = "AND (";
+
+            if(in_array('title', $searchCategories))
+            {
+                $searchCondition .= $searchTitleCondition . " OR ";
+            }
+
+            if (in_array('full_name', $searchCategories))
+            {
+                $searchCondition .= $searchFullNameCondition;
+            }
+
+            $searchCondition = rtrim($searchCondition, " OR ");
+            $searchCondition = $searchCondition . ')';
             $search = '%' . $search . '%';
         }
 
+
         $whereCondition = "is_taken_down = false $searchCondition";
+
+        $sortCondition = "";
+        if (count($sortCategories) > 0)
+        {
+            $sortCondition = "ORDER BY ";
+
+            if(in_array('created_at', $sortCategories))
+            {
+                $sortCondition .= "video.created_at DESC, ";
+            }
+
+            if (in_array('updated_at', $sortCategories))
+            {
+                $sortCondition .= "video.updated_at DESC, ";
+            }
+
+            if (in_array('title', $sortCategories))
+            {
+                $sortCondition .= "title ASC";
+            }
+
+            $sortCondition = rtrim($sortCondition, "ORDER BY ");
+            $sortCondition = rtrim($sortCondition, ", ");
+        }
 
         $query = "WITH TotalCount AS (
             SELECT CEIL(COUNT(video_id) / :video_limit) AS total_page
@@ -60,6 +100,7 @@ class VideoService extends Service
         SELECT video_id, title, thumbnail, is_official, video.created_at, first_name || ' ' || last_name as full_name, profile_pic, TotalCount.total_page
         FROM video INNER JOIN metube_user USING(user_id), TotalCount
         WHERE $whereCondition
+        $sortCondition
         OFFSET :offset LIMIT :video_limit";
 
         $bindings = [Database::binding('offset', $offset), Database::binding('video_limit', $limit)];

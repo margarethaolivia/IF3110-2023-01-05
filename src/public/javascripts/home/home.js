@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         sessionStorage.removeItem('searchValue');
     }
-    getVideoList({searchValue})
+    getVideoList({searchValue});
 });
 
 searchBar.addEventListener('input', function() {

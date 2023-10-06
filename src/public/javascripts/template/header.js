@@ -1,5 +1,6 @@
 let timer;
 const searchBar = document.getElementById('searchBar');
+const timeLimit = 1000;
 sessionStorage.removeItem('lastSearch');
 
 searchBar.addEventListener('input', function() {
@@ -26,8 +27,52 @@ searchBar.addEventListener('input', function() {
                 sessionStorage.setItem('lastSearch', searchValue);
             }
         }
-    }, 1000);
+    }, timeLimit);
 });
+
+const setCategory = (event, category, itemName, callback) => {
+    clearTimeout(timer);
+    var newCategories = [];
+    setTimeout((target) => {
+
+        const oldCategories = JSON.parse(sessionStorage.getItem(itemName));
+    
+        newCategories = oldCategories;
+
+        if (target.classList.contains('active'))
+        {
+            if (!newCategories.includes(category))
+            {
+                newCategories.push(category);
+            }
+        }
+
+        else
+        {
+            newCategories = newCategories.filter((elmt) => elmt != category);
+        }
+
+        sessionStorage.setItem(itemName, JSON.stringify(newCategories));
+
+    }, 50, event.currentTarget);
+
+    timer = setTimeout(function() {
+        callback();
+    }, timeLimit);
+}
+
+searchCategoryCallback = () => {
+    const searchBar = document.getElementById('searchBar');
+
+    if (searchBar && searchBar.value)
+    {
+        getVideoList({searchValue: searchBar.value});
+    }
+}
+
+sortCategoryCallback = () => {
+    getVideoList({});
+}
 
 const container = document.getElementById('horizontal-scroll-container');
 

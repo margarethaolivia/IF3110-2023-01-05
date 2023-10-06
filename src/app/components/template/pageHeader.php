@@ -76,24 +76,24 @@ function pageHeader() {
                         option(
                             'Filters', 
                             [
-                                getOption('Tags', 'tag', ''), 
-                                getOption('Publisher', 'is_official', ''), 
+                                getOption('Tags', 'tag', 'showTagFilter'), 
+                                getOption('Publisher', 'official_category', 'showOfficialFilter'), 
                             ],
                         );
                         option(
                             'Searchs', 
                             [
-                                getOption('Title', 'title', ''), 
-                                getOption('Publisher', 'full_name', ''), 
+                                getOption('Title', 'title', "setCategory(event, 'title', 'search_categories', searchCategoryCallback)"), 
+                                getOption('Publisher', 'full_name', "setCategory(event, 'full_name', 'search_categories', searchCategoryCallback)"), 
                             ], 
                             true
                         );
                         option(
                             'Sorts', 
                             [
-                                getOption('Publish Date', 'created_at', ''), 
-                                getOption('Edit Date', 'uodated_at', ''), 
-                                getOption('Title', 'title', '')
+                                getOption('Publish Date', 'created_at', "setCategory(event, 'created_at', 'sort_categories', sortCategoryCallback)"), 
+                                getOption('Edit Date', 'updated_at', "setCategory(event, 'updated_at', 'sort_categories', sortCategoryCallback)"), 
+                                getOption('Title', 'title', "setCategory(event, 'title', 'sort_categories', sortCategoryCallback)")
                             ], 
                             true
                         );

@@ -1,5 +1,16 @@
-sessionStorage.setItem('page', 1);
-sessionStorage.removeItem('tag');
+const defaultSearchUrl = '/api/videos';
+const defaultPage = 1;
+const defaultSortCategories = [''];
+const defaultSearchCategories = [''];
+const defaultTag = "";
+const defaultOfficialCategory = "";
+
+sessionStorage.setItem('tag', defaultTag);
+sessionStorage.setItem('official_category', defaultOfficialCategory);
+sessionStorage.setItem('sort_categories', JSON.stringify(defaultSortCategories));
+sessionStorage.setItem('search_categories', JSON.stringify(defaultSearchCategories));
+
+sessionStorage.setItem('page', defaultPage);
 
 /* DROPDOWN */
 
@@ -218,13 +229,43 @@ const showPopUp = (popUpId, action) => {
 };
 
 
-const getVideoList = ({page= 1, searchValue= "", tag= "", baseUrl='/api/videos'}) =>
+const getVideoList = ({
+    page=sessionStorage.getItem('page'), 
+    searchValue="",
+    baseUrl=defaultSearchUrl, 
+    sortCategories=JSON.parse(sessionStorage.getItem('sort_categories')) ?? ['created_at'], 
+    officialCategory=sessionStorage.getItem('official_category'), 
+    searchCategories=JSON.parse(sessionStorage.getItem('search_categories')) ?? ['title'], 
+    tag= defaultTag
+}) =>
+
 {
+
+    if (!searchValue)
+    {
+        const searchBar = document.getElementById('searchBar');
+
+        if (searchBar)
+        {
+            searchValue = searchBar.value;
+        }
+    }
+
+    var queryParam = "";
+    queryParam += `page=${encodeURIComponent(page)}`;
+    queryParam += `&search=${encodeURIComponent(searchValue)}`;
+    queryParam += `&official_category=${encodeURIComponent(officialCategory)}`;
+    queryParam += `&tag=${encodeURIComponent(tag)}`;
+    queryParam += `&sort_categories[]=${sortCategories.map((elmt) => encodeURIComponent(elmt)).join('&sort_categories[]=')}`;
+    queryParam += `&search_categories[]=${searchCategories.map((elmt) => encodeURIComponent(elmt)).join('&search_categories[]=')}`;
+
+    const apiUrl = `${baseUrl}?${queryParam}`;
+
     const xhr = new XMLHttpRequest();
-    const apiUrl = `${baseUrl}?page=${encodeURIComponent(page)}&search=${encodeURIComponent(searchValue)}&tag=${encodeURIComponent(tag)}`;
     xhr.open('GET', apiUrl, true);
 
     xhr.onload = function() {
+        console.log(xhr.responseText);
         const jsonResponse = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {   
             const body = jsonResponse.body;
