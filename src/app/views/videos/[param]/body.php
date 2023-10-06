@@ -69,7 +69,7 @@ function body($data) {
                 <span class="my-1 flex align-center title-desc">Uploaded <?=$dataParser->dateTimeToString($video->created_at)?></span>
             <?php endif; ?>
 
-            <?php if ($video->updated_at != $video->created_at) : ?>
+            <?php if ($video->updated_at !== $video->created_at) : ?>
                 <span class="my-1 flex align-center title-desc">Edited <?=$dataParser->dateTimeToString($data['video']->updated_at)?></span>
             <?php endif; ?>
             

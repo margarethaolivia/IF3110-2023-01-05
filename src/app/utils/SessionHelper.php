@@ -2,7 +2,7 @@
 class SessionHelper {
     public function startSession($user) {
 
-        // if (session_status() != PHP_SESSION_NONE) $this->terminateSession();
+        // if (session_status() !== PHP_SESSION_NONE) $this->terminateSession();
         
         session_start();
         $_SESSION['user_id'] = $user->user_id;

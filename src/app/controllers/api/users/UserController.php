@@ -48,7 +48,7 @@ class UserController extends APIController {
         $firstname = $request_data['first_name'];
         $lastname = $request_data['last_name'] ?? '';
 
-        if (strlen($firstname) == 0)
+        if (strlen($firstname) === 0)
         {
             return self::response('First name can not be empty', 400);
         }

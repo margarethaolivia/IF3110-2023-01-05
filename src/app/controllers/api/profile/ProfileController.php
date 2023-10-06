@@ -20,7 +20,7 @@ class ProfileController extends APIController {
         if (isset($request_body['first_name']))
         {
 
-            if (strlen($request_body['first_name']) == 0)
+            if (strlen($request_body['first_name']) === 0)
             {
                 return self::response("First name can not be empty", 400);
             }
@@ -51,7 +51,7 @@ class ProfileController extends APIController {
                 return self::response("New password invalid format", 400);
             }
 
-            if ($request_body['old_password'] == $request_body['new_password'])
+            if ($request_body['old_password'] === $request_body['new_password'])
             {
                 return self::response("New password must be different", 400);
             }

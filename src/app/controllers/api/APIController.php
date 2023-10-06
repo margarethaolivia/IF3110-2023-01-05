@@ -42,7 +42,7 @@ abstract class APIController extends Controller
     protected function getAuthorizationHeader() {
         $headers = getallheaders();
         foreach ($headers as $name => $value) {
-            if (strtolower($name) == 'authorization') {
+            if (strtolower($name) === 'authorization') {
                 return $value;
             }
         }
