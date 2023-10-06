@@ -286,18 +286,7 @@ const deleteMyComment = (e, videoId, commentId, popUpId) => {
   showPopUp(popUpId, () => submitDeleteAction(videoId, commentId));
 };
 
-const submitTakeDown = (e, videoId) => {
-  e.preventDefault();
-  // Create a FormData object from the form
-  const formData = new FormData(e.target);
-
-  // Get values using FormData.get
-  const take_down_comment = formData.get("take_down_comment");
-  if (!take_down_comment) {
-    showToast("Takedown comment is required");
-    return;
-  }
-
+const requestTakeDown = (videoId, take_down_comment) => {
   // Create headers for the request
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -356,6 +345,25 @@ const submitTakeDown = (e, videoId) => {
 
   // Send the request with the body
   xhr.send(JSON.stringify({ take_down_comment, is_taken_down: true }));
+}
+
+const submitTakeDown = (e, videoId, popUpId) => {
+  e.preventDefault();
+  // Create a FormData object from the form
+  const formData = new FormData(e.target);
+
+  // Get values using FormData.get
+  const take_down_comment = formData.get("take_down_comment");
+  if (!take_down_comment) {
+    showToast("Takedown comment is required");
+    return;
+  }
+
+  showPopUp(
+    popUpId, 
+    () => requestTakeDown(videoId, take_down_comment)
+  )
+  
 };
 
 const submitTakeDownUndo = (videoId) => {

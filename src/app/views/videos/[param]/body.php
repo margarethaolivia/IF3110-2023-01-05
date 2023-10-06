@@ -53,7 +53,7 @@ function body($data) {
             <?php endif; ?>
         </div>
 
-        <form id="takedown-form" class="hidden" onsubmit="submitTakeDown(event, <?=$video->video_id?>)">
+        <form id="takedown-form" class="hidden" onsubmit="submitTakeDown(event, <?=$video->video_id?>, 'popup-takedown')">
             <textarea class="comment-input" name="take_down_comment" id="take-down-comment-input" placeholder="Type your takedown comment here"></textarea>
             <div class="flex flex-col justify-end action-button-container" id="takedown-button-container">
                 <button onclick="closeTakeDownButtons(event)" id="cancel-comment-button" >Cancel</button>
