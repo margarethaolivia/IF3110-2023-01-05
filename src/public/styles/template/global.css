@@ -716,6 +716,11 @@ video {
     scrollbar-width: none;  /* Firefox */
 }
 
+.empty-image {
+    width: 50%;
+    margin-bottom: 30px;
+}
+
 /* ERROR PAGE */
 .error-image {
     width: 100%;
