@@ -7,14 +7,13 @@ function commentCard($comment, $videoId, $noUser=false, $settings=false, $delete
     <div id="card-<?=$cardId?>" class="comment-box my-1">
         <div class="flex justify-between">
         <div>
-            <h4 class="text-bold"><?=$comment->first_name . ' ' . $comment->last_name?></h4>
-            <h5 class="text-grey"><?=$dataParser->dateTimeToString($comment->created_at)?>
-
-            <?php if ($comment->updated_at != $comment->created_at) : ?>
-                | updated <?=$dataParser->dateTimeToString($comment->updated_at)?>
+            <h4 class="commenter"><?=$comment->first_name . ' ' . $comment->last_name?></h4>
+            <?php if ($comment->updated_at === $comment->created_at) : ?>
+                <h5 class="text-grey">Posted <?=$dataParser->dateTimeToString($comment->created_at)?></h5>
             <?php endif; ?>
-        
-            </h5>
+            <?php if ($comment->updated_at !== $comment->created_at) : ?>
+                <h5 class="text-grey">Edited <?=$dataParser->dateTimeToString($comment->updated_at)?></h5>
+            <?php endif; ?>
         </div>
 
         <?php if ($_SESSION['user_id'] === $comment->user_id) : ?>

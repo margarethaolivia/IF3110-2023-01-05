@@ -145,14 +145,15 @@ textarea {
     max-height: 200px;
 }
 
-.empty-comment-message {
-    margin-top: 20px;
-    margin-left: 65px;
-    margin-bottom: 30px;
-    font-size: 15px;
-    color: #606060;
-}
-
 #comment-button-container {
     display: none;
+}
+
+.commenter {
+    font-weight: 500;
+}
+
+#comment-content p {
+    color: #333;
+    font-size: 15px;
 }
