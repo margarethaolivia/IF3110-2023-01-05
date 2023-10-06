@@ -718,25 +718,42 @@ video {
 
 /* ERROR PAGE */
 .error-image {
-    width: 60%;
+    width: 100%;
     margin-bottom: 30px;
 }
 
 .error-page-desc {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .error-page-back {
-    padding: 10px 20px;
+    padding: 10px 15px;
     border-radius: 15px;
     color: white;
     background-color: #c1c1c1;
+    font-size: 12px;
 }
 
 .error-page-back:hover {
     background-color: #b0b0b0;
+}
+
+@media screen and (min-width: 800px) {
+    .error-image {
+        width: 60%;
+    }
+
+    .error-page-desc {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .error-page-back {
+        font-size: 15px;
+        padding: 10px 20px;
+    }
 }
 
 /*Styling Selectbox*/

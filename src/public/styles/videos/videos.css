@@ -1,12 +1,12 @@
 .video-title {
     color: #0F0F0F;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 500;
 }
 
 .full-name {
     color: #0F0F0F;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .official-logo svg {
@@ -58,7 +58,7 @@
 
 .video-desc {
     background-color: #ebebeb;
-    padding: 1rem;
+    padding: 0.7rem 1rem;
     border-radius: 10px;
 }
 
@@ -85,7 +85,7 @@
 
 .title-desc {
     color: #0F0F0F;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500;
 }
 
@@ -111,16 +111,17 @@
 
 .desc-container p {
     color: #606060;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .comment-title {
-    font-size: 15px;
+    font-size: 12px;
     color: #0F0F0F;
 }
 
 textarea {
     width: 100%;
+    font-size: 12px;
 }
 
 .action-button-container {
@@ -151,9 +152,61 @@ textarea {
 
 .commenter {
     font-weight: 500;
+    font-size: 12px;
 }
 
 #comment-content p {
     color: #333;
-    font-size: 15px;
+    font-size: 12px;
+}
+
+.comment-info span {
+    font-size: 12px;
+}
+
+@media screen and (min-width: 600px) {
+    .video-title {
+        font-size: 20px;
+    }
+
+    .full-name {
+        font-size: 15px;
+    }
+
+    .title-desc {
+        font-size: 15px;
+    }
+
+    #comment-content p {
+        font-size: 15px;
+    }
+
+    .comment-title {
+        font-size: 15px;
+    }
+
+    .publisher-info-container {
+        margin: 10px 0;
+    }
+
+    .video-desc {
+        padding: 1rem;
+    }
+
+    .desc-container p {
+        font-size: 14px;
+    }
+
+    .commenter {
+        font-size: 15px;
+    }
+
+    .comment-info span {
+        font-size: 13px;
+    }
+
+    textarea {
+        font-size: 15px;
+        padding: 10px 20px;
+    }
 }

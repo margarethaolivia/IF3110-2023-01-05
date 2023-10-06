@@ -174,7 +174,7 @@ background-color: #57AEFF;
 }
 
     
-@media screen and (min-width: 100px) {
+@media screen and (min-width: 800px) {
 
     .video-upload-box {
         width: 450px;

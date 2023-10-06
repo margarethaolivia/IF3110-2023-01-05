@@ -21,7 +21,7 @@ function body($data) {
         </div>
         
         <div class="flex flex-col justify-between items-center">
-            <div class="flex flex-col items-center my-2">
+            <div class="flex flex-col items-center publisher-info-container justify-center">
                 <div class="publisher-pic-container">
                     <?php if ($video->profile_pic) : ?>
                         <img src="<?=$video->profile_pic?>" class="publisher-pic user-pic">
