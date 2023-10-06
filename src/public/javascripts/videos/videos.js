@@ -35,9 +35,9 @@ function createCommentCard(
           </div>
           
           <div class="flex justify-center items-center">
-              <a href="openEditInput(${videoId}, ${comment.comment_id}, ${
+              <a onclick="openEditInput(${videoId}, ${comment.comment_id}, '${
     comment.comment_text
-  })" class="video-card-button video-edit-button">
+  }')" class="video-card-button video-edit-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z" />
@@ -50,8 +50,11 @@ function createCommentCard(
               </button>
           </div>
       </div>
-      
-      <p class="pt-2">${comment.comment_text}</p>
+      <div id="comment-content">
+        <p class="pt-2" id="paragraph-${comment.comment_id}">${
+    comment.comment_text
+  }</p>
+      </div>
   `;
 
   // Set the HTML content for the comment card
@@ -86,6 +89,36 @@ document.addEventListener("DOMContentLoaded", function () {
       showLessButton.style.display = "none";
     });
   }
+
+  // const xhr = new XMLHttpRequest();
+  // const apiUrl = `/api/videos/${videoId}/comments`;
+
+  // xhr.open("GET", apiUrl, true);
+  // xhr.onload = function () {
+  //   const htmlResponse = xhr.responseText;
+  //   if (xhr.status === 200) {
+  //     const htmlResponse = xhr.responseText;
+
+  //     // Assuming that the response is a valid HTML string
+  //     const parser = new DOMParser();
+  //     const doc = parser.parseFromString(htmlResponse, "text/html");
+
+  //     // Assuming the video-list is a div element where you want to append the HTML
+  //     const commentContainer = document.getElementById("comment-section");
+
+  //     // Clear existing content in the container
+  //     commentContainer.innerHTML = "";
+
+  //     // Append the new content
+  //     const bodyChildren = Array.from(doc.body.children);
+  //     bodyChildren.forEach((child) => {
+  //       commentContainer.appendChild(child.cloneNode(true));
+  //     });
+  //   } else {
+  //     jsonResponse = JSON.parse(xhr.responseText);
+  //     showToast(jsonResponse.message);
+  //   }
+  // };
 });
 
 const createVideoComment = (e, videoId) => {
@@ -103,6 +136,10 @@ const createVideoComment = (e, videoId) => {
     return;
   }
 
+  showPopUp("popup-post-comment", () => submitCreateComment(videoId, formData));
+};
+
+const submitCreateComment = (videoId, formData) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", `/api/videos/${videoId}/comments`, true);
 
@@ -151,7 +188,9 @@ const createVideoComment = (e, videoId) => {
     showToast(error);
   };
 
-  xhr.send(JSON.stringify({ comment_text }));
+  xhr.send(
+    JSON.stringify({ comment_text: formData.get("comment_text_input") })
+  );
 };
 
 const openEditInput = (video_id, comment_id, comment_text) => {
@@ -204,22 +243,12 @@ const closeEditCommentButtons = (e, comment_id, comment_text) => {
   }
 };
 
-const submitEditAction = (e, videoId, commentId) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-
-  const comment_text = formData.get(`comment_text`);
-  if (!comment_text) {
-    showToast("Comment text is required");
-    return;
-  }
-
+const submitEditComment = (e, videoId, commentId, formData) => {
   // Create a new XMLHttpRequest object
   const xhr = new XMLHttpRequest();
   // Set up the request
   const requestUrl = `/api/videos/${videoId}/comments/${commentId}`;
   xhr.open("POST", requestUrl, true);
-  console.log("response text: " + xhr.responseText);
 
   // Set up the event handler for when the request completes
   xhr.onload = function () {
@@ -240,7 +269,22 @@ const submitEditAction = (e, videoId, commentId) => {
   // Send the request with the body
   xhr.send(formData);
 
-  closeEditCommentButtons(e, commentId, comment_text);
+  closeEditCommentButtons(e, commentId, formData.get(`comment_text`));
+};
+
+const submitEditAction = (e, videoId, commentId) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+
+  const comment_text = formData.get(`comment_text`);
+  if (!comment_text) {
+    showToast("Comment text is required");
+    return;
+  }
+
+  showPopUp("popup-edit-comment", () =>
+    submitEditComment(e, videoId, commentId, formData)
+  );
 };
 
 const submitDeleteAction = (videoId, commentId) => {
@@ -309,9 +353,9 @@ const requestTakeDown = (videoId, take_down_comment) => {
       );
       const takeDownForm = document.getElementById("takedown-form");
 
-      undoTakeDownButton.classList.remove('hidden');
-      showTakeDownButton.classList.add('hidden');
-      takeDownForm.classList.add('hidden');
+      undoTakeDownButton.classList.remove("hidden");
+      showTakeDownButton.classList.add("hidden");
+      takeDownForm.classList.add("hidden");
 
       const parser = new DOMParser();
       const takeDownInfo = parser.parseFromString(
@@ -345,7 +389,7 @@ const requestTakeDown = (videoId, take_down_comment) => {
 
   // Send the request with the body
   xhr.send(JSON.stringify({ take_down_comment, is_taken_down: true }));
-}
+};
 
 const submitTakeDown = (e, videoId, popUpId) => {
   e.preventDefault();
@@ -359,11 +403,7 @@ const submitTakeDown = (e, videoId, popUpId) => {
     return;
   }
 
-  showPopUp(
-    popUpId, 
-    () => requestTakeDown(videoId, take_down_comment)
-  )
-  
+  showPopUp(popUpId, () => requestTakeDown(videoId, take_down_comment));
 };
 
 const submitTakeDownUndo = (videoId) => {
@@ -391,8 +431,8 @@ const submitTakeDownUndo = (videoId) => {
       const takeDownContainer = document.getElementById("takedown-container");
       takeDownContainer.innerHTML = "";
 
-      undoTakeDownButton.classList.add('hidden');
-      showTakeDownButton.classList.remove('hidden');
+      undoTakeDownButton.classList.add("hidden");
+      showTakeDownButton.classList.remove("hidden");
 
       showToast("Takedown undone");
     } else {
@@ -409,30 +449,27 @@ const submitTakeDownUndo = (videoId) => {
 
   // Send the request with the body
   xhr.send(JSON.stringify({ take_down_comment: null, is_taken_down: false }));
-}
+};
 
 const undoTakeDown = (e, videoId, popUpId) => {
   e.preventDefault();
-  showPopUp(
-    popUpId, 
-    () => submitTakeDownUndo(videoId)
-  )
+  showPopUp(popUpId, () => submitTakeDownUndo(videoId));
 };
 
 const showTakeDown = (e) => {
   const form = document.getElementById("takedown-form");
   const showButton = document.getElementById("show-takedown-button");
-  form.classList.remove('hidden');
-  showButton.classList.add('hidden');
+  form.classList.remove("hidden");
+  showButton.classList.add("hidden");
 };
 
 const closeTakeDownButtons = (e) => {
   e.preventDefault();
   const form = document.getElementById("takedown-form");
   const showButton = document.getElementById("show-takedown-button");
-  const input = document.getElementById('take-down-comment-input');
-  form.classList.add('hidden');
-  showButton.classList.remove('hidden');
+  const input = document.getElementById("take-down-comment-input");
+  form.classList.add("hidden");
+  showButton.classList.remove("hidden");
   input.value = null;
 };
 
@@ -447,6 +484,6 @@ const closeCommentButtons = (e) => {
   const container = document.getElementById("comment-button-container");
   container.style.display = "none";
 
-  const input = document.getElementById('comment_text_input');
+  const input = document.getElementById("comment_text_input");
   input.value = null;
 };

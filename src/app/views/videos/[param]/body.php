@@ -126,6 +126,8 @@ function body($data) {
         </div>
         <?php 
             popup("Delete Comment", "Are you sure you want to delete this comment?", "delete-comment", "Delete", actionButtonClass: 'red-action-button');
+            popup("Post Comment", "Are you sure you want to post this comment?", "post-comment", "Post", actionButtonClass: 'popup-save-button');
+            popup("Edit Comment", "Are you sure you want to edit this comment?", "edit-comment", "Edit", actionButtonClass: 'popup-save-button');
             popup("Take Down Video", "Are you sure you want to take down this video?", "takedown", "Take Down", actionButtonClass: 'red-action-button');
             popup("Undo Takedown", "Are you sure you want to undo this takedown?", "undo-takedown", "Undo", actionButtonClass: 'red-action-button');
         ?>
