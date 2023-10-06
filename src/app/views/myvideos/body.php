@@ -16,11 +16,11 @@ function body($data) {
                 <a href='videos/upload' class="upload-button">Upload</a>
             </div>
         </div>
-        <?php if (count($videos) === 0) : ?>
+        <div id="empty-message">
             <?php
                 emptyList(BASE_URL . "/images/webp/EmptyList.webp", "You don't have any video");
             ?>
-        <?php endif; ?>
+        </div>
         <section id="video-list" class="mb-2">    
         </section>
         <div id="pagination-container"></div>

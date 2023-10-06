@@ -318,6 +318,20 @@ const submitTakeDown = (e, videoId) => {
       showTakeDownButton.style.display = "none";
       takeDownForm.style.display = "none";
 
+      const parser = new DOMParser();
+      const takeDownInfo = parser.parseFromString(data.body.take_down_info_html, 'text/html');
+
+      const takeDownContainer = document.getElementById('takedown-container');
+
+      // Clear existing content in the container
+      takeDownContainer.innerHTML = '';
+
+      // Append the new content
+      const bodyChildren = Array.from(takeDownInfo.body.children);
+      bodyChildren.forEach(child => {
+          takeDownContainer.appendChild(child.cloneNode(true));
+      });
+
       showToast("Video is taken down");
     } else {
       // Handle the response data
@@ -358,6 +372,9 @@ const undoTakeDown = (e, videoId) => {
       const showTakeDownButton = document.getElementById(
         "show-takedown-button"
       );
+
+      const takeDownContainer = document.getElementById('takedown-container');
+      takeDownContainer.innerHTML = '';
 
       undoTakeDownButton.style.display = "none";
       showTakeDownButton.style.display = "block";

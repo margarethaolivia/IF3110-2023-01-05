@@ -1,22 +1,22 @@
 <?php
 include_once APP_PATH . '/utils/DateParser.php';
 
-function commentCard($comment, $videoId, $noUser=false, $settings=false, $deleteAction="", $editAction="", $cardId="") {
+function commentCard($comment, $videoId, $deleteAction="", $editAction="", $cardId="") {
     $dataParser = new DateParser();
 ?>
     <div id="card-<?=$cardId?>" class="comment-box my-1">
         <div class="flex justify-between">
-        <div>
+        <div class="comment-info">
             <h4 class="commenter"><?=$comment->first_name . ' ' . $comment->last_name?></h4>
             <?php if ($comment->updated_at === $comment->created_at) : ?>
-                <h5 class="text-grey">Posted <?=$dataParser->dateTimeToString($comment->created_at)?></h5>
+                <span class="text-grey">Posted <?=$dataParser->dateTimeToString($comment->created_at)?></span>
             <?php endif; ?>
             <?php if ($comment->updated_at !== $comment->created_at) : ?>
-                <h5 class="text-grey">Edited <?=$dataParser->dateTimeToString($comment->updated_at)?></h5>
+                <span class="text-grey">Edited <?=$dataParser->dateTimeToString($comment->updated_at)?></span>
             <?php endif; ?>
         </div>
 
-        <?php if ($_SESSION['user_id'] === $comment->user_id) : ?>
+        <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] === $comment->user_id) : ?>
             <div class="flex justify-center items-center">
                     <a onclick="openEditInput(<?=$videoId?>, <?=$comment->comment_id?>, '<?=$comment->comment_text?>')" class="video-card-button video-edit-button">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

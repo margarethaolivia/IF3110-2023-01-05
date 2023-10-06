@@ -1,5 +1,6 @@
 <?php
 include_once APP_PATH . '/controllers/api/APIController.php';
+include_once APP_PATH . '/utils/OutputHandler.php';
 
 class SpecificVideoController extends APIController {
     public function __construct($folder_path)
@@ -49,7 +50,16 @@ class SpecificVideoController extends APIController {
         {
             $this->sendResponseOnError($e);
         }
+
+        $responseData = [];
+
+        if ($body['is_taken_down'])
+        {
+            $outputHandler =  new OutputHandler();
+            $html = $outputHandler->outputComponentAsString('takedownInfo', APP_PATH . '/components/takedowns/takedownInfo.php', ['comment' => $body['take_down_comment']]);
+            $responseData['take_down_info_html'] = $html;
+        }
        
-        return self::response('Video edited', 200);
+        return self::response('Video edited', 200, $responseData);
     }
 }
