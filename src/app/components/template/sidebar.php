@@ -72,7 +72,7 @@ function sidebar() {
                 
                 <?php if (!isset($_SESSION['user_id'])) : ?>
                     <div class="flex flex-row menu-segment">
-                        <span>Sign in to comment and create videos.</span>
+                        <span class="signin-text">Sign in to comment and create videos.</span>
                         <?php 
                             signInButton();
                         ?>

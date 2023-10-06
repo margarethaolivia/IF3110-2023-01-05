@@ -15,8 +15,9 @@ abstract class AdminViewController extends AuthViewController
 
         if (!$user->is_admin) {
             $this->renderForbiddenPage([
+                'title' => 'Forbidden Page - WeTube',
                 'link' => '/', 
-                'src' => BASE_URL . '/images/vector/403.svg', 
+                'src' => BASE_URL . '/images/webp/403.webp', 
                 'desc' => 'This page can only be accessed by admin.'   
             ]);
             exit;

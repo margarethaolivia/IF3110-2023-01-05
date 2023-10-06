@@ -14,8 +14,9 @@ class Router {
     private function renderNotFoundPage()
     {
         $data = [
+            'title' => 'Not Found - WeTube',
             'link' => '/', 
-            'src' => BASE_URL . '/images/vector/404.svg',  
+            'src' => BASE_URL . '/images/webp/404.webp',  
             'desc' => 'WeTube currently does not have this page.',
             'isPlainPage' => true,
             'style_paths' => ['template/404.css']

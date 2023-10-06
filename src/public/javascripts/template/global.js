@@ -1,6 +1,19 @@
 sessionStorage.setItem('page', 1);
 sessionStorage.removeItem('tag');
 
+/* DROPDOWN */
+
+document.addEventListener('click', function (event) {
+    const menus = document.querySelectorAll('.dropdown-menu-multiple, .dropdown-menu')
+    menus.forEach(function (menu) {
+        const dropdown = menu.closest('.dropdown, .dropdown-multiple');
+        if (menu.style.display === 'block' && !dropdown.contains(event.target)) {      
+            menu.style.display = 'none';
+            toggleDropDown(dropdown);
+        }
+    })
+
+});
 /*Single Dropdown Menu*/
 
 var dropdowns = document.querySelectorAll('.dropdown');

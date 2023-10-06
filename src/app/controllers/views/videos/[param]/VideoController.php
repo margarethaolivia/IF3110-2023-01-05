@@ -27,8 +27,9 @@ class VideoController extends ViewController
         if ($video->is_taken_down && !($user && ($user->is_admin || $video->user_id === $user->user_id)))
         {
             $this->renderForbiddenPage([
+                'title' => 'Forbidden Page - WeTube',
                 'link' => '/', 
-                'src' => BASE_URL . '/images/vector/403.svg', 
+                'src' => BASE_URL . '/images/webp/403.webp', 
                 'desc' => 'This video is taken down by admin.'
             ]);
         }

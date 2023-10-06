@@ -718,7 +718,7 @@ video {
 
 /* ERROR PAGE */
 .error-image {
-    width: 100%;
+    width: 60%;
     margin-bottom: 30px;
 }
 
@@ -809,7 +809,8 @@ video {
 .dropdown-multiple .dropdown-menu-multiple li {
     padding: 10px;
     transition: all .2s ease-in-out;
-    cursor: pointer
+    cursor: pointer;
+    font-size: 12px;
 } 
 .dropdown .dropdown-menu,
 .dropdown-multiple .dropdown-menu-multiple {

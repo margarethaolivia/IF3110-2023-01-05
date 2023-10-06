@@ -73,9 +73,30 @@ function pageHeader() {
                 </div>
                 <div class="options-container flex flex-col">
                     <?php
-                        option('Filters', []);
-                        option('Searchs', [], true);
-                        option('Sorts', [], true);
+                        option(
+                            'Filters', 
+                            [
+                                getOption('Tags', 'tag', ''), 
+                                getOption('Publisher', 'is_official', ''), 
+                            ],
+                        );
+                        option(
+                            'Searchs', 
+                            [
+                                getOption('Title', 'title', ''), 
+                                getOption('Publisher', 'full_name', ''), 
+                            ], 
+                            true
+                        );
+                        option(
+                            'Sorts', 
+                            [
+                                getOption('Publish Date', 'created_at', ''), 
+                                getOption('Edit Date', 'uodated_at', ''), 
+                                getOption('Title', 'title', '')
+                            ], 
+                            true
+                        );
                     ?>
                 </div>
             </div>

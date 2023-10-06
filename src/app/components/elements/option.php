@@ -1,4 +1,15 @@
 <?php
+function getOption($label, $id, $actionString ="") {
+    return [
+        'label' => $label,
+        'id' => $id,
+        'action' => $actionString
+    ];
+}
+?>
+
+
+<?php
 function option($title, $options=[], $multiple=false) {
 ?>
     <div class="dropdown<?=$multiple ? '-multiple' : ''?>">
@@ -11,8 +22,13 @@ function option($title, $options=[], $multiple=false) {
         <?php endif; ?>
         
         <ul class="dropdown-menu<?=$multiple ? '-multiple' : ''?>">
-            <li id="male">Male</li>
-            <li id="female">Female</li>
+            <?php
+                foreach ($options as $option) {
+                    ?>
+                        <li onclick="<?=$option['action']?>" id="<?=$option['id']?>"><?=$option['label']?></li>
+                    <?php
+                }
+            ?>
         </ul>
     </div>
 <?php
