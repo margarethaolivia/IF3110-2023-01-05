@@ -164,7 +164,7 @@ const openEditInput = (video_id, comment_id, comment_text) => {
   <form onsubmit="submitEditAction(event, ${video_id}, ${comment_id})">
     <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus>${comment_text}</textarea>
     <div class="flex flex-col justify-end action-button-container hidden" id="edit-button-container-${comment_id}">
-        <button onclick="closeEditCommentButtons(event, ${comment_id})" id="cancel-comment-button" >Cancel</button>
+        <button type="reset" onclick="closeEditCommentButtons(event, ${comment_id}, '${comment_text}')" id="cancel-comment-button" >Cancel</button>
         <button class="submit-comment-button" id="submit-comment-button" type="submit">Edit</button>
     </div>
   </form>
@@ -174,7 +174,7 @@ const openEditInput = (video_id, comment_id, comment_text) => {
   paragraphElement.parentNode.replaceChild(inputElement, paragraphElement);
 };
 
-const closeEditCommentButtons = (e, comment_id) => {
+const closeEditCommentButtons = (e, comment_id, comment_text) => {
   e.preventDefault();
 
   // Get references to the <p> and <textarea> elements
@@ -184,7 +184,7 @@ const closeEditCommentButtons = (e, comment_id) => {
   // paragraphElement.className = "pt-2";
 
   // Copy the content of the <textarea> element to the <p>
-  paragraphElement.textContent = textareaElement.value;
+  paragraphElement.textContent = comment_text;
 
   // Replace the <textarea> element with the <p> element
   textareaElement.parentNode.replaceChild(paragraphElement, textareaElement);
@@ -203,7 +203,6 @@ const submitEditAction = (e, videoId, commentId) => {
   const formData = new FormData(e.target);
 
   const comment_text = formData.get(`comment_text`);
-  console.log(comment_text);
   if (!comment_text) {
     showToast("Comment text is required");
     return;
@@ -235,7 +234,7 @@ const submitEditAction = (e, videoId, commentId) => {
   // Send the request with the body
   xhr.send(formData);
 
-  closeEditCommentButtons(e, commentId);
+  closeEditCommentButtons(e, commentId, comment_text);
 };
 
 const submitDeleteAction = (videoId, commentId) => {
