@@ -18,7 +18,8 @@ function body($data) {
                     placeholder: 'Username',
                     disableLabel: true,
                     inputClasses: 'input-box',
-                    pattern: '^[a-zA-Z0-9]+$'
+                    pattern: '^[a-zA-Z0-9]+$',
+                    title: 'Username can only consist of alphabets and numbers'
                 );
 
                 customInput(

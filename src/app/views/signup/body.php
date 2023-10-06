@@ -18,7 +18,8 @@ function body($data) {
                     placeholder: '',
                     inputClasses: 'input-box',
                     inputLabel: 'Username',
-                    pattern: '^[a-zA-Z0-9]+$'
+                    pattern: '^[a-zA-Z0-9]+$',
+                    title: 'Username can only consist of alphabets and numbers'
                 );
 
                 customInput(
@@ -46,7 +47,8 @@ function body($data) {
                     placeholder: '',
                     inputClasses: 'input-box',
                     inputLabel: 'Fist Name',
-                    pattern: '^[a-zA-Z]+$'
+                    pattern: '^[a-zA-Z]+$',
+                    title: 'Name can only consist of alphabets'
                 );
 
                 customInput(
@@ -55,7 +57,8 @@ function body($data) {
                     placeholder: '',
                     inputClasses: 'input-box',
                     inputLabel: 'Last Name',
-                    pattern: '^[a-zA-Z]+$'
+                    pattern: '^[a-zA-Z]+$',
+                    title: 'Name can only consist of alphabets'
                 );
             ?>
             <button class="blue-button">Create Account</button>

@@ -53,6 +53,11 @@ class UserController extends APIController {
             return self::response('First name can not be empty', 400);
         }
 
+        if (!$this->userService->isNameValid($firstname . $lastname))
+        {
+            return self::response('Name can only consist of alphabets', 400);
+        }
+
         try {
             if ($this->userService->isUsernameExists($username)) {
                 return self::response('Username is already taken', 400);

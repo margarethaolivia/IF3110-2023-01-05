@@ -34,6 +34,14 @@ class UserService extends Service
         return $this->getDatabase()->getLastInsertID();
     }
 
+    function isNameValid($full_name) {
+        // Define the pattern
+        $pattern = '/^[a-zA-Z]+$/';
+    
+        // Use preg_match to check if the name matches the pattern
+        return preg_match($pattern, $full_name);
+    }
+
     public function getUserById($id)
     {
         $query = 'SELECT * FROM metube_user WHERE user_id = :user_id LIMIT 1';
