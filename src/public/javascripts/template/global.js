@@ -12,6 +12,18 @@ sessionStorage.setItem('search_categories', JSON.stringify(defaultSearchCategori
 
 sessionStorage.setItem('page', defaultPage);
 
+document.addEventListener('DOMContentLoaded', function() {
+    const successMessage = sessionStorage.getItem('loginMessage');
+    if (successMessage) {
+        // Display the success message
+        showToast(successMessage);
+
+        // Clear the success message from session storage
+        sessionStorage.removeItem('loginMessage');
+    }
+});
+
+
 /* DROPDOWN */
 
 document.addEventListener('click', function (event) {
@@ -149,7 +161,7 @@ function showToast(message, duration = 5000) {
     const newToast = document.createElement('div');
     newToast.classList.add('flex', 'flex-col', 'items-center', 'justify-between', 'toast');
     newToast.innerHTML = `
-        <div class="toast-value-container no-scrollbar">
+        <div class="toast-value-container">
             <p>${message}</p>
         </div>
         <button class="close-button">
