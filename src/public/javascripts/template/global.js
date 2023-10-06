@@ -315,6 +315,7 @@ const getVideoList = ({
 
                 else
                 {
+                    emptyMessageElement.classList.remove("hidden");
                     emptyMessageElement.style.display = 'block';
                 }
             }

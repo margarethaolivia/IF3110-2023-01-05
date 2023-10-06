@@ -8,7 +8,7 @@ function body($data) {
 ?>
     <div class="pb-2 main-page">
 
-        <div id="empty-message">
+        <div id="empty-message" class="hidden">
             <?php
                 emptyList(BASE_URL . "/images/webp/EmptyList.webp", "There is currently no video");
             ?>
