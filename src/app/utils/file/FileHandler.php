@@ -27,6 +27,13 @@ abstract class FileHandler {
             $dateTimeString = $this->getCurrentDateTimeStringExtension();
         }
         
+        $extension = ltrim($extension, '.');
+
+        if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
+        {
+            $extension = 'webp';
+        }
+
         $filePath = $this->getFilePath($id, $extension, $dateTimeString);
         
         $directory = pathinfo($filePath, PATHINFO_DIRNAME);

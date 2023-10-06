@@ -6,8 +6,8 @@ function head($data, $template_style_paths = [], $template_script_paths = []) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" sizes="32x22" href="<?= BASE_URL ?>/images/icon/favicon-32x22.png">
-        <link rel="icon" type="image/png" sizes="16x11" href="<?= BASE_URL ?>/images/icon/favicon-16x11.png">
+        <link rel="icon" type="image/png" sizes="32x22" href="<?= BASE_URL ?>/images/icon/favicon-32x22.webp">
+        <link rel="icon" type="image/png" sizes="16x11" href="<?= BASE_URL ?>/images/icon/favicon-16x11.webp">
         <link rel="manifest" href="<?= BASE_URL ?>/images/icon/site.webmanifest">
 
         <!-- Fonts -->

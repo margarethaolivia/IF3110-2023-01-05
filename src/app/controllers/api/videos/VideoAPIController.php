@@ -141,6 +141,7 @@ class VideoAPIController extends APIController {
                 $user_id
             );
 
+
             $tagService->updateVideoTags($video_id, $tags);
     
             return self::response('Video is uploaded', 201);
