@@ -35,9 +35,9 @@ function createCommentCard(
           </div>
           
           <div class="flex justify-center items-center">
-              <a href="openEditInput(${videoId}, ${comment.comment_id}, ${
+              <a onclick="openEditInput(${videoId}, ${comment.comment_id}, '${
     comment.comment_text
-  })" class="video-card-button video-edit-button">
+  }')" class="video-card-button video-edit-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="2 2 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z" />
@@ -50,8 +50,11 @@ function createCommentCard(
               </button>
           </div>
       </div>
-      
-      <p class="pt-2">${comment.comment_text}</p>
+      <div id="comment-content">
+        <p class="pt-2" id="paragraph-${comment.comment_id}">${
+    comment.comment_text
+  }</p>
+      </div>
   `;
 
   // Set the HTML content for the comment card
@@ -87,35 +90,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const xhr = new XMLHttpRequest();
-  const apiUrl = `/api/videos/${videoId}/comments`;
+  // const xhr = new XMLHttpRequest();
+  // const apiUrl = `/api/videos/${videoId}/comments`;
 
-  xhr.open("GET", apiUrl, true);
-  xhr.onload = function () {
-    const htmlResponse = xhr.responseText;
-    if (xhr.status === 200) {
-      const htmlResponse = xhr.responseText;
+  // xhr.open("GET", apiUrl, true);
+  // xhr.onload = function () {
+  //   const htmlResponse = xhr.responseText;
+  //   if (xhr.status === 200) {
+  //     const htmlResponse = xhr.responseText;
 
-      // Assuming that the response is a valid HTML string
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlResponse, "text/html");
+  //     // Assuming that the response is a valid HTML string
+  //     const parser = new DOMParser();
+  //     const doc = parser.parseFromString(htmlResponse, "text/html");
 
-      // Assuming the video-list is a div element where you want to append the HTML
-      const commentContainer = document.getElementById("comment-section");
+  //     // Assuming the video-list is a div element where you want to append the HTML
+  //     const commentContainer = document.getElementById("comment-section");
 
-      // Clear existing content in the container
-      commentContainer.innerHTML = "";
+  //     // Clear existing content in the container
+  //     commentContainer.innerHTML = "";
 
-      // Append the new content
-      const bodyChildren = Array.from(doc.body.children);
-      bodyChildren.forEach((child) => {
-        commentContainer.appendChild(child.cloneNode(true));
-      });
-    } else {
-      jsonResponse = JSON.parse(xhr.responseText);
-      showToast(jsonResponse.message);
-    }
-  };
+  //     // Append the new content
+  //     const bodyChildren = Array.from(doc.body.children);
+  //     bodyChildren.forEach((child) => {
+  //       commentContainer.appendChild(child.cloneNode(true));
+  //     });
+  //   } else {
+  //     jsonResponse = JSON.parse(xhr.responseText);
+  //     showToast(jsonResponse.message);
+  //   }
+  // };
 });
 
 const createVideoComment = (e, videoId) => {
@@ -133,6 +136,10 @@ const createVideoComment = (e, videoId) => {
     return;
   }
 
+  showPopUp("popup-post-comment", () => submitCreateComment(videoId, formData));
+};
+
+const submitCreateComment = (videoId, formData) => {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", `/api/videos/${videoId}/comments`, true);
 
@@ -181,7 +188,9 @@ const createVideoComment = (e, videoId) => {
     showToast(error);
   };
 
-  xhr.send(JSON.stringify({ comment_text }));
+  xhr.send(
+    JSON.stringify({ comment_text: formData.get("comment_text_input") })
+  );
 };
 
 const openEditInput = (video_id, comment_id, comment_text) => {
@@ -234,22 +243,12 @@ const closeEditCommentButtons = (e, comment_id, comment_text) => {
   }
 };
 
-const submitEditAction = (e, videoId, commentId) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-
-  const comment_text = formData.get(`comment_text`);
-  if (!comment_text) {
-    showToast("Comment text is required");
-    return;
-  }
-
+const submitEditComment = (e, videoId, commentId, formData) => {
   // Create a new XMLHttpRequest object
   const xhr = new XMLHttpRequest();
   // Set up the request
   const requestUrl = `/api/videos/${videoId}/comments/${commentId}`;
   xhr.open("POST", requestUrl, true);
-  console.log("response text: " + xhr.responseText);
 
   // Set up the event handler for when the request completes
   xhr.onload = function () {
@@ -270,7 +269,22 @@ const submitEditAction = (e, videoId, commentId) => {
   // Send the request with the body
   xhr.send(formData);
 
-  closeEditCommentButtons(e, commentId, comment_text);
+  closeEditCommentButtons(e, commentId, formData.get(`comment_text`));
+};
+
+const submitEditAction = (e, videoId, commentId) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+
+  const comment_text = formData.get(`comment_text`);
+  if (!comment_text) {
+    showToast("Comment text is required");
+    return;
+  }
+
+  showPopUp("popup-edit-comment", () =>
+    submitEditComment(e, videoId, commentId, formData)
+  );
 };
 
 const submitDeleteAction = (videoId, commentId) => {
