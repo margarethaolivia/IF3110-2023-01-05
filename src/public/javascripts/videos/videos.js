@@ -155,6 +155,9 @@ const createVideoComment = (e, videoId) => {
 };
 
 const openEditInput = (video_id, comment_id, comment_text) => {
+  const container = document.getElementById("edit-delete-button-container");
+  container.classList.add("hidden");
+
   const paragraphElement = document.getElementById(`paragraph-${comment_id}`);
 
   const inputElement = document.createElement("div");
@@ -163,7 +166,7 @@ const openEditInput = (video_id, comment_id, comment_text) => {
   inputElement.innerHTML = `
   <form onsubmit="submitEditAction(event, ${video_id}, ${comment_id})">
     <textarea type="text" autocomplete="off" id="comment_text" name="comment_text" placeholder="Type your comment here" autofocus>${comment_text}</textarea>
-    <div class="flex flex-col justify-end action-button-container hidden" id="edit-button-container-${comment_id}">
+    <div class="flex flex-col justify-end action-button-container" id="edit-button-container-${comment_id}">
         <button type="reset" onclick="closeEditCommentButtons(event, ${comment_id}, '${comment_text}')" id="cancel-comment-button" >Cancel</button>
         <button class="submit-comment-button" id="submit-comment-button" type="submit">Edit</button>
     </div>
@@ -176,6 +179,9 @@ const openEditInput = (video_id, comment_id, comment_text) => {
 
 const closeEditCommentButtons = (e, comment_id, comment_text) => {
   e.preventDefault();
+
+  const container = document.getElementById("edit-delete-button-container");
+  container.classList.remove("hidden");
 
   // Get references to the <p> and <textarea> elements
   const textareaElement = document.getElementById(`comment_text`);
@@ -319,17 +325,20 @@ const submitTakeDown = (e, videoId) => {
       takeDownForm.style.display = "none";
 
       const parser = new DOMParser();
-      const takeDownInfo = parser.parseFromString(data.body.take_down_info_html, 'text/html');
+      const takeDownInfo = parser.parseFromString(
+        data.body.take_down_info_html,
+        "text/html"
+      );
 
-      const takeDownContainer = document.getElementById('takedown-container');
+      const takeDownContainer = document.getElementById("takedown-container");
 
       // Clear existing content in the container
-      takeDownContainer.innerHTML = '';
+      takeDownContainer.innerHTML = "";
 
       // Append the new content
       const bodyChildren = Array.from(takeDownInfo.body.children);
-      bodyChildren.forEach(child => {
-          takeDownContainer.appendChild(child.cloneNode(true));
+      bodyChildren.forEach((child) => {
+        takeDownContainer.appendChild(child.cloneNode(true));
       });
 
       showToast("Video is taken down");
@@ -373,8 +382,8 @@ const undoTakeDown = (e, videoId) => {
         "show-takedown-button"
       );
 
-      const takeDownContainer = document.getElementById('takedown-container');
-      takeDownContainer.innerHTML = '';
+      const takeDownContainer = document.getElementById("takedown-container");
+      takeDownContainer.innerHTML = "";
 
       undoTakeDownButton.style.display = "none";
       showTakeDownButton.style.display = "block";
