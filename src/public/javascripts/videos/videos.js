@@ -320,9 +320,9 @@ const submitTakeDown = (e, videoId) => {
       );
       const takeDownForm = document.getElementById("takedown-form");
 
-      undoTakeDownButton.style.display = "block";
-      showTakeDownButton.style.display = "none";
-      takeDownForm.style.display = "none";
+      undoTakeDownButton.classList.remove('hidden');
+      showTakeDownButton.classList.add('hidden');
+      takeDownForm.classList.add('hidden');
 
       const parser = new DOMParser();
       const takeDownInfo = parser.parseFromString(
@@ -358,9 +358,7 @@ const submitTakeDown = (e, videoId) => {
   xhr.send(JSON.stringify({ take_down_comment, is_taken_down: true }));
 };
 
-const undoTakeDown = (e, videoId) => {
-  e.preventDefault();
-
+const submitTakeDownUndo = (videoId) => {
   // Create headers for the request
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
@@ -385,8 +383,8 @@ const undoTakeDown = (e, videoId) => {
       const takeDownContainer = document.getElementById("takedown-container");
       takeDownContainer.innerHTML = "";
 
-      undoTakeDownButton.style.display = "none";
-      showTakeDownButton.style.display = "block";
+      undoTakeDownButton.classList.add('hidden');
+      showTakeDownButton.classList.remove('hidden');
 
       showToast("Takedown undone");
     } else {
@@ -403,21 +401,31 @@ const undoTakeDown = (e, videoId) => {
 
   // Send the request with the body
   xhr.send(JSON.stringify({ take_down_comment: null, is_taken_down: false }));
+}
+
+const undoTakeDown = (e, videoId, popUpId) => {
+  e.preventDefault();
+  showPopUp(
+    popUpId, 
+    () => submitTakeDownUndo(videoId)
+  )
 };
 
 const showTakeDown = (e) => {
   const form = document.getElementById("takedown-form");
   const showButton = document.getElementById("show-takedown-button");
-  form.style.display = "block";
-  showButton.style.display = "none";
+  form.classList.remove('hidden');
+  showButton.classList.add('hidden');
 };
 
 const closeTakeDownButtons = (e) => {
   e.preventDefault();
   const form = document.getElementById("takedown-form");
   const showButton = document.getElementById("show-takedown-button");
-  form.style.display = "none";
-  showButton.style.display = "block";
+  const input = document.getElementById('take-down-comment-input');
+  form.classList.add('hidden');
+  showButton.classList.remove('hidden');
+  input.value = null;
 };
 
 const showCommentButtons = (e) => {
@@ -430,4 +438,7 @@ const closeCommentButtons = (e) => {
   e.preventDefault();
   const container = document.getElementById("comment-button-container");
   container.style.display = "none";
+
+  const input = document.getElementById('comment_text_input');
+  input.value = null;
 };

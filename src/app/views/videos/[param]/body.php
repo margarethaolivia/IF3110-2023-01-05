@@ -48,13 +48,13 @@ function body($data) {
                 </div>
             </div>
             <?php if ($user && $user->is_admin) : ?>
-                <button onclick="undoTakeDown(event, <?=$video->video_id?>)" class="takedown-button <?=!$video->is_taken_down ? 'hidden' : ''?>" id="undo-takedown-button">Undo Takedown</button>
+                <button onclick="undoTakeDown(event, <?=$video->video_id?>, 'popup-undo-takedown')" class="takedown-button <?=!$video->is_taken_down ? 'hidden' : ''?>" id="undo-takedown-button">Undo Takedown</button>
                 <button onclick="showTakeDown(event)" class="takedown-button <?=$video->is_taken_down || $video->is_official ? 'hidden' : ''?>" id="show-takedown-button">Take Down</button>
             <?php endif; ?>
         </div>
 
         <form id="takedown-form" class="hidden" onsubmit="submitTakeDown(event, <?=$video->video_id?>)">
-            <textarea class="comment-input" name="take_down_comment" placeholder="Type your takedown comment here"></textarea>
+            <textarea class="comment-input" name="take_down_comment" id="take-down-comment-input" placeholder="Type your takedown comment here"></textarea>
             <div class="flex flex-col justify-end action-button-container" id="takedown-button-container">
                 <button onclick="closeTakeDownButtons(event)" id="cancel-comment-button" >Cancel</button>
                 <button class="submit-action-button" id="submit-comment-button" type="submit">Take Down</button>
@@ -62,13 +62,9 @@ function body($data) {
         </form>
 
         <div class="video-desc">
-            <?php if ($video->is_taken_down) : ?>
-                <div id="takedown-container">
-                    <?php
-                        takedownInfo($video->take_down_comment);
-                    ?>
-                </div>
-            <?php endif; ?>
+            <div id="takedown-container">
+                <?php if ($video->is_taken_down) takedownInfo($video->take_down_comment); ?>
+            </div>
 
             <?php if ($video->updated_at == $video->created_at) : ?>
                 <span class="my-1 flex align-center title-desc">Uploaded <?=$dataParser->dateTimeToString($video->created_at)?></span>
@@ -130,6 +126,8 @@ function body($data) {
         </div>
         <?php 
             popup("Delete Comment", "Are you sure you want to delete this comment?", "delete-comment", "Delete", actionButtonClass: 'red-action-button');
+            popup("Take Down Video", "Are you sure you want to take down this video?", "takedown", "Take Down", actionButtonClass: 'red-action-button');
+            popup("Undo Takedown", "Are you sure you want to undo this takedown?", "undo-takedown", "Undo", actionButtonClass: 'red-action-button');
         ?>
     </div>
  <?php 
