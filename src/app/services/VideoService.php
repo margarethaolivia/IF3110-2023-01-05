@@ -64,8 +64,19 @@ class VideoService extends Service
             $search = '%' . $search . '%';
         }
 
+        $filterCondition = "";
 
-        $whereCondition = "is_taken_down = false $searchCondition";
+        if ($officialCategory === "true")
+        {
+            $filterCondition = "AND is_official = TRUE";
+        }
+
+        else if ($officialCategory === "false")
+        {
+            $filterCondition = "AND is_official = FALSE";
+        }
+
+        $whereCondition = "is_taken_down = false $searchCondition $filterCondition";
 
         $sortCondition = "";
         if (count($sortCategories) > 0)

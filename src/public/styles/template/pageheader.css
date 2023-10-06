@@ -81,13 +81,9 @@
     padding: 7px 15px;
 }
 
-.all-tags-filter {
+.badge.selected {
     background-color: #0085FF;
     color: white;
-}
-
-.all-tags-filter:hover {
-    background-color: #007bff;
 }
 
 .options-container {
@@ -95,7 +91,7 @@
 }
 
 .dropdown, .dropdown-multiple {
-    width: 30%;
+    width: 32%;
 }
 
 @media screen and (min-width: 500px) {

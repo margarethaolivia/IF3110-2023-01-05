@@ -19,7 +19,7 @@ class VideoAPIController extends APIController {
         $officialCategory = isset($_GET['official_category']) ? $_GET['official_category'] : "";
 
         $sortCategories = isset($_GET['sort_categories']) ? $_GET['sort_categories'] : ['created_at'];
-        $searchCategories = isset($_GET['sort_categories']) ? $_GET['search_categories'] : ['title'];
+        $searchCategories = isset($_GET['search_categories']) ? $_GET['search_categories'] : ['title'];
 
         if ($searchValue && count($searchCategories) === 0)
         {

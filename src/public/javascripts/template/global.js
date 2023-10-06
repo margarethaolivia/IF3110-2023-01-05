@@ -1,7 +1,7 @@
 const defaultSearchUrl = '/api/videos';
 const defaultPage = 1;
-const defaultSortCategories = [''];
-const defaultSearchCategories = [''];
+const defaultSortCategories = [];
+const defaultSearchCategories = [];
 const defaultTag = "";
 const defaultOfficialCategory = "";
 
@@ -259,8 +259,13 @@ const getVideoList = ({
 
         if (searchBar)
         {
-            searchValue = searchBar.value;
+            searchValue = searchBar.value ?? "";
         }
+    }
+
+    if (searchCategories.length === 0)
+    {
+        searchCategories = ['title'];
     }
 
     var queryParam = "";
@@ -278,6 +283,7 @@ const getVideoList = ({
 
     xhr.onload = function() {
         console.log(xhr.responseText);
+        // return;
         const jsonResponse = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {   
             const body = jsonResponse.body;

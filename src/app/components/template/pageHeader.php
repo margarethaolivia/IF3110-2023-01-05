@@ -2,8 +2,11 @@
 include_once (APP_PATH . '/components/elements/logo.php');
 include_once (APP_PATH . '/components/elements/signInButton.php');
 include_once (APP_PATH . '/components/elements/option.php');
+include_once (APP_PATH . '/components/header/officialCategories.php');
+
 function pageHeader() {
     $isHome = !(isset($_SERVER['PATH_INFO']));
+    $tags = [];
 ?>
     <div class="navbar flex flex-row items-center fixed w-full">
         <div class="flex flex-col justify-between items-center global-navbar w-full">
@@ -51,33 +54,23 @@ function pageHeader() {
         </div>
 
         <?php if ($isHome) : ?>
-            <div class="flex items-center justify-between filters">
-                <div class="scrollmenu no-scrollbar" id="horizontal-scroll-container">
-                    <button class="badge all-tags-filter p-2 mtbr-2">All</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-
-
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    <button class="badge p-2 mtbr-2">Music</button>
-                    
-                    
+            <div class="flex items-center filters">
+                <div class="scrollmenu no-scrollbar horizontal-scroll-container hidden" id="tags-container">
+                    <button class='badge selected p-2 mtbr-2'>All</button>
+                    <?php foreach ($tags as $tag) : ?>
+                        <button class='badge p-2 mtbr-2'><?=$tag?></button>
+                    <?php endforeach; ?>
+                </div>
+                <div class="scrollmenu no-scrollbar horizontal-scroll-container hidden" id="official-categories-container">
+                    <?php officialCategories() ?>
                 </div>
                 <div class="options-container flex flex-col justify-between">
                     <?php
                         option(
                             'Filters', 
                             [
-                                getOption('Tags', 'tag', 'showTagFilter'), 
-                                getOption('Publisher', 'official_category', 'showOfficialFilter'), 
+                                getOption('Tags', 'tag', 'showTags(event)'), 
+                                getOption('Official Status', 'official_category', 'showOfficialCategories(event)'), 
                             ],
                         );
                         option(

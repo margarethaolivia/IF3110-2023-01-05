@@ -18,7 +18,7 @@ function body($data) {
                     <source src="<?=$data['video']->video_file?>" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-            </div>   
+            </div> 
         </div>
         
         <div class="flex flex-col justify-between items-center">

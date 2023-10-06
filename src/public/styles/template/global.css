@@ -806,12 +806,15 @@ video {
     color: #474747;
     height: 100%;
     text-align: left;
+    text-wrap: nowrap;
 }
 .dropdown .select,
 .dropdown-multiple .select-multiple {
     cursor: pointer;
     display: block;
     padding: 7px 10px;
+    overflow-x: hidden;
+    max-width: 90%;
 }
 .dropdown .select > i,
 .dropdown-multiple .select-multiple > i {

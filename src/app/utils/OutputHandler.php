@@ -1,6 +1,6 @@
 <?php
     class OutputHandler {
-        public function outputComponentAsString($functionName, $functionPath, $namedArgs)
+        public function outputComponentAsString($functionName, $functionPath, $namedArgs=[])
         {
             include_once ($functionPath);
             ob_start();
