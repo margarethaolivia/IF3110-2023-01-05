@@ -2,6 +2,7 @@
 
 include_once APP_PATH . '/components/elements/videoCard.php';
 include_once APP_PATH . '/components/elements/popup.php';
+include_once APP_PATH . '/components/elements/emptyList.php';
 
 function body($data) {
     $videos = $data['videos'] ?? [];
@@ -16,7 +17,9 @@ function body($data) {
             </div>
         </div>
         <?php if (count($videos) === 0) : ?>
-            <span class="empty-message" id="empty-message">Empty List</span>
+            <?php
+                emptyList(BASE_URL . "/images/webp/EmptyList.webp", "You don't have any video");
+            ?>
         <?php endif; ?>
         <section id="video-list" class="mb-2">    
         </section>
