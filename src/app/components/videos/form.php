@@ -44,7 +44,7 @@ function form($pageTitle, $data) {
 
                             <div class="thumbnail-image">
                                 <?php if ($video) : ?>
-                                    <img id="thumbnail-preview" src="<?=$video->thumbnail?>" />
+                                    <img id="thumbnail-preview" alt="thumbnail-preview" src="<?=$video->thumbnail?>" />
                                 <?php endif; ?>
                                 <?php if (!$video) : ?>
                                     <div class="no-thumbnail-text flex flex-col items-center justify-center">
