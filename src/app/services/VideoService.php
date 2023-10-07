@@ -202,6 +202,7 @@ class VideoService extends Service
         SELECT *
         FROM video, TotalCount
         WHERE $whereCondition
+        ORDER BY created_at DESC
         OFFSET :offset LIMIT :video_limit";
 
         $bindings = [Database::binding('user_id', $user_id), Database::binding('offset', $offset), Database::binding('video_limit', $limit)];
@@ -265,6 +266,7 @@ class VideoService extends Service
         SELECT video_id, title, video_desc, thumbnail, profile_pic, video.created_at, is_official, first_name || ' ' || last_name as full_name, TotalCount.total_page
         FROM video INNER JOIN metube_user USING(user_id), TotalCount
         WHERE $whereCondition
+        ORDER BY title
         OFFSET :offset LIMIT :video_limit";
 
         $bindings = [Database::binding('user_id', $user_id), Database::binding('offset', $offset), Database::binding('video_limit', $limit)];
