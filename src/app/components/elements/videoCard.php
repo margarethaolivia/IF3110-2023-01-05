@@ -7,7 +7,7 @@ function videoCard($video, $noUser=false, $settings=false, $deleteAction="", $ed
 ?> 
     <div id="<?=$cardId?>" class="video-card" onclick="<?='watchVideo(event, ' . $video->video_id . ')'?>">
         <div class="card-thumbnail-container">
-            <img class="video-thumbnail" src="<?=$video->thumbnail?>" alt="Video Thumbnail">
+            <img class="video-thumbnail" src="<?=$video->thumbnail?>" alt="Video Thumbnail" width="600" height="300">
         </div>
         <div class="flex">
             <?php if (!$noUser) : ?>

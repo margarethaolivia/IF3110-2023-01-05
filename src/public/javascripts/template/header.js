@@ -25,7 +25,7 @@ Array.from(scrollContainers).forEach((scrollContainer) => {
     
         // Prevent the default scroll behavior
         event.preventDefault();
-    })
+    }, { passive: true }); // Mark the event listener as passive
 })
 
 searchBar.addEventListener('input', function() {
