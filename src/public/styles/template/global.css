@@ -281,6 +281,7 @@ border-radius: 50%;
 
 .panel-header .logo .logo-img {
     height: 20px;
+    width: auto;
 }
 
 .panel-header .logo .logo-text {

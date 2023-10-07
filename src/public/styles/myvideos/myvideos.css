@@ -13,7 +13,7 @@
 }
 
 .upload-button {
-    background-color: #0085FF;
+    background-color: black;
     color: white;
     text-align: center;
     border-radius: 10px;
@@ -23,7 +23,7 @@
 }
 
 .upload-button:hover {
-    background-color: #0271d6;
+    background-color: #494949;
 }
 
 .black-button-outline {

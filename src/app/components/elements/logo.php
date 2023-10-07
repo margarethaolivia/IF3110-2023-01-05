@@ -13,7 +13,7 @@ function logo($classes="", $includeMenuButton=true, $disableLink=false, $onMenuC
         
         <?php if (!$disableLink) : ?>
             <a href="<?=BASE_URL?>" class="logo flex flex-col items-center">
-                <img src="<?= BASE_URL ?>/images/icon/wetube.webp" alt="WeTube Logo" class="logo-img" width="25" height="10"> 
+                <img src="<?= BASE_URL ?>/images/icon/wetube.webp" alt="WeTube Logo" class="logo-img"> 
                 <span class="logo-text">WeTube</span>
             </a>
         <?php endif; ?>

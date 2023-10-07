@@ -30,12 +30,12 @@ function pageHeader($data) {
                     {
                     ?>
                     
-                        <a class="profile-link" href="/profile">
+                        <a class="profile-link" href="/profile" aria-label="profile page">
                             <?php
                                 if (isset($_SESSION['profile_pic']) && $_SESSION['profile_pic'])
                                 {
                                     ?>
-                                        <img class="profile_pic" src="<?=$_SESSION['profile_pic']?>"/>
+                                        <img class="profile_pic" src="<?=$_SESSION['profile_pic']?>" alt="profile picture"/>
                                     <?php
                                 }
 
