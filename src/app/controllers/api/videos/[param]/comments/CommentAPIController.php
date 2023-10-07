@@ -12,24 +12,34 @@ class CommentAPIController extends APIController {
 
         $outputHandler =  new OutputHandler();
         $videoId = $param[0];
-        $isAdmin = $_SESSION['is_admin'] ?? false;
+
+        $offset = intval($_GET['offset'] ?? 0);
 
         try {
             $commentService = $this->getService('CommentService');
-            $comments = $commentService->getCommentByVideoId($videoId);
+            $comments = $commentService->getCommentByVideoId($videoId, $offset);
 
             $body = [];
             $html = "";
+            $total_comment = 0;
 
             foreach ($comments as $comment)
             {
+                if ($total_comment === 0 && $comment->total_count > 0)
+                {
+                    $total_comment = $comment->total_count;
+                }
+
                 $html = $html . $outputHandler->outputComponentAsString('commentCard', APP_PATH . '/components/elements/commentCard.php', [
                     'comment' =>$comment,
                     'deleteAction' => "deleteMyComment(event, " . $comment->video_id . ", " . $comment->comment_id . ", 'popup-delete-comment')",
                 ]);
             }
 
+            $html .= "<div id='end-of-comment'></div>";
+
             $body['comment_list_html'] = $html;
+            $body['total_comment'] = $total_comment;
 
             return self::response('HTML fetched', 200, $body);
 

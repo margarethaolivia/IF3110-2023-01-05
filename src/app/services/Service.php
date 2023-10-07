@@ -14,4 +14,9 @@ abstract class Service
     {
         return $this->db;
     }
+
+    protected function getPageOffset($page_number, $limit)
+    {
+        return ($page_number - 1) * $limit;
+    }
 }

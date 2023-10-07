@@ -282,8 +282,6 @@ const getVideoList = ({
     xhr.open('GET', apiUrl, true);
 
     xhr.onload = function() {
-        // console.log(xhr.responseText);
-        // return;
         const jsonResponse = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {   
             const body = jsonResponse.body;

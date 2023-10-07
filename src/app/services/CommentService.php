@@ -4,13 +4,25 @@ include_once (APP_PATH . '/cores/Database.php');
 
 class CommentService extends Service
 {   
-    public function getCommentByVideoId($video_id) {
-        $query = "SELECT * FROM comment INNER JOIN metube_user USING (user_id) WHERE video_id = :video_id";
+    public function getCommentByVideoId($video_id, $offset=0) {
+        $limit = MAX_COMMENT_DISPLAY;
+
+        $query = "WITH TotalCount AS (
+            SELECT COUNT(comment_id) AS total_count
+            FROM comment
+            WHERE video_id = :video_id 
+        )
+        
+        SELECT * 
+        FROM comment INNER JOIN metube_user USING (user_id), TotalCount
+        WHERE video_id = :video_id 
+        ORDER BY comment.updated_at DESC
+        OFFSET :offset LIMIT :comment_limit";
 
         return $this->getDatabase()->fetchAll(
-            [
+            [               
                 'query' => $query,
-                'bindings' => [Database::binding('video_id', $video_id)]
+                'bindings' => [Database::binding('video_id', $video_id), Database::binding('offset', $offset), Database::binding('comment_limit', $limit)]
             ]
         );
     }
@@ -21,7 +33,7 @@ class CommentService extends Service
         return $this->getDatabase()->fetch(
             [
                 'query' => $query,
-                'bindings' => [Database::binding('comment_id', $comment_id)]
+                'bindings' => [Database::binding('comment_id', $comment_id)],
             ]
         );
     }

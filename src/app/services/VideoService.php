@@ -4,10 +4,6 @@ include_once (APP_PATH . '/cores/Database.php');
 
 class VideoService extends Service
 {   
-    private function getPageOffset($page_number, $limit)
-    {
-        return ($page_number - 1) * $limit;
-    }
 
     public function getVideoCount($user_id)
     {

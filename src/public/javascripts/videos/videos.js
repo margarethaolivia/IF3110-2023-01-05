@@ -1,3 +1,7 @@
+var commentCount = 0;
+var totalComment = 0;
+var page = 1;
+
 function dateTimeToString(datetime) {
   const dateTimeObj = new Date(datetime);
   const options = { year: "numeric", month: "short", day: "numeric" };
@@ -43,7 +47,7 @@ const fetchComments = () => {
   const videoId = lastSegment;
 
   const xhr = new XMLHttpRequest();
-  const apiUrl = `/api/videos/${videoId}/comments`;
+  const apiUrl = `/api/videos/${videoId}/comments?offset=${encodeURIComponent(commentCount)}`;
 
   xhr.open("GET", apiUrl, true);
   xhr.onload = function () {
@@ -57,16 +61,14 @@ const fetchComments = () => {
       // Assuming the video-list is a div element where you want to append the HTML
       const commentContainer = document.getElementById("comment-section");
 
-      // Clear existing content in the container
-      commentContainer.innerHTML = "";
-
       // Append the new content
       const bodyChildren = Array.from(doc.body.children);
       bodyChildren.forEach((child) => {
         commentContainer.appendChild(child.cloneNode(true));
       });
-
-      document.querySelector('.comment-title').textContent = `${bodyChildren.length} Comment(s)`
+      commentCount += bodyChildren.length - 1;
+      totalComment = jsonResponse.body.total_comment;
+      document.querySelector('.comment-title').textContent = `${totalComment} Comment(s)`;
     } else {
 
       showToast(jsonResponse.message);
@@ -102,29 +104,30 @@ const submitCreateComment = (videoId, formData) => {
 
     const data = JSON.parse(xhr.responseText);
 
-    const parser = new DOMParser();
-    const commentCardContainer = parser.parseFromString(
-      data.body.comment_card_html,
-      "text/html"
-    );
-
-    console.log(commentCardContainer);
-
-    const newCommentCard = commentCardContainer.body.firstChild;
-
-    // Get the parent element where you want to append the comment card
-    const commentSection = document.getElementById("comment-section");
-
-    // Append the new comment card to the comment section
-    commentSection.appendChild(newCommentCard);
-
-    // Get a reference to the input element by its ID
-    const inputElement = document.getElementById("comment_text_input");
-
-    // Clear the value by setting it to an empty string
-    inputElement.value = "";
-
     if (xhr.status === 201) {
+      const parser = new DOMParser();
+      const commentCardContainer = parser.parseFromString(
+        data.body.comment_card_html,
+        "text/html"
+      );
+
+
+      const newCommentCard = commentCardContainer.body.firstChild;
+
+      // Get the parent element where you want to append the comment card
+      const commentSection = document.getElementById("comment-section");
+
+      // Append the new comment card to the comment section
+      commentSection.insertBefore(newCommentCard, commentSection.firstChild);
+
+      // Get a reference to the input element by its ID
+      const inputElement = document.getElementById("comment_text_input");
+
+      // Clear the value by setting it to an empty string
+      inputElement.value = "";
+      commentCount++;
+      totalComment++;
+      document.querySelector('.comment-title').textContent = `${totalComment} Comment(s)`;
       closeCommentButtons();
     }
 
@@ -423,7 +426,6 @@ const closeCommentButtons = (e=null) => {
   {
     e.preventDefault();
   }
-  console.log("bruh");
 
   const container = document.getElementById("comment-button-container");
   container.classList.add("hidden");
@@ -431,3 +433,33 @@ const closeCommentButtons = (e=null) => {
   const input = document.getElementById("comment_text_input");
   input.value = null;
 };
+
+function isElementVisible(elementId) {
+  var element = document.getElementById(elementId);
+
+  if (element) {
+      var rect = element.getBoundingClientRect();
+
+      if (
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      ) {
+        return element;
+      }
+  }
+
+  return null;
+}
+
+// Event listener for the scroll event
+document.addEventListener('scroll', function () {
+
+  const elmt = isElementVisible('end-of-comment');
+  if (elmt && commentCount < totalComment) {
+    page++;
+    fetchComments(page);
+    elmt.remove();
+  }
+});
