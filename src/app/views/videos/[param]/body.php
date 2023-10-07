@@ -24,7 +24,7 @@ function body($data) {
             <div class="flex flex-col items-center publisher-info-container justify-center">
                 <div class="publisher-pic-container">
                     <?php if ($video->profile_pic) : ?>
-                        <img src="<?=$video->profile_pic?>" class="publisher-pic user-pic">
+                        <img alt="publisher picture" src="<?=$video->profile_pic?>" class="publisher-pic user-pic">
                     <?php endif; ?>
                     <?php if (!$video->profile_pic) : ?>
                         <svg class="publisher-pic profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -94,7 +94,7 @@ function body($data) {
                 <div class="flex flex-col">
                     <div class="user-pic-container">
                         <?php if (isset($_SESSION['profile_pic'])) : ?>
-                            <img src="<?=$_SESSION['profile_pic']?>" class="user-pic">
+                            <img alt="Profile picture" src="<?=$_SESSION['profile_pic']?>" class="user-pic">
                         <?php endif; ?>
                         <?php if (!isset($_SESSION['profile_pic'])) : ?>
                             <svg class="profile_svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

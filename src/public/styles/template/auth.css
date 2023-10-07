@@ -32,5 +32,6 @@
 }
 
 .create-account-link {
-    color: #57AEFF;
+    color: #004585;
+    text-decoration: underline;
 }

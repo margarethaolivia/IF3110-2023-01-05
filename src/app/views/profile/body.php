@@ -9,7 +9,7 @@ function body($data) {
         <div class="user-profile flex flex-col items-center w-full bd">
             <div class="full-rounded profile-picture relative">
                 <?php if (isset($_SESSION['profile_pic']) && $_SESSION['profile_pic']) : ?>
-                    <img class="profile_pic" src="<?=$_SESSION['profile_pic']?>">
+                    <img alt="profile picture" class="profile_pic" src="<?=$_SESSION['profile_pic']?>">
                 <?php endif; ?>
 
                 <?php if (!(isset($_SESSION['profile_pic']) && $_SESSION['profile_pic'])) : ?>

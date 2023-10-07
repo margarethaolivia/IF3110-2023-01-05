@@ -26,7 +26,7 @@
 }
 
 .change-pic-icon:hover {
-    color: #0085FF;
+    color: #0056A7;
     background-color: transparent;
 }
 
@@ -71,8 +71,8 @@
 }
 
 .submit-button {
-    border: 1px solid #0085FF;
-    color: #0085FF;
+    border: 1px solid #0056A7;
+    color: #0056A7;
     background-color: white;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .upload-desc {
-    color: #9A9A9A;
+    color: #757575;
     font-size: 12px;
 }
 

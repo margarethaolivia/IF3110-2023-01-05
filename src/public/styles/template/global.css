@@ -248,7 +248,7 @@ border-radius: 50%;
 }
 
 .signin-button {
-    border: 1px solid #0085FF;
+    border: 1px solid #0056A7;
     border-radius: 100px;
     font-size: 15px;
     padding: 5px 0;
@@ -262,11 +262,11 @@ border-radius: 50%;
 
 .signin-button svg {
     height: 20px;
-    color: #0085FF;
+    color: #0056A7;
 }
 
 .signin-button span {
-    color: #0085FF;
+    color: #0056A7;
 }
 
 .panel-header .menu-button {
@@ -295,14 +295,14 @@ border-radius: 50%;
 
 /* BLUE BUTTON */
 .blue-button {
-    background-color: #0085FF;
+    background-color: #0056A7;
     color: white;
     border-radius: 100px;
     font-weight: 300;
 }
 
 .blue-button:hover {
-    background-color: #0271d6;
+    background-color: #0056A7;
 }
 
 /* INPUTS */
@@ -404,7 +404,7 @@ transform: translateX(100%);
 }
 
 .toast button svg {
-    color: #0085FF;
+    color: #0056A7;
 }
 
 .toast ::-webkit-scrollbar {
@@ -413,21 +413,21 @@ transform: translateX(100%);
 
 .toast .scrollbar {
     scrollbar-width: thin; /* Width of the scrollbar */
-    scrollbar-color: #0085FF #0085FF; /* Color of the thumb and track */
+    scrollbar-color: #0056A7 #0056A7; /* Color of the thumb and track */
 }
 
 .toast .scrollbar::-webkit-scrollbar-thumb {
-    background-color: #0085FF;
+    background-color: #0056A7;
     border-radius: 8px;
 }
 
 .toast ::-webkit-scrollbar-thumb {
-    background-color: #0085FF; /* Color of the thumb */
+    background-color: #0056A7; /* Color of the thumb */
     border-radius: 8px; /* Rounded corners of the thumb */
 }
 
 .toast ::-webkit-scrollbar-thumb:hover {
-    background-color: #0085FF; /* Color of the thumb on hover */
+    background-color: #0056A7; /* Color of the thumb on hover */
 }
 
 /* POPUP */
@@ -497,8 +497,8 @@ transform: translateX(100%);
 }
 
 .popup-save-button {
-    color: #0085FF;
-    border: 1px solid #0085FF;
+    color: #0056A7;
+    border: 1px solid #0056A7;
 }
 
 .popup-save-button:hover {
@@ -595,7 +595,7 @@ transform: translateX(100%);
 }
 
 .official-logo {
-    color: #0085FF;
+    color: #0056A7;
     width: 20px;
 }
 
@@ -890,6 +890,6 @@ video {
 }
 
 .dropdown-multiple .dropdown-menu-multiple li.active {
-    background-color: #0085FF;
+    background-color: #0056A7;
     color: white;
 }

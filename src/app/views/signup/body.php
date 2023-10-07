@@ -15,7 +15,7 @@ function body($data) {
                     'text',
                     'username',
                     required: true,
-                    placeholder: '',
+                    placeholder: 'username',
                     inputClasses: 'input-box',
                     inputLabel: 'Username',
                     pattern: '^[a-zA-Z0-9]+$',
@@ -26,7 +26,7 @@ function body($data) {
                     'password',
                     'password',
                     required: true,
-                    placeholder: '',
+                    placeholder: 'password',
                     inputClasses: 'input-box',
                     inputLabel: 'Password'
                 );
@@ -35,7 +35,7 @@ function body($data) {
                     'password',
                     'confirm_password',
                     required: true,
-                    placeholder: '',
+                    placeholder: 'password',
                     inputClasses: 'input-box',
                     inputLabel: 'Confirm Password'
                 );
@@ -44,7 +44,7 @@ function body($data) {
                     'text',
                     'first_name',
                     required: true,
-                    placeholder: '',
+                    placeholder: 'first name',
                     inputClasses: 'input-box',
                     inputLabel: 'Fist Name',
                     pattern: '^[a-zA-Z]+$',
@@ -54,9 +54,9 @@ function body($data) {
                 customInput(
                     'text',
                     'last_name',
-                    placeholder: '',
+                    placeholder: 'Lee',
                     inputClasses: 'input-box',
-                    inputLabel: 'Last Name',
+                    inputLabel: 'last name',
                     pattern: '^[a-zA-Z]+$',
                     title: 'Name can only consist of alphabets'
                 );
